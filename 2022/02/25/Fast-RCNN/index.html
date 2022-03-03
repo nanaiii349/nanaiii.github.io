@@ -1,37 +1,714 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="论文：ICCV 2015 Open Access Repository (thecvf.com)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fast-RCNN">
+<meta property="og:url" content="http://example.com/2022/02/25/Fast-RCNN/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="论文：ICCV 2015 Open Access Repository (thecvf.com)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20220105165859553.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220105171915109.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106111519294.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106100757776.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106112058344.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220205113749198.png">
+<meta property="article:published_time" content="2022-02-25T13:54:30.000Z">
+<meta property="article:modified_time" content="2022-03-03T02:09:40.922Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20220105165859553.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/02/25/Fast-RCNN/"/>
+
+
+
+
+
+  <title>Fast-RCNN | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/25/Fast-RCNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Fast-RCNN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-02-25T21:54:30+08:00">
+                2022-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_iccv_2015/html/Girshick_Fast_R-CNN_ICCV_2015_paper.html">ICCV 2015 Open Access Repository (thecvf.com)</a></p>
+<span id="more"></span>
+
+<img src="\images\image-20220105165859553.png" alt="image-20220105165859553" style="zoom:150%;" />
+
+
+
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>Fast-RCNN是将RCNN与SPPNet相融合提出的一种新的网络。</p>
+<h2 id="RoI层"><a href="#RoI层" class="headerlink" title="RoI层"></a>RoI层</h2><p><img src="/%5Cimages%5Cimage-20220105171915109.png" alt="image-20220105171915109"></p>
+<p>Fast-RCNN设计了一个RoI层用来对<strong>整张图像</strong>进行特征提取，再根据候选区域在原图中的位置挑选特征。</p>
+<p>SPPNet提出了Spatial pyramid pooling技术可以将一张图像中卷积所得<strong>的不同尺寸的ROI映射为固定范围</strong>（H×W）的特征图，其中H、W是超参数。每个RoI都是由一个矩形窗口转化为一个卷积特征图。RoI有一个四元组（r,c,h,w）定义（r，c指定左上角坐标；h、w定义其高度和宽度）。</p>
+<p><em>RoI max pooling工作原理：将h×w的RoI窗口分割为一个H×W网格，每个网格窗口大小为(h&#x2F;H)×(w&#x2F;W),每个子窗口值最大池化到相应的输出网格单元中。</em></p>
+<h2 id="预训练网络"><a href="#预训练网络" class="headerlink" title="预训练网络"></a>预训练网络</h2><p>预训练网络转换为Fast-RCNN网络经过三个转变</p>
+<ol>
+<li>最后被最大的池化层被RoI层替代，通过设置H、W与网络的第一个全连接层兼容</li>
+<li>网络最后的全连接层和softmax被一个全连接层超过K+1类别的softmax和一个特定类别的限定框回归器所代替</li>
+<li>该网络接受两个数据输入：一个图像列表和这些图像中的RoI列表</li>
+</ol>
+<h2 id="微调检测"><a href="#微调检测" class="headerlink" title="微调检测"></a>微调检测</h2><p>在Fast-RCNN网络中，反向传播训练参数是一项重要的功能。（它客服了SPPNet不能更新空间金字塔层以下权值的问题）。由于SPPNet网络的每个训练样本（RoI）来自不同的图像时，SPP层的反向传播是非常低效的。</p>
+<p>作者提出了一种更加有效的训练方法，利用了训练过程中的特征共享。即对随机梯度下降进行小批量的分级采样。首先对N幅图像进行采样，然后对每幅图像进行R&#x2F;N个RoI采样。重要的是，对于来自相同图像的RoI在向前和向后传递时共享计算和内存。不过这种训练方法存在训练收敛较慢的问题。（N&#x3D;2，R&#x3D;128时效果最好）</p>
+<p>同时，在分层采样中，作者的一个精细调整阶段联合优化softmax分类器和边界框回归器，而不是用三个独立的阶段寻训练softmax分类器、支持向量机、回归器。</p>
+<h2 id="多任务损失"><a href="#多任务损失" class="headerlink" title="多任务损失"></a>多任务损失</h2><p>$$<br>L(p,u,t^u,v)&#x3D;L_{cls}(p,u)+\lambda[u\ge 1]L_{loc}(t^u,v)<br>$$</p>
+<h2 id="最小批次采样"><a href="#最小批次采样" class="headerlink" title="最小批次采样"></a>最小批次采样</h2><p>实验中，作者使用最小batch为128，对每张图像采样64个RoI。接着从这些proposals中获取区IoU大于等于的0.5的RoI(这些RoI中包含对象标记，u大于等于1)，剩余的RoI从IoU处于[0.1~0.5]的RoI中选取。再将IoU小于0.1的当作背景例子，标记u&#x3D;0.</p>
+<p>这里也可以将IoU小于0.1的样本作为hard样本进行训练；训练过程中，图像以0.5的概率翻转，除此没有别的数据增强。</p>
+<h2 id="通过RoI池层的反向传播"><a href="#通过RoI池层的反向传播" class="headerlink" title="通过RoI池层的反向传播"></a>通过RoI池层的反向传播</h2><h2 id="SGD超参数"><a href="#SGD超参数" class="headerlink" title="SGD超参数"></a>SGD超参数</h2><p>用于softmax分类和边界框回归的全连接层使用标准偏差为0.01和0.001的零均值高斯分布初始化zero-mean Gaussian distributions。所有层的加权学习率为1，偏差学习率为2，整体学习率为0.001</p>
+<h2 id="尺度不变性"><a href="#尺度不变性" class="headerlink" title="尺度不变性"></a>尺度不变性</h2><p>作者探索了两种不同的尺度不变目标检测的实现，一是暴力计算，二是使用图像金字塔</p>
+<ol>
+<li>暴力计算：在训练和测试中，每幅图像都按照预先定义的像素大小进行处理</li>
+<li>图像金字塔：在测试过程中，使用图像金字塔对每个目标建议进行近似尺度归一化，作为数据增强的一种。</li>
+</ol>
+<p><img src="/%5Cimages%5Cimage-20220106111519294.png" alt="image-20220106111519294"></p>
+<p>作者通过实验发现，卷积网络擅长直接学习尺度不变，并且多尺度方法耗费了大量的时间成本只将mAP提升了很小一部分</p>
+<h2 id="目标检测过程"><a href="#目标检测过程" class="headerlink" title="目标检测过程"></a>目标检测过程</h2><p>Fast-RCNN网络一旦完成微调，检测过程相当于运行一个前向传递（假设proposal已经提提前算好）。网络将一个图像和一个R对象列表（通常为2k左右）作为输入进行评分。当使用图像金字塔后，每个RoI接近224×224个像素</p>
+<p>对于每个RoI r，前向传递输出一个类别的后验概率分布p与一组相对于r 的预测边界框位置偏移。然后使用RCNN算法对每个类单独执行非极大值抑制。</p>
+<h2 id="截断SVD"><a href="#截断SVD" class="headerlink" title="截断SVD"></a><strong>截断SVD</strong></h2><p>对于整张图像的分类，全连接层的计算时间要比卷积层处理的时间更少。但是，对于检测来说，由于需要处理的RoI数量很大，几乎一半的前向传递时间都花费在计算全连接层上。因此，作者使用truncated SVD技术来加速全连接层的计算。truncated SVD可以减少30%的探测时间，而只减少0.3%的mAP，并且无需在模型压缩后执行额外的微调。在深层的网络中，对RoI池化层的训练是非常有必要的。</p>
+<p>同时，作者提到在深度较浅的网络中，conv1是处理一般性的与任务独立的。因此对conv1训练的意义不大。对卷积层的更新会增加训练时间，并且导致GPU内存溢出的问题，而带来的mAP提升很少。</p>
+<p><img src="/%5Cimages%5Cimage-20220106100757776.png" alt="image-20220106100757776"></p>
+<p>SVD原理可参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/6251584.html">奇异值分解(SVD)原理与在降维中的应用 - 刘建平Pinard - 博客园 (cnblogs.com)</a></p>
+<h2 id="更多的训练数据有利于提升mAP"><a href="#更多的训练数据有利于提升mAP" class="headerlink" title="更多的训练数据有利于提升mAP"></a>更多的训练数据有利于提升mAP</h2><p>作者将VOC07加入VOC12后，mAP由66.9%提升到70.0%。</p>
+<p>作者构建了有VOC07的训练集与测试集与VOC12的训练集组成的图像数据集，发现mAP也得到了提升。</p>
+<h2 id="softmax相比于SVM的优势"><a href="#softmax相比于SVM的优势" class="headerlink" title="softmax相比于SVM的优势"></a><strong>softmax相比于SVM的优势</strong></h2><p><img src="/%5Cimages%5Cimage-20220106112058344.png" alt="image-20220106112058344"></p>
+<p>实验表明softmax在S、L、M三种网络中性能均优于SVM。尽管性能提升不大，但是“one-shot”微调已经足够了。不同于一对一的SVM，softmax在评估RoI时还引入了类别间的竞争。</p>
+<h2 id="proposals数量对结果的影响"><a href="#proposals数量对结果的影响" class="headerlink" title="proposals数量对结果的影响"></a><strong>proposals数量对结果的影响</strong></h2><p><img src="/%5Cimages%5Cimage-20220205113749198.png" alt="image-20220205113749198"></p>
+<p>作者使用了两种目标检测方法。一是稀疏集proposal（如selective search ）；二是稠密集proposal（如DPM）。</p>
+<p>对稀疏peoposal进行分类是一种级联，会先拒绝大量候选区域，只留一小部分给分类器评估。而应用DPM检测时，级联提高了检测精度。</p>
+<p>实验表明，随着proposal数量增加，mAP会先上升再下降。所以过多的proposal对分类器并没有帮助。</p>
+<p>作者在文章中还介绍了一种测量对象proposal质量的技术：平均召回AR。当每幅图像使用固定数量的proposal时AR与mAP有良好的相关性。但是在图像proposal数量不同时，由于更多proposal而提高的AR，并不意味着mAP会提高。但是在M网络中训练与测试只需要2.5小时，这使得fast-rcnn能够高效、直接评估对象proposal的mAP。</p>
+<h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
+<li>比RCNN与SPPNet更高的探测质量mAP</li>
+<li>训练是单阶段的，使用了multi-task loss</li>
+<li>训练时可以对网络中的所有层都进行更新</li>
+<li>特征缓存时不需要磁盘空间，Fast-RCNN网络将特征提取器、分类器、回归器合并，使得训练过程不需要再将每阶段结果保存磁盘单独训练，可以一次性完成训练，加快了训练速度</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/25/RCNN/" rel="next" title="RCNN">
+                <i class="fa fa-chevron-left"></i> RCNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RoI%E5%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">RoI层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C"><span class="nav-number">1.2.</span> <span class="nav-text">预训练网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.</span> <span class="nav-text">微调检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E6%8D%9F%E5%A4%B1"><span class="nav-number">1.4.</span> <span class="nav-text">多任务损失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E6%89%B9%E6%AC%A1%E9%87%87%E6%A0%B7"><span class="nav-number">1.5.</span> <span class="nav-text">最小批次采样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87RoI%E6%B1%A0%E5%B1%82%E7%9A%84%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.6.</span> <span class="nav-text">通过RoI池层的反向传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SGD%E8%B6%85%E5%8F%82%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">SGD超参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6%E4%B8%8D%E5%8F%98%E6%80%A7"><span class="nav-number">1.8.</span> <span class="nav-text">尺度不变性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">1.9.</span> <span class="nav-text">目标检测过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%AA%E6%96%ADSVD"><span class="nav-number">1.10.</span> <span class="nav-text">截断SVD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E6%9C%89%E5%88%A9%E4%BA%8E%E6%8F%90%E5%8D%87mAP"><span class="nav-number">1.11.</span> <span class="nav-text">更多的训练数据有利于提升mAP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax%E7%9B%B8%E6%AF%94%E4%BA%8ESVM%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.12.</span> <span class="nav-text">softmax相比于SVM的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proposals%E6%95%B0%E9%87%8F%E5%AF%B9%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.13.</span> <span class="nav-text">proposals数量对结果的影响</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">2.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
