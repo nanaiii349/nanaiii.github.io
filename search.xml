@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>RCNN</title>
+    <url>/2022/02/25/RCNN/</url>
+    <content><![CDATA[<p><strong>论文：<a href="https://openaccess.thecvf.com/content_cvpr_2014/html/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.html">CVPR 2014 Open Access Repository (thecvf.com)</a></strong></p>
+<span id="more"></span>
+
+<h2 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h2><h3 id="RCNN算法4个步骤"><a href="#RCNN算法4个步骤" class="headerlink" title="RCNN算法4个步骤"></a>RCNN算法4个步骤</h3><ol>
+<li>候选区域生成： 一张图像生成1K~2K个候选区域 （采用Selective Search 方法）</li>
+<li>特征提取： 对每个候选区域，使用深度卷积网络提取特征 （CNN）</li>
+<li>类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类</li>
+<li>位置精修： 使用回归器精细修正候选框位置</li>
+</ol>
+<h3 id="RCNN网络结构（三个模块）"><a href="#RCNN网络结构（三个模块）" class="headerlink" title="RCNN网络结构（三个模块）"></a>RCNN网络结构（三个模块）</h3><ol>
+<li>第一模块提出独立类别的区域建议，定义可供检测器使用的候选测试集</li>
+<li>第二模块大型卷积神经网络，从每个区域提取固定长度的特征向量</li>
+<li>第三模块一组特定类别的线性支持向量机</li>
+</ol>
+<h3 id="区域建议-region-proposals"><a href="#区域建议-region-proposals" class="headerlink" title="区域建议(region proposals)"></a>区域建议(region proposals)</h3><p>region proposals就是从图像中选取2k个候选区域的过程.</p>
+<p>现有的生成策略独立的region proposals： objectness, selective search ,category-independent object proposals , constrained parametric min-cuts (CPMC), multiscale combinatorial grouping </p>
+<p>在本篇论文中，作者使用<strong>selective search方法</strong></p>
+<p><strong>主要思想</strong>：</p>
+<ol>
+<li>使用一种过分割手段，将图像分割成小区域 (1k~2k 个)</li>
+<li>查看现有小区域，按照合并规则合并可能性最高的相邻两个区域。重复直到整张图像合并成一个区域位置</li>
+<li>输出所有曾经存在过的区域，所谓候选区域</li>
+</ol>
+<p><strong>合并策略</strong>：优先合并以下四种区域：颜色（颜色直方图）相近的；纹理（梯度直方图）相近的；合并后总面积小的： 保证合并操作的尺度较为均匀，避免一个大区域陆续“吃掉”其他小区域；合并后，总面积在其BBOX中所占比例大的： 保证合并后形状规则。</p>
+<p>在具体的测试中，对于图像中的所有得分区域，我们应用贪婪的非最大抑制（对每个类独立）。如果该区域与得分高于学习阈值的选定区域有交叉合并（IoU）重叠，则拒绝该区域。</p>
+<p>由于所有CNN参数在所有类别中共享，并且与其他常见算法相比，CNN的特征向量是低维的。因此相比与诸如UVA检测系统，CNN网络计算区域建议和特征花费的时间与所耗内存都有极大的优化。并且RCNN可以扩展到数以千计的对象类，而无需借助近似技术。</p>
+<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><p>作者使用了Krizhevsky等人描述的CNN的<strong>Caffe</strong>实现，从每个区域提取一个<strong>4096维</strong>的特征向量，将一个图像去均值的227  × 227的RGB图像通过5个卷积层和2个完全连通层前向传播来计算特征。因此，必须先将该区域的图像数据转换为与CNN兼容的形式（无论候选区域大小或宽高比如何，直接转换为227*227大小,在warp前作者还会对box进行扩张,使得在wrap处的box中有p个像素）</p>
+<p>在实验中,作者发现RCNN可以扩展到数以千计的对象,而无需使用近似技术.</p>
+<h3 id="有监督预训练"><a href="#有监督预训练" class="headerlink" title="有监督预训练"></a>有监督预训练</h3><p>作者使用开源的Caffe CNN库来进行预训练.</p>
+<h3 id="特定领域微调fine-tuning"><a href="#特定领域微调fine-tuning" class="headerlink" title="特定领域微调fine-tuning"></a>特定领域微调fine-tuning</h3><p>为了使RCNN适应新的任务和新的领域，作者的随机梯度下降SGD训练的CNN参数仅来自于VOC数据集。分类器是随机初始化的21路分类层（VOC中的20个类与背景），其他CNN架构没有改变。</p>
+<p>分类器会将IoU大于等于0.5的 region proposals，视为积极的，其余则视为消极的。</p>
+<p>SGD学习率为0.001，并且在每次SGD迭代中，使用32个正样本，与96个背景样本，组成一个128大小的batch。同时为了使结果更好预测正样本，采样也偏向正样本。</p>
+<h3 id="对象类别分类"><a href="#对象类别分类" class="headerlink" title="对象类别分类"></a>对象类别分类</h3><p>作者在文章中用检测的汽车的例子，如果使用二分类器检测汽车，那么一个紧紧包围汽车的box是正例子，而与汽车无关的背景区域是反面例子。现在的问题在于，我们如何去标记一个部分包含汽车的例子。作者在此使用0.3的IoU阈值，只有大于0.3IoU的区域才是积极。作者同时强调，这个阈值的设置对整个算法结果的影响极大。</p>
+<p>同时为了解决训练数据过大的问题，作者使用standard hard negative mining method技术，该技术在实验中，只需要遍历所有图像一次就可以使mAP停止增长。</p>
+<blockquote>
+<p>standard hard negative mining method：</p>
+<p>用hard negative的样本反复训练，初始的样本保证一定的正负样本比例。在每次训练中，将预测为positive的负样本（即hard negative样本）加入负样本训练集中。</p>
+</blockquote>
+<p>作者在补充材料中说明了使用SVM作为分类器的原因，SVM与CNN对于正负样本的定义不同，导致CNN的分类效果不如SVM。</p>
+<h3 id="过滤器First-layerfilters"><a href="#过滤器First-layerfilters" class="headerlink" title="过滤器First-layerfilters"></a>过滤器First-layerfilters</h3><p>作者使用了一种简单的非参数的反卷积方法捕捉有方向的边缘和对立的颜色。</p>
+<p>主要思想：在网络中挑选出一个特定的单元（特征），并将其作为自身的对象检测i器。也就是，我们在一个大规模的held-out region proposals上计算单元的激活情况，并按得分由高到低排序，通过执行非极大值抑制nonmaximum suppression，使得被选中的区域“不言自明”。</p>
+<h3 id="pool5层"><a href="#pool5层" class="headerlink" title="pool5层"></a>pool5层</h3><p>pool5的 feature map是9216维（6×6×256）的，从实验结果来看仅使用pool5的效果不如加入fc6、fc7效果好。作者认为这是因为目标检测的过程中，一些经过分类调整的特征与形状、纹理、颜色等在全连接层处理过后会更好的将这些特征融合学习。</p>
+<p>fc6是pool5的全连接层，为了计算特征，它将4096×9216的权重矩阵乘以pool5的feature map，再添加一个偏差向量。</p>
+<p>而fc7则是将fc6的输出作为输入，乘以4096×4096的权重矩阵并添加一个偏差矩阵。</p>
+<p>作者还进行了多组对照实验得到了许多令人感到意外的结论：</p>
+<ol>
+<li>在不进行微调的情况下，fc7的结果反而不如fc6，这表明了在不降低mAP的情况下有29%的CNN参数可以被去除。并且去除了两个全连接层的结果也是可以接受的，需要注意的是，此时只使用pool5（即仅6%的参数）。说明对目标检测结果有效的参数大多数来源于卷积层，而不是全连接层。</li>
+<li>进行微调的情况下，微调普遍使实验结果提高了8%，并且在全连接层上的微调要比在pool5上的微调更有效果。这说明pool5学习的特征是通用的，微调的大部分改进是通过学习特定领域的非线性分类器获得的。</li>
+</ol>
+<h3 id="边界框回归"><a href="#边界框回归" class="headerlink" title="边界框回归"></a>边界框回归</h3><p>作者通过训练一个线性回归模型来预测一个新的检测窗口，用于selective search的区域建议。</p>
+<h2 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h2><p>这篇论文首次表明，与基于更简单的hog特征的系统相比，CNN可以在PASCAL VOC上带来更高的对象检测性能。并且主要解决一下两个问题</p>
+<ol>
+<li>将高容量卷积神经网络(cnn)应用于<strong>自底向上的区域</strong>建议，以定位和分割对象</li>
+</ol>
+<p>其中为了定位物体localizing onbject，传统方法一是使用回归方法（但是在实践中的表现并不好），二是构建滑动窗口检测器（但是由于网络中接受域与step过大，图像的精确定位存在困难）</p>
+<p>因此作者使用“区域识别”模式解决CNN定位问题。在实验中，作者的方法会先将输入图像划分为2k个类别无关的区域，使用CNN从每个区域提取固定长度的特征向量，然后使用类别特定的线性支持向量机SVM对每个区域进行分类</p>
+<ol start="2">
+<li>当标注的训练数据稀缺时，对辅助任务进行有监督的预训练，然后进行领域特定的微调，可以产生显著的性能提升。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>deep learning</tag>
+        <tag>Object Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Fast-RCNN</title>
+    <url>/2022/02/25/Fast-RCNN/</url>
+    <content><![CDATA[<p>论文：<a href="https://openaccess.thecvf.com/content_iccv_2015/html/Girshick_Fast_R-CNN_ICCV_2015_paper.html">ICCV 2015 Open Access Repository (thecvf.com)</a></p>
+<span id="more"></span>
+
+<img src="\images\image-20220105165859553.png" alt="image-20220105165859553" style="zoom:150%;" />
+
+
+
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>Fast-RCNN是将RCNN与SPPNet相融合提出的一种新的网络。</p>
+<h2 id="RoI层"><a href="#RoI层" class="headerlink" title="RoI层"></a>RoI层</h2><p><img src="/%5Cimages%5Cimage-20220105171915109.png" alt="image-20220105171915109"></p>
+<p>Fast-RCNN设计了一个RoI层用来对<strong>整张图像</strong>进行特征提取，再根据候选区域在原图中的位置挑选特征。</p>
+<p>SPPNet提出了Spatial pyramid pooling技术可以将一张图像中卷积所得<strong>的不同尺寸的ROI映射为固定范围</strong>（H×W）的特征图，其中H、W是超参数。每个RoI都是由一个矩形窗口转化为一个卷积特征图。RoI有一个四元组（r,c,h,w）定义（r，c指定左上角坐标；h、w定义其高度和宽度）。</p>
+<p><em>RoI max pooling工作原理：将h×w的RoI窗口分割为一个H×W网格，每个网格窗口大小为(h&#x2F;H)×(w&#x2F;W),每个子窗口值最大池化到相应的输出网格单元中。</em></p>
+<h2 id="预训练网络"><a href="#预训练网络" class="headerlink" title="预训练网络"></a>预训练网络</h2><p>预训练网络转换为Fast-RCNN网络经过三个转变</p>
+<ol>
+<li>最后被最大的池化层被RoI层替代，通过设置H、W与网络的第一个全连接层兼容</li>
+<li>网络最后的全连接层和softmax被一个全连接层超过K+1类别的softmax和一个特定类别的限定框回归器所代替</li>
+<li>该网络接受两个数据输入：一个图像列表和这些图像中的RoI列表</li>
+</ol>
+<h2 id="微调检测"><a href="#微调检测" class="headerlink" title="微调检测"></a>微调检测</h2><p>在Fast-RCNN网络中，反向传播训练参数是一项重要的功能。（它客服了SPPNet不能更新空间金字塔层以下权值的问题）。由于SPPNet网络的每个训练样本（RoI）来自不同的图像时，SPP层的反向传播是非常低效的。</p>
+<p>作者提出了一种更加有效的训练方法，利用了训练过程中的特征共享。即对随机梯度下降进行小批量的分级采样。首先对N幅图像进行采样，然后对每幅图像进行R&#x2F;N个RoI采样。重要的是，对于来自相同图像的RoI在向前和向后传递时共享计算和内存。不过这种训练方法存在训练收敛较慢的问题。（N&#x3D;2，R&#x3D;128时效果最好）</p>
+<p>同时，在分层采样中，作者的一个精细调整阶段联合优化softmax分类器和边界框回归器，而不是用三个独立的阶段寻训练softmax分类器、支持向量机、回归器。</p>
+<h2 id="多任务损失"><a href="#多任务损失" class="headerlink" title="多任务损失"></a>多任务损失</h2><p>$$<br>L(p,u,t^u,v)&#x3D;L_{cls}(p,u)+\lambda[u\ge 1]L_{loc}(t^u,v)<br>$$</p>
+<h2 id="最小批次采样"><a href="#最小批次采样" class="headerlink" title="最小批次采样"></a>最小批次采样</h2><p>实验中，作者使用最小batch为128，对每张图像采样64个RoI。接着从这些proposals中获取区IoU大于等于的0.5的RoI(这些RoI中包含对象标记，u大于等于1)，剩余的RoI从IoU处于[0.1~0.5]的RoI中选取。再将IoU小于0.1的当作背景例子，标记u&#x3D;0.</p>
+<p>这里也可以将IoU小于0.1的样本作为hard样本进行训练；训练过程中，图像以0.5的概率翻转，除此没有别的数据增强。</p>
+<h2 id="通过RoI池层的反向传播"><a href="#通过RoI池层的反向传播" class="headerlink" title="通过RoI池层的反向传播"></a>通过RoI池层的反向传播</h2><h2 id="SGD超参数"><a href="#SGD超参数" class="headerlink" title="SGD超参数"></a>SGD超参数</h2><p>用于softmax分类和边界框回归的全连接层使用标准偏差为0.01和0.001的零均值高斯分布初始化zero-mean Gaussian distributions。所有层的加权学习率为1，偏差学习率为2，整体学习率为0.001</p>
+<h2 id="尺度不变性"><a href="#尺度不变性" class="headerlink" title="尺度不变性"></a>尺度不变性</h2><p>作者探索了两种不同的尺度不变目标检测的实现，一是暴力计算，二是使用图像金字塔</p>
+<ol>
+<li>暴力计算：在训练和测试中，每幅图像都按照预先定义的像素大小进行处理</li>
+<li>图像金字塔：在测试过程中，使用图像金字塔对每个目标建议进行近似尺度归一化，作为数据增强的一种。</li>
+</ol>
+<p><img src="/%5Cimages%5Cimage-20220106111519294.png" alt="image-20220106111519294"></p>
+<p>作者通过实验发现，卷积网络擅长直接学习尺度不变，并且多尺度方法耗费了大量的时间成本只将mAP提升了很小一部分</p>
+<h2 id="目标检测过程"><a href="#目标检测过程" class="headerlink" title="目标检测过程"></a>目标检测过程</h2><p>Fast-RCNN网络一旦完成微调，检测过程相当于运行一个前向传递（假设proposal已经提提前算好）。网络将一个图像和一个R对象列表（通常为2k左右）作为输入进行评分。当使用图像金字塔后，每个RoI接近224×224个像素</p>
+<p>对于每个RoI r，前向传递输出一个类别的后验概率分布p与一组相对于r 的预测边界框位置偏移。然后使用RCNN算法对每个类单独执行非极大值抑制。</p>
+<h2 id="截断SVD"><a href="#截断SVD" class="headerlink" title="截断SVD"></a><strong>截断SVD</strong></h2><p>对于整张图像的分类，全连接层的计算时间要比卷积层处理的时间更少。但是，对于检测来说，由于需要处理的RoI数量很大，几乎一半的前向传递时间都花费在计算全连接层上。因此，作者使用truncated SVD技术来加速全连接层的计算。truncated SVD可以减少30%的探测时间，而只减少0.3%的mAP，并且无需在模型压缩后执行额外的微调。在深层的网络中，对RoI池化层的训练是非常有必要的。</p>
+<p>同时，作者提到在深度较浅的网络中，conv1是处理一般性的与任务独立的。因此对conv1训练的意义不大。对卷积层的更新会增加训练时间，并且导致GPU内存溢出的问题，而带来的mAP提升很少。</p>
+<p><img src="/%5Cimages%5Cimage-20220106100757776.png" alt="image-20220106100757776"></p>
+<p>SVD原理可参考<a href="https://www.cnblogs.com/pinard/p/6251584.html">奇异值分解(SVD)原理与在降维中的应用 - 刘建平Pinard - 博客园 (cnblogs.com)</a></p>
+<h2 id="更多的训练数据有利于提升mAP"><a href="#更多的训练数据有利于提升mAP" class="headerlink" title="更多的训练数据有利于提升mAP"></a>更多的训练数据有利于提升mAP</h2><p>作者将VOC07加入VOC12后，mAP由66.9%提升到70.0%。</p>
+<p>作者构建了有VOC07的训练集与测试集与VOC12的训练集组成的图像数据集，发现mAP也得到了提升。</p>
+<h2 id="softmax相比于SVM的优势"><a href="#softmax相比于SVM的优势" class="headerlink" title="softmax相比于SVM的优势"></a><strong>softmax相比于SVM的优势</strong></h2><p><img src="/%5Cimages%5Cimage-20220106112058344.png" alt="image-20220106112058344"></p>
+<p>实验表明softmax在S、L、M三种网络中性能均优于SVM。尽管性能提升不大，但是“one-shot”微调已经足够了。不同于一对一的SVM，softmax在评估RoI时还引入了类别间的竞争。</p>
+<h2 id="proposals数量对结果的影响"><a href="#proposals数量对结果的影响" class="headerlink" title="proposals数量对结果的影响"></a><strong>proposals数量对结果的影响</strong></h2><p><img src="/%5Cimages%5Cimage-20220205113749198.png" alt="image-20220205113749198"></p>
+<p>作者使用了两种目标检测方法。一是稀疏集proposal（如selective search ）；二是稠密集proposal（如DPM）。</p>
+<p>对稀疏peoposal进行分类是一种级联，会先拒绝大量候选区域，只留一小部分给分类器评估。而应用DPM检测时，级联提高了检测精度。</p>
+<p>实验表明，随着proposal数量增加，mAP会先上升再下降。所以过多的proposal对分类器并没有帮助。</p>
+<p>作者在文章中还介绍了一种测量对象proposal质量的技术：平均召回AR。当每幅图像使用固定数量的proposal时AR与mAP有良好的相关性。但是在图像proposal数量不同时，由于更多proposal而提高的AR，并不意味着mAP会提高。但是在M网络中训练与测试只需要2.5小时，这使得fast-rcnn能够高效、直接评估对象proposal的mAP。</p>
+<h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
+<li>比RCNN与SPPNet更高的探测质量mAP</li>
+<li>训练是单阶段的，使用了multi-task loss</li>
+<li>训练时可以对网络中的所有层都进行更新</li>
+<li>特征缓存时不需要磁盘空间，Fast-RCNN网络将特征提取器、分类器、回归器合并，使得训练过程不需要再将每阶段结果保存磁盘单独训练，可以一次性完成训练，加快了训练速度</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>deep learning</tag>
+        <tag>Object Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/02/25/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
