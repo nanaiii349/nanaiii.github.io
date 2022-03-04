@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="论文：Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks (neurips.cc)">
+<meta name="description" content="论文：CVPR 2017 Open Access Repository (thecvf.com)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Faster-RCNN">
-<meta property="og:url" content="http://example.com/2022/03/04/Faster-RCNN/index.html">
+<meta property="og:title" content="PointNet">
+<meta property="og:url" content="http://example.com/2022/03/04/PointNet/index.html">
 <meta property="og:site_name" content="Next">
-<meta property="og:description" content="论文：Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks (neurips.cc)">
+<meta property="og:description" content="论文：CVPR 2017 Open Access Repository (thecvf.com)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/image-20220206101136285.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106213651479.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220108211045368.png">
-<meta property="article:published_time" content="2022-03-04T00:40:20.000Z">
-<meta property="article:modified_time" content="2022-03-04T00:44:05.714Z">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116120541325.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116233004972.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116234754228.png">
+<meta property="article:published_time" content="2022-03-04T00:52:48.000Z">
+<meta property="article:modified_time" content="2022-03-04T00:58:23.154Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/image-20220206101136285.png">
+<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220116120541325.png">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/03/04/Faster-RCNN/"/>
+  <link rel="canonical" href="http://example.com/2022/03/04/PointNet/"/>
 
 
 
 
 
-  <title>Faster-RCNN | Next</title>
+  <title>PointNet | Next</title>
   
 
 
@@ -238,7 +238,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/Faster-RCNN/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/PointNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -255,7 +255,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Faster-RCNN</h1>
+          <h1 class="post-title" itemprop="name headline">PointNet</h1>
         
 
         <div class="post-meta">
@@ -267,7 +267,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-04T08:40:20+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-04T08:52:48+08:00">
                 2022-03-04
               </time>
             
@@ -304,7 +304,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  2.1k 字
+                  1.8k 字
                 </span>
               
 
@@ -320,7 +320,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  7 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -341,41 +341,54 @@
       
 
       
-        <p><strong>论文：</strong><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2015/file/14bfa6bb14875e45bba028a21ed38046-Paper.pdf">Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks (neurips.cc)</a></p>
+        <p>论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220206101136285.png" alt="image-20220206101136285" style="zoom:75%;" />
-
-<p>目前，先进的目标检测算法都是依赖于区域建议算法去假设物体位置的，区域建议的计算成为目标检测算法的瓶颈。而Faster-RCNN引入了<strong>区域建议网络RPN</strong>，该网络与检测网络共享全图像卷积特征，从而实现<strong>几乎无成本的区域建议</strong>。引入RPN网络也使得Faster-RCNN成为了一个完全的end-to-end的CNN目标检测模型。</p>
-<h2 id="区域生成网络RPN"><a href="#区域生成网络RPN" class="headerlink" title="区域生成网络RPN"></a>区域生成网络RPN</h2><p>RPN网络代替了Fast-RCNN模型中的selective search（SS）。它先通过对应关系把特征图的点映射回原图，在每个对应的原图设计不同的固定尺度窗口bbox，根据该窗口的ground truth的IoU给它标记正负标签，让它学习里面是否有目标。通过一个简单的交替优化，RPN和Fast-RCNN可以共享卷积特征。为了使RPN与Fast-RCNN相统一，作者提出了一个训练方案，该方案在区域建议任务和目标检测任务间交替进行微调，同时保证proposal的稳定。这种方案收敛很快，并且使两个网络可以共享数据。而SS是使用CPU计算，因而计算时间较慢，也没法共享计算。</p>
-<p>在RPN中只需要找出物体的大致地方，因此作者对bbox做了三个固定：固定尺度变化（三种尺度）、固定scale ratio变化（三种ratio），固定采样方式（只在特征图的每个点在原图中的对应RoI上采样）</p>
-<p>作者在Fast-RCNN的基础上增加了两个卷积层来构建RPN：一个将每个conv map编码到一个短的特征向量上，另一个卷积层在每个conv map上输出客观性的评分以及关于k个涉及到不同的尺度和纵横比的区域建议的回归边界（通常取k为9）</p>
-<h2 id="RPN工作原理"><a href="#RPN工作原理" class="headerlink" title="RPN工作原理"></a>RPN工作原理</h2><p><img src="/%5Cimages%5Cimage-20220106213651479.png" alt="image-20220106213651479"></p>
-<p>RPN以一副图像（任意大小）作为输入并输出一组矩形对象建议并给出得分。为了生成区域建议，一个小network滑过最后一个共享的卷积层输出的特征图。该网络最后全连接到输入的卷积特征图的一个n×n的空间窗口中。每个滑动窗口都映射到一个低维向量上。这个向量被提供给两个同级的全连接层（边界框回归层reg、分类层cls）。</p>
-<p>该体系结构由一个n×n的卷积层、和两个兄弟级的1×1层（reg、cls）并将ReLUs应用于n×n转换层的输出。</p>
-<p>RPN最终输出的proposals会出现部分重叠。为了减少冗余，作者根据proposal的cls分数对proposal进行非极大抑制NMS（IoU阈值为0.7）。这使得每幅图像最终有大约2k个proposal。NMS之后，再对前n个proposal进行检测。实验证明，NMS在大幅减少proposal数量的情况下，不会损害最终的检测精度。</p>
-<h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a><strong>Anchor</strong></h2><p>Anchor是特征图中的每个点在原图中的对应位置，也就是初始检测框。</p>
-<p>在每个滑动窗口位置上，作者同时预测<strong>k个区域proposal</strong>（一个点对应k个anchor），因此reg有4k个输出，来标记k个box的坐标；而cls有2k个输出来评估每个proposal是对象或不是对象的概率。这k个proposal是k个box的参数表示，即上面的Anchors。每个anchor是其滑动窗口的中心位置，并于比例和宽高比相关联。作者使用了3个尺度与3个纵横比，因此每个滑动位置放置9个anchor。一个W×H的卷积特征图就总共有W×H×k个anchor。因为anchor具有<strong>平移不变特性</strong>，对anchor的计算就是对对应该anchor的proposal的计算.和不是平移不变的 MultiBox 方法相比，该方法使参数减少了一个数量级。</p>
-<p>作者对每个anchor使用128、256、512三个尺度以及一比一、一比二、二比一三个纵横比，发现即使物体比底层的接受域还要大，该算法仍然可以检测出物体。在实际中，人们也可以只通过观察物体的中间位置来感知物体。这也就作者的解决方案不需要使用多尺度特征或多尺度滑动窗口来预测大的物体，节省大量运行时间。</p>
-<p>对于跨越图像边界的anchor。训练中，作者忽略所有跨越图像边界的anchor，以避免带来极大的误差，使得结果无法收敛。在测试中，对于这些anchor，作者只保留其图像中的部分</p>
-<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>作者将anchor打上正负标签。正标签：与ground-truth box重叠程度IoU最高的区域；或者IoU大于0.7的anchor。负标签:对于所有的ground-truth box其IoU都小于0.3的anchor。不属于正负样本的样本对于目标检测没有帮助。</p>
-<p>根据这些定义，作者最小化Fast-RCNN中的多任务损失目标函数<br>$$<br>L({p_i},{t_i})&#x3D;\frac{1}{N_{cls}}\sum{L_{cls}(p_i,p_i^{<em>})}+\lambda\frac{1}{N_{reg}}\sum{p_i^{</em>}L_{reg}(t_i,t_i^{<em>})}<br>$$<br>此处的i为该batch中anchor的索引，pi是anchor为对象的概率，如果anchor为正pi</em>&#x3D;1，如果anchor为负pi*&#x3D;0；ti为预测边界框四个参数化坐标，ti*是与一个正anchor相关的ground-truth box。</p>
-<p>Lcls（分类损失）：使用log loss；Lreg（回归损失）：使用smooth L1(R)，而只有anchor为正时，Lreg才会被激活。<br>$$<br>L_{reg}(t_i,t_i^{<em>})&#x3D;R(t_i,t_i^{</em>})<br>$$<br>作者使用Ncls、Nreg两项进行归一化，并使用lambda作为平衡因子。</p>
-<p><img src="/%5Cimages%5Cimage-20220108211045368.png" alt="image-20220108211045368"></p>
-<p>在回归时，要对4个坐标参数化。其中x,y,w,h为边界框box的中心位置、宽与高。x，xa，x*是预测box、anchor box、ground-truth box的参数。</p>
-<p>不同于其他对任意大小区域进行特征池化（回归权值由所有区域大小共享）的边界回归，作者的回归特征在特征图上具有相同的大小。为了适用于不同的大小，作者设置了一组k边界回归器。每个回归器负责一个尺度和一个纵横比，并且这k个回归器不共享权重。</p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>RPN网络是以图像为中心的。每个batch中都含有正负样本，对所有参数的优化会使得结果偏向负样本。因此作者随机对256个anchor进行采样，尽量使得正负样本的比例达到一比一（如果正样本小于128再用负样本填充）。</p>
-<p>并且作者通过标准偏差为0.01的零均值高斯分布中提取权重来初始化所有层，所有层的初始化从一个ImageNet分类模型中获得，并且调优ZF网络、VGG的jconv3_1以节省内存</p>
-<h2 id="将RPN应用于目标检测"><a href="#将RPN应用于目标检测" class="headerlink" title="将RPN应用于目标检测"></a>将RPN应用于目标检测</h2><p>作者将Fast-RCNN与RPN相结合，使得二者的卷积层计算可以共享。由于Fast-RCNN依赖于固定的对象proposal并且如果在学习 Fast R-CNN 的同时更改proposal机制，尚不清楚先验是否会收敛。因此作者没有简单的定义一个包含RPN与Fast-RCNN的网络，而是通过交替优化学习共享特征。</p>
-<ol>
-<li>使用ImageNet预训练模型初始化，并对区域建议任务做端到端的微调（<strong>训练RPN网络</strong>）</li>
-<li>利用第一步生成的区域建议，训练一个独立的检测网络，该检测网络也使用ImageNet预训练模型初始化（<strong>训练FRCNN网络</strong>）</li>
-<li><strong>使用检测网络对RPN网络进行初始化，但固定两个网络共有的层，只微调RPN网络特有的层。</strong>此时，两个网络共享卷积层（<strong>训练RPN网络</strong>）</li>
-<li>固定共享的卷积层，微调Fast-RCNN的全连接层。（由此形成一个统一的网络）（<strong>训练FRCNN网络</strong>）</li>
+<h1 id="前人的贡献"><a href="#前人的贡献" class="headerlink" title="前人的贡献"></a>前人的贡献</h1><p>传统的目标检测算法中对于数据格式有着严格的要求，将点云数据转换为符合要求的数据格式会使得数据规模扩大，影响计算效率。</p>
+<p>点云数据由<strong>无序</strong>的数据点构成一个<strong>集合</strong>来表示。因此，在使用图像识别任务的深度学习模型处理点云数据之前，需要对点云数据进行一些处理。目前采用的方式主要有两种：</p>
+<blockquote>
+<p>1、将点云数据投影到二维平面。此种方式不直接处理三维的点云数据，而是先将点云投影到某些特定视角再处理，如<strong>前视视角和鸟瞰视角</strong>。同时，也可以融合使用来自相机的图像信息。通过将这些不同视角的数据相结合，来实现点云数据的认知任务。比较典型的算法有MV3D和AVOD。</p>
+<p>2、将点云数据划分到有空间依赖关系的voxel。此种方式通过分割三维空间，引入空间依赖关系到点云数据中，再使用3D卷积等方式来进行处理。这种方法的精度依赖于三维空间的分割细腻度，而且<strong>3D卷积</strong>的运算复杂度也较高。</p>
+</blockquote>
+<h2 id="点集的性质"><a href="#点集的性质" class="headerlink" title="点集的性质"></a>点集的性质</h2><ol>
+<li>无序：三维N个点的数据需要N！个排列组合</li>
+<li>点之间相互作用：点云中的点不是独立存在的，模型需要提取局部信息</li>
+<li>转换不变性：作为一个几何物体，对物体进行变换不应该改变物体的某些特征</li>
 </ol>
-<p>在这里的训练过程类似于一种“迭代”的过程，不过只迭代了两次，因为迭代次数再增加不会带来性能上的提升。</p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220116120541325.png" alt="image-20220116120541325"></p>
+<p>PointNet主要用于点云数据分类问题，即在点云数据中找到属于一个物体的所有点云。</p>
+<p>该分类网络以n个点作为输入，进行输入和特征转换，然后通过最大池法对点特征进行聚合。输出是k个类别的分类分数。分割网络是分类网络的延伸。它连接全局和局部特征，并输出每个分数。” mlp  “表示多层感知器，括号中的数字表示层大小。Batchnorm用于所有带有ReLU的层。在分类网的最后一个mlp中使用了Dropout层。</p>
+<p>PointNet更多的是为CV领域提供了一种新的研究方向，拓展了对于原始数据处理的思路，后续的Frustum PoinNet等是对于PointNet在目标检测方面的特定研究，以及其他网络会将其作为网络设计的一部分充分的发挥其网络结构简单，计算简单的特点。</p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p> 作用于无序输入的对称函数</p>
+<p>不改变模型的输入排序有三种方法：将输入按正则序排序（在高维空间中很难实现）；将输入作为序列来训练RNN（会增加训练数据）；使用一个<strong>对称函数</strong>来聚合每个点的信息（如+、*）</p>
+<p>作者的主要思想是通过对一个点集中的变换<br>元素应用一个对称函数来逼近一个定义在点集上的一般函数：<br>$$<br>f({x_1,x_2,…,x_n})\approx g(h(x_1),…,h(x_n))\<br>f:2^{\mathbb{R}^N}\rightarrow \mathbb{R} ,h:\mathbb{R} ^N\rightarrow \mathbb{R} ^K,g:\mathbb{R} ^K\times …\times\mathbb{R} ^K\rightarrow \mathbb{R} (g为对称函数)<br>$$<br>根据经验，使用一个多层感知器网络近似h（mlp），使用一个单变量函数和一个最大池化函数组合近似g。通过h，可以学习到f中的不同性质,最后输出一个k维向量，表示数据的全局特征。</p>
+<p> 局部全局的数据增强</p>
+<p>根据上面网络得到的k维向量，可以训练SVM或是多层感知分类器对具有全局特征进行分类。</p>
+<p>在计算全局点云特征向量后，通过连接全局特征和每个点的特征，将其反馈给每个点。接着基于集合的点特征提取每个点的新特征（此时每个点特征同时拥有局部特征与全局特征）。</p>
+<p>之后，网络可以基于局部几何特性和全局语义预测每个点的数量。</p>
+<p> 联合定位网络</p>
+<p>作者通过一个微型网络T-Net预测一个仿射变换矩阵并且直接将这种变换应用到输入点的坐标上。</p>
+<p>这种思想同时适用于特征空间的对齐，通过在点特征上插入另一个对齐网络，并预测一个特征转换矩阵来对齐来自不同输入点云的特征。但是特征空间中的变换矩阵比空间变换矩阵的维数高很多，这会增加优化难度。因此在softmax训练损失中增加一个<strong>正则化项</strong>，将特征变换矩阵约束为接近<strong>正交矩阵</strong>，以获得了较好的效果。<br>$$<br>L_{reg}&#x3D;    \Vert I-AA^T    \Vert^2_F(A是由T-Net预测的特征对齐矩阵)<br>$$</p>
+<h2 id="理论研究"><a href="#理论研究" class="headerlink" title="理论研究"></a>理论研究</h2><ol>
+<li>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</li>
+</ol>
+<p><img src="/%5Cimages%5Cimage-20220116233004972.png" alt="image-20220116233004972"></p>
+<ol start="2">
+<li>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</li>
+</ol>
+<p>因此，该网络通过稀疏的关键点集合来总结一个形状。</p>
+<h2 id="关键流程"><a href="#关键流程" class="headerlink" title="关键流程"></a>关键流程</h2><ol>
+<li>输入为一帧的全部点云数据的集合，表示为一个n×3的二维 tensor，其中n代表点云数量，3对应xyz坐标。</li>
+<li>输入数据先通过和一个T-Net学习到的转换矩阵相乘来对齐，保证了模型的对特定空间转换的不变性。</li>
+<li>通过多次mlp对各点云数据进行特征提取后，再用一个T-Net对特征进行对齐。</li>
+<li>在特征的各个维度上执行maxpooling操作来得到最终的全局特征。</li>
+<li>对分类任务，将全局特征通过mlp来预测最后的分类分数；对分割任务，将全局特征和之前学习到的各点云的局部特征进行串联，再通过mlp得到每个数据点的分类结果。</li>
+</ol>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220116234754228.png" alt="image-20220116234754228"></p>
 <h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
-<li>设计卷积网络处理区域建议RPN，使得目标检测系统实现完全的end to end</li>
-<li>使用多任务损失函数</li>
+<li>设计一种新的深度网络结构，适用于三维空间中的无序点集</li>
+<li>展示这样的网络如何执行三维形状分类、形状部分分割和场景语义解析任务</li>
+<li>对这种方法的稳定性和有效性进行深入的实证和理论分析</li>
+<li>举例说明网络中选定的神经元三维特征，研究其性能的直观解释</li>
 </ol>
 
       
@@ -453,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/02/25/Fast-RCNN/" rel="next" title="Fast-RCNN">
-                <i class="fa fa-chevron-left"></i> Fast-RCNN
+              <a href="/2022/03/04/DETR/" rel="next" title="DETR">
+                <i class="fa fa-chevron-left"></i> DETR
               </a>
             
           </div>
@@ -462,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/03/04/DETR/" rel="prev" title="DETR">
-                DETR <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -608,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%9F%9F%E7%94%9F%E6%88%90%E7%BD%91%E7%BB%9CRPN"><span class="nav-number">1.1.</span> <span class="nav-text">区域生成网络RPN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPN%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">RPN工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor"><span class="nav-number">1.3.</span> <span class="nav-text">Anchor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86RPN%E5%BA%94%E7%94%A8%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.6.</span> <span class="nav-text">将RPN应用于目标检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">2.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E4%BA%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.</span> <span class="nav-text">前人的贡献</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E9%9B%86%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">点集的性质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E7%A0%94%E7%A9%B6"><span class="nav-number">2.2.</span> <span class="nav-text">理论研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">关键流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
             
 
           </div>

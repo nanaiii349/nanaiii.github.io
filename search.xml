@@ -1,67 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>RCNN</title>
-    <url>/2022/02/25/RCNN/</url>
-    <content><![CDATA[<p><strong>论文：<a href="https://openaccess.thecvf.com/content_cvpr_2014/html/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.html">CVPR 2014 Open Access Repository (thecvf.com)</a></strong></p>
+    <title>DETR</title>
+    <url>/2022/03/04/DETR/</url>
+    <content><![CDATA[<p>论文：[<a href="https://arxiv.org/abs/2010.04159">2010.04159] Deformable DETR: Deformable Transformers for End-to-End Object Detection (arxiv.org)</a></p>
 <span id="more"></span>
-
-<h2 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h2><h3 id="RCNN算法4个步骤"><a href="#RCNN算法4个步骤" class="headerlink" title="RCNN算法4个步骤"></a>RCNN算法4个步骤</h3><ol>
-<li>候选区域生成： 一张图像生成1K~2K个候选区域 （采用Selective Search 方法）</li>
-<li>特征提取： 对每个候选区域，使用深度卷积网络提取特征 （CNN）</li>
-<li>类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类</li>
-<li>位置精修： 使用回归器精细修正候选框位置</li>
-</ol>
-<h3 id="RCNN网络结构（三个模块）"><a href="#RCNN网络结构（三个模块）" class="headerlink" title="RCNN网络结构（三个模块）"></a>RCNN网络结构（三个模块）</h3><ol>
-<li>第一模块提出独立类别的区域建议，定义可供检测器使用的候选测试集</li>
-<li>第二模块大型卷积神经网络，从每个区域提取固定长度的特征向量</li>
-<li>第三模块一组特定类别的线性支持向量机</li>
-</ol>
-<h3 id="区域建议-region-proposals"><a href="#区域建议-region-proposals" class="headerlink" title="区域建议(region proposals)"></a>区域建议(region proposals)</h3><p>region proposals就是从图像中选取2k个候选区域的过程.</p>
-<p>现有的生成策略独立的region proposals： objectness, selective search ,category-independent object proposals , constrained parametric min-cuts (CPMC), multiscale combinatorial grouping </p>
-<p>在本篇论文中，作者使用<strong>selective search方法</strong></p>
-<p><strong>主要思想</strong>：</p>
+<h1 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h1><h2 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h2><p>注意力机制可以理解为，计算机视觉系统在模拟人类视觉系统中可以迅速高效地关注到重点区域的特性。<br>$$<br>Attention&#x3D;f(g(x),x)<br>$$<br>g(x)表示对输入特征进行处理并产生注意力的过程，f(g(x),x)表示结合注意力对输入特征进行处理的过程</p>
+<p>self-attention模型：<br>$$<br>Q,K,V&#x3D;Linear(x)\<br>g(x)&#x3D;Softmax(QK)\<br>f(g(x),x)&#x3D;g(x)V<br>$$<br>senet模型:<br>$$<br>g(x)&#x3D;Sigmoid(MLP(GAP(x)))\<br>f(g(x),x)&#x3D;g(x)x<br>$$</p>
+<p>注意力又可以细分为：通道注意力、空间注意力、时间注意力、分支注意力以及两种组合注意力：通道-空间注意力、空间-时间注意力</p>
+<p><strong>通道注意力：</strong>将输入的特征图，经过<strong>基于宽度与高度</strong>的global max pooling 和global average pooling，然后分别经过MLP。将MLP输出的特征进行基于element-wise的加和操作，再经过sigmoid激活操作，生成最终的channel attention featuremap。将该channel attention featuremap和input featuremap做element-wise乘法操作，生成Spatial attention模块需要的输入特征。</p>
+<p><strong>空间注意力：</strong>将Channel attention模块输出的特征图作为本模块的输入特征图。首先做一个<strong>基于channel</strong>的global max pooling 和global average pooling，然后将这2个结果基于channel 做concat操作。然后经过一个卷积操作，降维为1个channel。再经过sigmoid生成spatial attention feature。最后将该feature和该模块的输入feature做乘法，得到最终生成的特征。</p>
+<p>Transformers网络包含self-attention和cross-attention机制，其主要的问题是时间开销、内存开销过高。现有许多思路来解决这个问题</p>
 <ol>
-<li>使用一种过分割手段，将图像分割成小区域 (1k~2k 个)</li>
-<li>查看现有小区域，按照合并规则合并可能性最高的相邻两个区域。重复直到整张图像合并成一个区域位置</li>
-<li>输出所有曾经存在过的区域，所谓候选区域</li>
+<li>使用预定义的稀疏注意力模式，最直接的范式就是将注意力模式限制到固定的局部窗口。而这种方法会丧失全局信息。为了补偿对全局信息的提取，可以增加关键元素的接受域，或是允许少量特殊令牌访问所有关键元素，或是添加一些预定义的稀疏注意模式，直接注意远处的关键元素</li>
+<li>学习数据依赖的稀疏注意力，基于注意力的局部敏感数据哈希算法，将查询和关键元素散列到不同的容器中，或是使用k-means找到最相关的关键元素，或是学习block-wise稀疏注意力的block排序</li>
+<li>探索自我注意力的低秩性质，通过尺寸维度而不是通道维度的线性投影来减少关键元素数量，或是通过内核化近似重新计算自注意力</li>
 </ol>
-<p><strong>合并策略</strong>：优先合并以下四种区域：颜色（颜色直方图）相近的；纹理（梯度直方图）相近的；合并后总面积小的： 保证合并操作的尺度较为均匀，避免一个大区域陆续“吃掉”其他小区域；合并后，总面积在其BBOX中所占比例大的： 保证合并后形状规则。</p>
-<p>在具体的测试中，对于图像中的所有得分区域，我们应用贪婪的非最大抑制（对每个类独立）。如果该区域与得分高于学习阈值的选定区域有交叉合并（IoU）重叠，则拒绝该区域。</p>
-<p>由于所有CNN参数在所有类别中共享，并且与其他常见算法相比，CNN的特征向量是低维的。因此相比与诸如UVA检测系统，CNN网络计算区域建议和特征花费的时间与所耗内存都有极大的优化。并且RCNN可以扩展到数以千计的对象类，而无需借助近似技术。</p>
-<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><p>作者使用了Krizhevsky等人描述的CNN的<strong>Caffe</strong>实现，从每个区域提取一个<strong>4096维</strong>的特征向量，将一个图像去均值的227  × 227的RGB图像通过5个卷积层和2个完全连通层前向传播来计算特征。因此，必须先将该区域的图像数据转换为与CNN兼容的形式（无论候选区域大小或宽高比如何，直接转换为227*227大小,在warp前作者还会对box进行扩张,使得在wrap处的box中有p个像素）</p>
-<p>在实验中,作者发现RCNN可以扩展到数以千计的对象,而无需使用近似技术.</p>
-<h3 id="有监督预训练"><a href="#有监督预训练" class="headerlink" title="有监督预训练"></a>有监督预训练</h3><p>作者使用开源的Caffe CNN库来进行预训练.</p>
-<h3 id="特定领域微调fine-tuning"><a href="#特定领域微调fine-tuning" class="headerlink" title="特定领域微调fine-tuning"></a>特定领域微调fine-tuning</h3><p>为了使RCNN适应新的任务和新的领域，作者的随机梯度下降SGD训练的CNN参数仅来自于VOC数据集。分类器是随机初始化的21路分类层（VOC中的20个类与背景），其他CNN架构没有改变。</p>
-<p>分类器会将IoU大于等于0.5的 region proposals，视为积极的，其余则视为消极的。</p>
-<p>SGD学习率为0.001，并且在每次SGD迭代中，使用32个正样本，与96个背景样本，组成一个128大小的batch。同时为了使结果更好预测正样本，采样也偏向正样本。</p>
-<h3 id="对象类别分类"><a href="#对象类别分类" class="headerlink" title="对象类别分类"></a>对象类别分类</h3><p>作者在文章中用检测的汽车的例子，如果使用二分类器检测汽车，那么一个紧紧包围汽车的box是正例子，而与汽车无关的背景区域是反面例子。现在的问题在于，我们如何去标记一个部分包含汽车的例子。作者在此使用0.3的IoU阈值，只有大于0.3IoU的区域才是积极。作者同时强调，这个阈值的设置对整个算法结果的影响极大。</p>
-<p>同时为了解决训练数据过大的问题，作者使用standard hard negative mining method技术，该技术在实验中，只需要遍历所有图像一次就可以使mAP停止增长。</p>
-<blockquote>
-<p>standard hard negative mining method：</p>
-<p>用hard negative的样本反复训练，初始的样本保证一定的正负样本比例。在每次训练中，将预测为positive的负样本（即hard negative样本）加入负样本训练集中。</p>
-</blockquote>
-<p>作者在补充材料中说明了使用SVM作为分类器的原因，SVM与CNN对于正负样本的定义不同，导致CNN的分类效果不如SVM。</p>
-<h3 id="过滤器First-layerfilters"><a href="#过滤器First-layerfilters" class="headerlink" title="过滤器First-layerfilters"></a>过滤器First-layerfilters</h3><p>作者使用了一种简单的非参数的反卷积方法捕捉有方向的边缘和对立的颜色。</p>
-<p>主要思想：在网络中挑选出一个特定的单元（特征），并将其作为自身的对象检测i器。也就是，我们在一个大规模的held-out region proposals上计算单元的激活情况，并按得分由高到低排序，通过执行非极大值抑制nonmaximum suppression，使得被选中的区域“不言自明”。</p>
-<h3 id="pool5层"><a href="#pool5层" class="headerlink" title="pool5层"></a>pool5层</h3><p>pool5的 feature map是9216维（6×6×256）的，从实验结果来看仅使用pool5的效果不如加入fc6、fc7效果好。作者认为这是因为目标检测的过程中，一些经过分类调整的特征与形状、纹理、颜色等在全连接层处理过后会更好的将这些特征融合学习。</p>
-<p>fc6是pool5的全连接层，为了计算特征，它将4096×9216的权重矩阵乘以pool5的feature map，再添加一个偏差向量。</p>
-<p>而fc7则是将fc6的输出作为输入，乘以4096×4096的权重矩阵并添加一个偏差矩阵。</p>
-<p>作者还进行了多组对照实验得到了许多令人感到意外的结论：</p>
-<ol>
-<li>在不进行微调的情况下，fc7的结果反而不如fc6，这表明了在不降低mAP的情况下有29%的CNN参数可以被去除。并且去除了两个全连接层的结果也是可以接受的，需要注意的是，此时只使用pool5（即仅6%的参数）。说明对目标检测结果有效的参数大多数来源于卷积层，而不是全连接层。</li>
-<li>进行微调的情况下，微调普遍使实验结果提高了8%，并且在全连接层上的微调要比在pool5上的微调更有效果。这说明pool5学习的特征是通用的，微调的大部分改进是通过学习特定领域的非线性分类器获得的。</li>
+<p>本篇论文使用的可变性注意力是受可变性卷积启发，属于第二类，只关注从查询元素的特征中预测一个小的固定采样点集合。在相同FLOPS下，变形注意力要比传统卷积略慢。</p>
+<h2 id="目标检测的多尺度特征表示"><a href="#目标检测的多尺度特征表示" class="headerlink" title="目标检测的多尺度特征表示"></a>目标检测的多尺度特征表示</h2><p>在目标检测任务中，一张图像内真实对象的尺寸差别巨大，这也成为目标检测的一大困难。现代物体检测器通常利用多尺度特征来解决。FPN提出一个自顶向下路径融合多尺度特征；PANet进一步添加一条自底向上的路径到FPN顶部；或是结合通过一个全局注意力操作提取出的从所有尺寸中的特则；或是使用U型模型来融合多尺度特征。最近，NAS-FPN、Auto-FPN提出通过神经网络搜索自动设计交叉注意力联系；BiFPN是PANet的重复简化版本</p>
+<p>本篇论文使用多尺度可变性的注意力模块可以通过注意力机制自然的将多尺度特征累加起来，无需借助特征金字塔网络</p>
+<h2 id="Transformers中的多头检测"><a href="#Transformers中的多头检测" class="headerlink" title="Transformers中的多头检测"></a>Transformers中的多头检测</h2><p>Transformers是基于机器翻译的注意力机制的网络架构。为了使模型能够关注不同表示子空间和不同位置的内容，将不同注意力头的输出以可学习的权值线性聚合。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>DETR基于Transformer encoder-decoder框架，合并了set-based 匈牙利算法，通过二分图匹配，强制每一个ground-truth box都有唯一的预测结果（通过该算法找优化方向，哪个ground-truth由哪个slot负责）</p>
+<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><ol>
+<li>DETR训练周期长，到达收敛状态的时间长，初始化时，图上各个位置的权重相同，而在训练结束时，权重只集中在图像中出现物体的位置，这里权重的更新似乎需要经过很多轮训练才能达到收敛</li>
+<li>对小目标物体检测不友好，DETR使用多尺度特征处理小目标，而高分辨率的特征图会大大提高DETR复杂度</li>
 </ol>
-<h3 id="边界框回归"><a href="#边界框回归" class="headerlink" title="边界框回归"></a>边界框回归</h3><p>作者通过训练一个线性回归模型来预测一个新的检测窗口，用于selective search的区域建议。</p>
-<h2 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h2><p>这篇论文首次表明，与基于更简单的hog特征的系统相比，CNN可以在PASCAL VOC上带来更高的对象检测性能。并且主要解决一下两个问题</p>
-<ol>
-<li>将高容量卷积神经网络(cnn)应用于<strong>自底向上的区域</strong>建议，以定位和分割对象</li>
+<h2 id="关键过程"><a href="#关键过程" class="headerlink" title="关键过程"></a>关键过程</h2><ol>
+<li>通过CNN骨干网络将输入特征提取出来。DETR利用标准的Transformer编码器-解码器体系结构将输入特征映射转换为一组对象查询的特征。在目标查询特征(由解码器产生)上添加一个三层前馈神经网络(FFN)和一个线性投影作为检测头。</li>
+<li>对于DETR的编码器，查询和关键元素都是特征图中的像素。编码器输入是ReaNet特征图，自注意的计算复杂度为O(h^2w^2c)，随空间大小呈二次型增长。</li>
+<li>对于DETR解码器，输入包括编码器中的特征图和N个由可学习位置嵌入表示的对象查询。解码器中存在两类注意模块，即<strong>交叉注意模块</strong>和<strong>自我注意模块</strong>。在交叉注意模块中，对象查询从特征映射中提取特征。查询元素是对象查询的元素，关键元素是编码器的输出特征映射的元素。复杂度随特征映射的空间大小呈线性增长。在自注意模块中，对象查询相互交互，以捕获它们之间的关系。查询和关键元素都是对象查询。因此，对于适度数量的对象查询，复杂性是可以接受的。</li>
 </ol>
-<p>其中为了定位物体localizing onbject，传统方法一是使用回归方法（但是在实践中的表现并不好），二是构建滑动窗口检测器（但是由于网络中接受域与step过大，图像的精确定位存在困难）</p>
-<p>因此作者使用“区域识别”模式解决CNN定位问题。在实验中，作者的方法会先将输入图像划分为2k个类别无关的区域，使用CNN从每个区域提取固定长度的特征向量，然后使用类别特定的线性支持向量机SVM对每个区域进行分类</p>
-<ol start="2">
-<li>当标注的训练数据稀缺时，对辅助任务进行有监督的预训练，然后进行领域特定的微调，可以产生显著的性能提升。</li>
-</ol>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220119220603117.png" alt="image-20220119220603117"></p>
+<h2 id="端到端适用于目标检测的可变性transformers模型"><a href="#端到端适用于目标检测的可变性transformers模型" class="headerlink" title="端到端适用于目标检测的可变性transformers模型"></a>端到端适用于目标检测的可变性transformers模型</h2><p>模型使用ResNet-50作预训练</p>
+<h2 id="可变性注意力模块"><a href="#可变性注意力模块" class="headerlink" title="可变性注意力模块"></a>可变性注意力模块</h2><p>不同于传统注意力模块注意图像中的所有位置，可变性注意力模块只关注参考点周围一小组关键采样点，无需考虑特征图的空间大小，即为每个查询只分配少量固定数量的关键点。<br>$$<br>DeformAttn(z_q,p_q,x)&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^K_{k&#x3D;1}A_{mqk}\times W^{‘}<em>mx(p_q+\Delta p</em>{mqk})],<br>$$<br>输入特征是C×H×W维的；q表示具有Zq个上下文特征、二维参考点Pq的查询元素；m表示注意力头；k表示采样的关键点的索引，K为采样关键点的总数，Δp和A分别为检测头的采样偏移量和权重</p>
+<h2 id="多尺度可变性注意力模块"><a href="#多尺度可变性注意力模块" class="headerlink" title="多尺度可变性注意力模块"></a>多尺度可变性注意力模块</h2><p>$$<br>MSDeformAttn(z_q,\hat{p_q},{x^l}^L_{l&#x3D;1})&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^L_{l&#x3D;1}\sum^K_{k&#x3D;1}A_{mlqk}\times W^{‘}<em>m x^l (\phi_l(\hat{p_q})+\Delta p</em>{mlqk})],<br>$$</p>
+<p>x是多尺度特征输入图，l是输入特征的等级，k为采样点。多尺度变形注意与之前的单尺度版本非常相似，不同的是它从多尺度特征映射中采样LK点，而不是从单尺度特征映射中采样K点。Φ将归一化坐标重新转换为第l层的特征图。</p>
+<p>可变形卷积是为单尺度输入而设计的，每个注意力头只关注一个采样点。然而，多尺度变形注意从多尺度输入中查看多个采样点。所提出的(多尺度)可变形注意模块也可以被视为Transformer注意的有效变体，其中可变形采样位置引入了<strong>预滤波机制</strong>（预先过滤不重要的点，降低计算复杂度）。当采样点遍历所有可能的位置时，所提出的注意模块相当于Transformer注意。</p>
+<h2 id="可变性transformer编码器"><a href="#可变性transformer编码器" class="headerlink" title="可变性transformer编码器"></a>可变性transformer编码器</h2><p>我们用提出的多尺度可变形注意模块替换DETR中的Transformer注意模块处理特征映射。该编码器的输入和输出都是具有相同分辨率的多尺度特征图。关键元素和查询元素都是多尺度特征图中的像素。对于每个查询像素，参考点就是它本身。为了确定每个查询像素所处的特征级别，除了位置嵌入之外，我们还在特征表示中添加了尺度级嵌入(记作el)。与固定编码的位置嵌入不同，尺度级嵌入{el}Ll&#x3D;1是随机初始化并与网络联合训练的。可变形变压器编码器的参数在不同的特征层之间共享。</p>
+<h2 id="可变性transformer解码器"><a href="#可变性transformer解码器" class="headerlink" title="可变性transformer解码器"></a>可变性transformer解码器</h2><p>解码器中存在交叉注意模块和自注意模块。两种类型的注意模块的查询元素都是对象查询。在交叉注意模块中，对象查询从特征映射中提取特征，其中关键元素是编码器的输出特征映射。在自注意模块中，对象查询相互交互，其中的关键元素是对象查询。（这里和DETR网络相似）由于提出的变形注意模块是为处理卷积特征映射作为关键元素而设计的，所以只将每个交叉注意模块替换为多尺度变形注意模块，而保持自我注意模块不变。</p>
+<p>由于多尺度可变形注意模块提取参考点周围的图像特征，通过让检测头相对于参考点的偏移量预测边界盒，可以进一步降低优化难度。</p>
+<p>通过将DETR中的Transformer注意模块替换为可变形注意模块，建立了一个高效、快速收敛的检测系统，称为可变形DETR</p>
+<h2 id="迭代边界框优化"><a href="#迭代边界框优化" class="headerlink" title="迭代边界框优化"></a>迭代边界框优化</h2><p>为了提高检测性能，作者建立了一种简单有效的迭代边界盒优化机制。这里，每个解码器层都根据前一层的预测来细化边界框。</p>
+<h2 id="两阶段可变性DETR"><a href="#两阶段可变性DETR" class="headerlink" title="两阶段可变性DETR"></a>两阶段可变性DETR</h2><p>在原始DETR中，解码器中的对象查询与当前图像无关。作者使用两阶段目标检测思想，第一阶段使用可变性DETR生成区域建议，生成的区域建议将作为对象查询提供给解码器以进一步细化，形成一个两阶段的可变形DETR。</p>
+<p>在第一阶段，为了实现高召回建议，多尺度特征图中的每个像素都将作为对象查询。然而，直接将对象查询设置为像素会给解码器中的自注意模块带来不可接受的计算和内存开销。为了避免这个问题，去掉了解码器，并形成了一个只有编码器的可变形DETR来生成区域建议。即每个像素被赋值为一个对象查询，直接预测一个边界框。得分最高的边界框被选为区域建议。在将区域建议提交到第二阶段之前，不应用NMS。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220120132237764.png" alt="image-20220120132237764"></p>
 ]]></content>
       <tags>
         <tag>deep learning</tag>
@@ -131,25 +113,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/02/25/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Faster-RCNN</title>
     <url>/2022/03/04/Faster-RCNN/</url>
     <content><![CDATA[<p><strong>论文：</strong><a href="https://proceedings.neurips.cc/paper/2015/file/14bfa6bb14875e45bba028a21ed38046-Paper.pdf">Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks (neurips.cc)</a></p>
@@ -195,49 +158,148 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2022/03/04/DETR/</url>
-    <content><![CDATA[<p>论文：[<a href="https://arxiv.org/abs/2010.04159">2010.04159] Deformable DETR: Deformable Transformers for End-to-End Object Detection (arxiv.org)</a></p>
+    <title>PointNet</title>
+    <url>/2022/03/04/PointNet/</url>
+    <content><![CDATA[<p>论文：<a href="https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
-<h1 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h1><h2 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h2><p>注意力机制可以理解为，计算机视觉系统在模拟人类视觉系统中可以迅速高效地关注到重点区域的特性。<br>$$<br>Attention&#x3D;f(g(x),x)<br>$$<br>g(x)表示对输入特征进行处理并产生注意力的过程，f(g(x),x)表示结合注意力对输入特征进行处理的过程</p>
-<p>self-attention模型：<br>$$<br>Q,K,V&#x3D;Linear(x)\<br>g(x)&#x3D;Softmax(QK)\<br>f(g(x),x)&#x3D;g(x)V<br>$$<br>senet模型:<br>$$<br>g(x)&#x3D;Sigmoid(MLP(GAP(x)))\<br>f(g(x),x)&#x3D;g(x)x<br>$$</p>
-<p>注意力又可以细分为：通道注意力、空间注意力、时间注意力、分支注意力以及两种组合注意力：通道-空间注意力、空间-时间注意力</p>
-<p><strong>通道注意力：</strong>将输入的特征图，经过<strong>基于宽度与高度</strong>的global max pooling 和global average pooling，然后分别经过MLP。将MLP输出的特征进行基于element-wise的加和操作，再经过sigmoid激活操作，生成最终的channel attention featuremap。将该channel attention featuremap和input featuremap做element-wise乘法操作，生成Spatial attention模块需要的输入特征。</p>
-<p><strong>空间注意力：</strong>将Channel attention模块输出的特征图作为本模块的输入特征图。首先做一个<strong>基于channel</strong>的global max pooling 和global average pooling，然后将这2个结果基于channel 做concat操作。然后经过一个卷积操作，降维为1个channel。再经过sigmoid生成spatial attention feature。最后将该feature和该模块的输入feature做乘法，得到最终生成的特征。</p>
-<p>Transformers网络包含self-attention和cross-attention机制，其主要的问题是时间开销、内存开销过高。现有许多思路来解决这个问题</p>
+<h1 id="前人的贡献"><a href="#前人的贡献" class="headerlink" title="前人的贡献"></a>前人的贡献</h1><p>传统的目标检测算法中对于数据格式有着严格的要求，将点云数据转换为符合要求的数据格式会使得数据规模扩大，影响计算效率。</p>
+<p>点云数据由<strong>无序</strong>的数据点构成一个<strong>集合</strong>来表示。因此，在使用图像识别任务的深度学习模型处理点云数据之前，需要对点云数据进行一些处理。目前采用的方式主要有两种：</p>
+<blockquote>
+<p>1、将点云数据投影到二维平面。此种方式不直接处理三维的点云数据，而是先将点云投影到某些特定视角再处理，如<strong>前视视角和鸟瞰视角</strong>。同时，也可以融合使用来自相机的图像信息。通过将这些不同视角的数据相结合，来实现点云数据的认知任务。比较典型的算法有MV3D和AVOD。</p>
+<p>2、将点云数据划分到有空间依赖关系的voxel。此种方式通过分割三维空间，引入空间依赖关系到点云数据中，再使用3D卷积等方式来进行处理。这种方法的精度依赖于三维空间的分割细腻度，而且<strong>3D卷积</strong>的运算复杂度也较高。</p>
+</blockquote>
+<h2 id="点集的性质"><a href="#点集的性质" class="headerlink" title="点集的性质"></a>点集的性质</h2><ol>
+<li>无序：三维N个点的数据需要N！个排列组合</li>
+<li>点之间相互作用：点云中的点不是独立存在的，模型需要提取局部信息</li>
+<li>转换不变性：作为一个几何物体，对物体进行变换不应该改变物体的某些特征</li>
+</ol>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220116120541325.png" alt="image-20220116120541325"></p>
+<p>PointNet主要用于点云数据分类问题，即在点云数据中找到属于一个物体的所有点云。</p>
+<p>该分类网络以n个点作为输入，进行输入和特征转换，然后通过最大池法对点特征进行聚合。输出是k个类别的分类分数。分割网络是分类网络的延伸。它连接全局和局部特征，并输出每个分数。” mlp  “表示多层感知器，括号中的数字表示层大小。Batchnorm用于所有带有ReLU的层。在分类网的最后一个mlp中使用了Dropout层。</p>
+<p>PointNet更多的是为CV领域提供了一种新的研究方向，拓展了对于原始数据处理的思路，后续的Frustum PoinNet等是对于PointNet在目标检测方面的特定研究，以及其他网络会将其作为网络设计的一部分充分的发挥其网络结构简单，计算简单的特点。</p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p> 作用于无序输入的对称函数</p>
+<p>不改变模型的输入排序有三种方法：将输入按正则序排序（在高维空间中很难实现）；将输入作为序列来训练RNN（会增加训练数据）；使用一个<strong>对称函数</strong>来聚合每个点的信息（如+、*）</p>
+<p>作者的主要思想是通过对一个点集中的变换<br>元素应用一个对称函数来逼近一个定义在点集上的一般函数：<br>$$<br>f({x_1,x_2,…,x_n})\approx g(h(x_1),…,h(x_n))\<br>f:2^{\mathbb{R}^N}\rightarrow \mathbb{R} ,h:\mathbb{R} ^N\rightarrow \mathbb{R} ^K,g:\mathbb{R} ^K\times …\times\mathbb{R} ^K\rightarrow \mathbb{R} (g为对称函数)<br>$$<br>根据经验，使用一个多层感知器网络近似h（mlp），使用一个单变量函数和一个最大池化函数组合近似g。通过h，可以学习到f中的不同性质,最后输出一个k维向量，表示数据的全局特征。</p>
+<p> 局部全局的数据增强</p>
+<p>根据上面网络得到的k维向量，可以训练SVM或是多层感知分类器对具有全局特征进行分类。</p>
+<p>在计算全局点云特征向量后，通过连接全局特征和每个点的特征，将其反馈给每个点。接着基于集合的点特征提取每个点的新特征（此时每个点特征同时拥有局部特征与全局特征）。</p>
+<p>之后，网络可以基于局部几何特性和全局语义预测每个点的数量。</p>
+<p> 联合定位网络</p>
+<p>作者通过一个微型网络T-Net预测一个仿射变换矩阵并且直接将这种变换应用到输入点的坐标上。</p>
+<p>这种思想同时适用于特征空间的对齐，通过在点特征上插入另一个对齐网络，并预测一个特征转换矩阵来对齐来自不同输入点云的特征。但是特征空间中的变换矩阵比空间变换矩阵的维数高很多，这会增加优化难度。因此在softmax训练损失中增加一个<strong>正则化项</strong>，将特征变换矩阵约束为接近<strong>正交矩阵</strong>，以获得了较好的效果。<br>$$<br>L_{reg}&#x3D;    \Vert I-AA^T    \Vert^2_F(A是由T-Net预测的特征对齐矩阵)<br>$$</p>
+<h2 id="理论研究"><a href="#理论研究" class="headerlink" title="理论研究"></a>理论研究</h2><ol>
+<li>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</li>
+</ol>
+<p><img src="/%5Cimages%5Cimage-20220116233004972.png" alt="image-20220116233004972"></p>
+<ol start="2">
+<li>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</li>
+</ol>
+<p>因此，该网络通过稀疏的关键点集合来总结一个形状。</p>
+<h2 id="关键流程"><a href="#关键流程" class="headerlink" title="关键流程"></a>关键流程</h2><ol>
+<li>输入为一帧的全部点云数据的集合，表示为一个n×3的二维 tensor，其中n代表点云数量，3对应xyz坐标。</li>
+<li>输入数据先通过和一个T-Net学习到的转换矩阵相乘来对齐，保证了模型的对特定空间转换的不变性。</li>
+<li>通过多次mlp对各点云数据进行特征提取后，再用一个T-Net对特征进行对齐。</li>
+<li>在特征的各个维度上执行maxpooling操作来得到最终的全局特征。</li>
+<li>对分类任务，将全局特征通过mlp来预测最后的分类分数；对分割任务，将全局特征和之前学习到的各点云的局部特征进行串联，再通过mlp得到每个数据点的分类结果。</li>
+</ol>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220116234754228.png" alt="image-20220116234754228"></p>
+<h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
+<li>设计一种新的深度网络结构，适用于三维空间中的无序点集</li>
+<li>展示这样的网络如何执行三维形状分类、形状部分分割和场景语义解析任务</li>
+<li>对这种方法的稳定性和有效性进行深入的实证和理论分析</li>
+<li>举例说明网络中选定的神经元三维特征，研究其性能的直观解释</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>deep learning</tag>
+        <tag>Object Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RCNN</title>
+    <url>/2022/02/25/RCNN/</url>
+    <content><![CDATA[<p><strong>论文：<a href="https://openaccess.thecvf.com/content_cvpr_2014/html/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.html">CVPR 2014 Open Access Repository (thecvf.com)</a></strong></p>
+<span id="more"></span>
+
+<h2 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h2><h3 id="RCNN算法4个步骤"><a href="#RCNN算法4个步骤" class="headerlink" title="RCNN算法4个步骤"></a>RCNN算法4个步骤</h3><ol>
+<li>候选区域生成： 一张图像生成1K~2K个候选区域 （采用Selective Search 方法）</li>
+<li>特征提取： 对每个候选区域，使用深度卷积网络提取特征 （CNN）</li>
+<li>类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类</li>
+<li>位置精修： 使用回归器精细修正候选框位置</li>
+</ol>
+<h3 id="RCNN网络结构（三个模块）"><a href="#RCNN网络结构（三个模块）" class="headerlink" title="RCNN网络结构（三个模块）"></a>RCNN网络结构（三个模块）</h3><ol>
+<li>第一模块提出独立类别的区域建议，定义可供检测器使用的候选测试集</li>
+<li>第二模块大型卷积神经网络，从每个区域提取固定长度的特征向量</li>
+<li>第三模块一组特定类别的线性支持向量机</li>
+</ol>
+<h3 id="区域建议-region-proposals"><a href="#区域建议-region-proposals" class="headerlink" title="区域建议(region proposals)"></a>区域建议(region proposals)</h3><p>region proposals就是从图像中选取2k个候选区域的过程.</p>
+<p>现有的生成策略独立的region proposals： objectness, selective search ,category-independent object proposals , constrained parametric min-cuts (CPMC), multiscale combinatorial grouping </p>
+<p>在本篇论文中，作者使用<strong>selective search方法</strong></p>
+<p><strong>主要思想</strong>：</p>
 <ol>
-<li>使用预定义的稀疏注意力模式，最直接的范式就是将注意力模式限制到固定的局部窗口。而这种方法会丧失全局信息。为了补偿对全局信息的提取，可以增加关键元素的接受域，或是允许少量特殊令牌访问所有关键元素，或是添加一些预定义的稀疏注意模式，直接注意远处的关键元素</li>
-<li>学习数据依赖的稀疏注意力，基于注意力的局部敏感数据哈希算法，将查询和关键元素散列到不同的容器中，或是使用k-means找到最相关的关键元素，或是学习block-wise稀疏注意力的block排序</li>
-<li>探索自我注意力的低秩性质，通过尺寸维度而不是通道维度的线性投影来减少关键元素数量，或是通过内核化近似重新计算自注意力</li>
+<li>使用一种过分割手段，将图像分割成小区域 (1k~2k 个)</li>
+<li>查看现有小区域，按照合并规则合并可能性最高的相邻两个区域。重复直到整张图像合并成一个区域位置</li>
+<li>输出所有曾经存在过的区域，所谓候选区域</li>
 </ol>
-<p>本篇论文使用的可变性注意力是受可变性卷积启发，属于第二类，只关注从查询元素的特征中预测一个小的固定采样点集合。在相同FLOPS下，变形注意力要比传统卷积略慢。</p>
-<h2 id="目标检测的多尺度特征表示"><a href="#目标检测的多尺度特征表示" class="headerlink" title="目标检测的多尺度特征表示"></a>目标检测的多尺度特征表示</h2><p>在目标检测任务中，一张图像内真实对象的尺寸差别巨大，这也成为目标检测的一大困难。现代物体检测器通常利用多尺度特征来解决。FPN提出一个自顶向下路径融合多尺度特征；PANet进一步添加一条自底向上的路径到FPN顶部；或是结合通过一个全局注意力操作提取出的从所有尺寸中的特则；或是使用U型模型来融合多尺度特征。最近，NAS-FPN、Auto-FPN提出通过神经网络搜索自动设计交叉注意力联系；BiFPN是PANet的重复简化版本</p>
-<p>本篇论文使用多尺度可变性的注意力模块可以通过注意力机制自然的将多尺度特征累加起来，无需借助特征金字塔网络</p>
-<h2 id="Transformers中的多头检测"><a href="#Transformers中的多头检测" class="headerlink" title="Transformers中的多头检测"></a>Transformers中的多头检测</h2><p>Transformers是基于机器翻译的注意力机制的网络架构。为了使模型能够关注不同表示子空间和不同位置的内容，将不同注意力头的输出以可学习的权值线性聚合。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>DETR基于Transformer encoder-decoder框架，合并了set-based 匈牙利算法，通过二分图匹配，强制每一个ground-truth box都有唯一的预测结果（通过该算法找优化方向，哪个ground-truth由哪个slot负责）</p>
-<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><ol>
-<li>DETR训练周期长，到达收敛状态的时间长，初始化时，图上各个位置的权重相同，而在训练结束时，权重只集中在图像中出现物体的位置，这里权重的更新似乎需要经过很多轮训练才能达到收敛</li>
-<li>对小目标物体检测不友好，DETR使用多尺度特征处理小目标，而高分辨率的特征图会大大提高DETR复杂度</li>
+<p><strong>合并策略</strong>：优先合并以下四种区域：颜色（颜色直方图）相近的；纹理（梯度直方图）相近的；合并后总面积小的： 保证合并操作的尺度较为均匀，避免一个大区域陆续“吃掉”其他小区域；合并后，总面积在其BBOX中所占比例大的： 保证合并后形状规则。</p>
+<p>在具体的测试中，对于图像中的所有得分区域，我们应用贪婪的非最大抑制（对每个类独立）。如果该区域与得分高于学习阈值的选定区域有交叉合并（IoU）重叠，则拒绝该区域。</p>
+<p>由于所有CNN参数在所有类别中共享，并且与其他常见算法相比，CNN的特征向量是低维的。因此相比与诸如UVA检测系统，CNN网络计算区域建议和特征花费的时间与所耗内存都有极大的优化。并且RCNN可以扩展到数以千计的对象类，而无需借助近似技术。</p>
+<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><p>作者使用了Krizhevsky等人描述的CNN的<strong>Caffe</strong>实现，从每个区域提取一个<strong>4096维</strong>的特征向量，将一个图像去均值的227  × 227的RGB图像通过5个卷积层和2个完全连通层前向传播来计算特征。因此，必须先将该区域的图像数据转换为与CNN兼容的形式（无论候选区域大小或宽高比如何，直接转换为227*227大小,在warp前作者还会对box进行扩张,使得在wrap处的box中有p个像素）</p>
+<p>在实验中,作者发现RCNN可以扩展到数以千计的对象,而无需使用近似技术.</p>
+<h3 id="有监督预训练"><a href="#有监督预训练" class="headerlink" title="有监督预训练"></a>有监督预训练</h3><p>作者使用开源的Caffe CNN库来进行预训练.</p>
+<h3 id="特定领域微调fine-tuning"><a href="#特定领域微调fine-tuning" class="headerlink" title="特定领域微调fine-tuning"></a>特定领域微调fine-tuning</h3><p>为了使RCNN适应新的任务和新的领域，作者的随机梯度下降SGD训练的CNN参数仅来自于VOC数据集。分类器是随机初始化的21路分类层（VOC中的20个类与背景），其他CNN架构没有改变。</p>
+<p>分类器会将IoU大于等于0.5的 region proposals，视为积极的，其余则视为消极的。</p>
+<p>SGD学习率为0.001，并且在每次SGD迭代中，使用32个正样本，与96个背景样本，组成一个128大小的batch。同时为了使结果更好预测正样本，采样也偏向正样本。</p>
+<h3 id="对象类别分类"><a href="#对象类别分类" class="headerlink" title="对象类别分类"></a>对象类别分类</h3><p>作者在文章中用检测的汽车的例子，如果使用二分类器检测汽车，那么一个紧紧包围汽车的box是正例子，而与汽车无关的背景区域是反面例子。现在的问题在于，我们如何去标记一个部分包含汽车的例子。作者在此使用0.3的IoU阈值，只有大于0.3IoU的区域才是积极。作者同时强调，这个阈值的设置对整个算法结果的影响极大。</p>
+<p>同时为了解决训练数据过大的问题，作者使用standard hard negative mining method技术，该技术在实验中，只需要遍历所有图像一次就可以使mAP停止增长。</p>
+<blockquote>
+<p>standard hard negative mining method：</p>
+<p>用hard negative的样本反复训练，初始的样本保证一定的正负样本比例。在每次训练中，将预测为positive的负样本（即hard negative样本）加入负样本训练集中。</p>
+</blockquote>
+<p>作者在补充材料中说明了使用SVM作为分类器的原因，SVM与CNN对于正负样本的定义不同，导致CNN的分类效果不如SVM。</p>
+<h3 id="过滤器First-layerfilters"><a href="#过滤器First-layerfilters" class="headerlink" title="过滤器First-layerfilters"></a>过滤器First-layerfilters</h3><p>作者使用了一种简单的非参数的反卷积方法捕捉有方向的边缘和对立的颜色。</p>
+<p>主要思想：在网络中挑选出一个特定的单元（特征），并将其作为自身的对象检测i器。也就是，我们在一个大规模的held-out region proposals上计算单元的激活情况，并按得分由高到低排序，通过执行非极大值抑制nonmaximum suppression，使得被选中的区域“不言自明”。</p>
+<h3 id="pool5层"><a href="#pool5层" class="headerlink" title="pool5层"></a>pool5层</h3><p>pool5的 feature map是9216维（6×6×256）的，从实验结果来看仅使用pool5的效果不如加入fc6、fc7效果好。作者认为这是因为目标检测的过程中，一些经过分类调整的特征与形状、纹理、颜色等在全连接层处理过后会更好的将这些特征融合学习。</p>
+<p>fc6是pool5的全连接层，为了计算特征，它将4096×9216的权重矩阵乘以pool5的feature map，再添加一个偏差向量。</p>
+<p>而fc7则是将fc6的输出作为输入，乘以4096×4096的权重矩阵并添加一个偏差矩阵。</p>
+<p>作者还进行了多组对照实验得到了许多令人感到意外的结论：</p>
+<ol>
+<li>在不进行微调的情况下，fc7的结果反而不如fc6，这表明了在不降低mAP的情况下有29%的CNN参数可以被去除。并且去除了两个全连接层的结果也是可以接受的，需要注意的是，此时只使用pool5（即仅6%的参数）。说明对目标检测结果有效的参数大多数来源于卷积层，而不是全连接层。</li>
+<li>进行微调的情况下，微调普遍使实验结果提高了8%，并且在全连接层上的微调要比在pool5上的微调更有效果。这说明pool5学习的特征是通用的，微调的大部分改进是通过学习特定领域的非线性分类器获得的。</li>
 </ol>
-<h2 id="关键过程"><a href="#关键过程" class="headerlink" title="关键过程"></a>关键过程</h2><ol>
-<li>通过CNN骨干网络将输入特征提取出来。DETR利用标准的Transformer编码器-解码器体系结构将输入特征映射转换为一组对象查询的特征。在目标查询特征(由解码器产生)上添加一个三层前馈神经网络(FFN)和一个线性投影作为检测头。</li>
-<li>对于DETR的编码器，查询和关键元素都是特征图中的像素。编码器输入是ReaNet特征图，自注意的计算复杂度为O(h^2w^2c)，随空间大小呈二次型增长。</li>
-<li>对于DETR解码器，输入包括编码器中的特征图和N个由可学习位置嵌入表示的对象查询。解码器中存在两类注意模块，即<strong>交叉注意模块</strong>和<strong>自我注意模块</strong>。在交叉注意模块中，对象查询从特征映射中提取特征。查询元素是对象查询的元素，关键元素是编码器的输出特征映射的元素。复杂度随特征映射的空间大小呈线性增长。在自注意模块中，对象查询相互交互，以捕获它们之间的关系。查询和关键元素都是对象查询。因此，对于适度数量的对象查询，复杂性是可以接受的。</li>
+<h3 id="边界框回归"><a href="#边界框回归" class="headerlink" title="边界框回归"></a>边界框回归</h3><p>作者通过训练一个线性回归模型来预测一个新的检测窗口，用于selective search的区域建议。</p>
+<h2 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h2><p>这篇论文首次表明，与基于更简单的hog特征的系统相比，CNN可以在PASCAL VOC上带来更高的对象检测性能。并且主要解决一下两个问题</p>
+<ol>
+<li>将高容量卷积神经网络(cnn)应用于<strong>自底向上的区域</strong>建议，以定位和分割对象</li>
 </ol>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220119220603117.png" alt="image-20220119220603117"></p>
-<h2 id="端到端适用于目标检测的可变性transformers模型"><a href="#端到端适用于目标检测的可变性transformers模型" class="headerlink" title="端到端适用于目标检测的可变性transformers模型"></a>端到端适用于目标检测的可变性transformers模型</h2><p>模型使用ResNet-50作预训练</p>
-<h2 id="可变性注意力模块"><a href="#可变性注意力模块" class="headerlink" title="可变性注意力模块"></a>可变性注意力模块</h2><p>不同于传统注意力模块注意图像中的所有位置，可变性注意力模块只关注参考点周围一小组关键采样点，无需考虑特征图的空间大小，即为每个查询只分配少量固定数量的关键点。<br>$$<br>DeformAttn(z_q,p_q,x)&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^K_{k&#x3D;1}A_{mqk}\times W^{‘}<em>mx(p_q+\Delta p</em>{mqk})],<br>$$<br>输入特征是C×H×W维的；q表示具有Zq个上下文特征、二维参考点Pq的查询元素；m表示注意力头；k表示采样的关键点的索引，K为采样关键点的总数，Δp和A分别为检测头的采样偏移量和权重</p>
-<h2 id="多尺度可变性注意力模块"><a href="#多尺度可变性注意力模块" class="headerlink" title="多尺度可变性注意力模块"></a>多尺度可变性注意力模块</h2><p>$$<br>MSDeformAttn(z_q,\hat{p_q},{x^l}^L_{l&#x3D;1})&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^L_{l&#x3D;1}\sum^K_{k&#x3D;1}A_{mlqk}\times W^{‘}<em>m x^l (\phi_l(\hat{p_q})+\Delta p</em>{mlqk})],<br>$$</p>
-<p>x是多尺度特征输入图，l是输入特征的等级，k为采样点。多尺度变形注意与之前的单尺度版本非常相似，不同的是它从多尺度特征映射中采样LK点，而不是从单尺度特征映射中采样K点。Φ将归一化坐标重新转换为第l层的特征图。</p>
-<p>可变形卷积是为单尺度输入而设计的，每个注意力头只关注一个采样点。然而，多尺度变形注意从多尺度输入中查看多个采样点。所提出的(多尺度)可变形注意模块也可以被视为Transformer注意的有效变体，其中可变形采样位置引入了<strong>预滤波机制</strong>（预先过滤不重要的点，降低计算复杂度）。当采样点遍历所有可能的位置时，所提出的注意模块相当于Transformer注意。</p>
-<h2 id="可变性transformer编码器"><a href="#可变性transformer编码器" class="headerlink" title="可变性transformer编码器"></a>可变性transformer编码器</h2><p>我们用提出的多尺度可变形注意模块替换DETR中的Transformer注意模块处理特征映射。该编码器的输入和输出都是具有相同分辨率的多尺度特征图。关键元素和查询元素都是多尺度特征图中的像素。对于每个查询像素，参考点就是它本身。为了确定每个查询像素所处的特征级别，除了位置嵌入之外，我们还在特征表示中添加了尺度级嵌入(记作el)。与固定编码的位置嵌入不同，尺度级嵌入{el}Ll&#x3D;1是随机初始化并与网络联合训练的。可变形变压器编码器的参数在不同的特征层之间共享。</p>
-<h2 id="可变性transformer解码器"><a href="#可变性transformer解码器" class="headerlink" title="可变性transformer解码器"></a>可变性transformer解码器</h2><p>解码器中存在交叉注意模块和自注意模块。两种类型的注意模块的查询元素都是对象查询。在交叉注意模块中，对象查询从特征映射中提取特征，其中关键元素是编码器的输出特征映射。在自注意模块中，对象查询相互交互，其中的关键元素是对象查询。（这里和DETR网络相似）由于提出的变形注意模块是为处理卷积特征映射作为关键元素而设计的，所以只将每个交叉注意模块替换为多尺度变形注意模块，而保持自我注意模块不变。</p>
-<p>由于多尺度可变形注意模块提取参考点周围的图像特征，通过让检测头相对于参考点的偏移量预测边界盒，可以进一步降低优化难度。</p>
-<p>通过将DETR中的Transformer注意模块替换为可变形注意模块，建立了一个高效、快速收敛的检测系统，称为可变形DETR</p>
-<h2 id="迭代边界框优化"><a href="#迭代边界框优化" class="headerlink" title="迭代边界框优化"></a>迭代边界框优化</h2><p>为了提高检测性能，作者建立了一种简单有效的迭代边界盒优化机制。这里，每个解码器层都根据前一层的预测来细化边界框。</p>
-<h2 id="两阶段可变性DETR"><a href="#两阶段可变性DETR" class="headerlink" title="两阶段可变性DETR"></a>两阶段可变性DETR</h2><p>在原始DETR中，解码器中的对象查询与当前图像无关。作者使用两阶段目标检测思想，第一阶段使用可变性DETR生成区域建议，生成的区域建议将作为对象查询提供给解码器以进一步细化，形成一个两阶段的可变形DETR。</p>
-<p>在第一阶段，为了实现高召回建议，多尺度特征图中的每个像素都将作为对象查询。然而，直接将对象查询设置为像素会给解码器中的自注意模块带来不可接受的计算和内存开销。为了避免这个问题，去掉了解码器，并形成了一个只有编码器的可变形DETR来生成区域建议。即每个像素被赋值为一个对象查询，直接预测一个边界框。得分最高的边界框被选为区域建议。在将区域建议提交到第二阶段之前，不应用NMS。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220120132237764.png" alt="image-20220120132237764"></p>
+<p>其中为了定位物体localizing onbject，传统方法一是使用回归方法（但是在实践中的表现并不好），二是构建滑动窗口检测器（但是由于网络中接受域与step过大，图像的精确定位存在困难）</p>
+<p>因此作者使用“区域识别”模式解决CNN定位问题。在实验中，作者的方法会先将输入图像划分为2k个类别无关的区域，使用CNN从每个区域提取固定长度的特征向量，然后使用类别特定的线性支持向量机SVM对每个区域进行分类</p>
+<ol start="2">
+<li>当标注的训练数据稀缺时，对辅助任务进行有监督的预训练，然后进行领域特定的微调，可以产生显著的性能提升。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>deep learning</tag>
+        <tag>Object Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/02/25/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
 </search>
