@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="论文：[2010.04159] Deformable DETR: Deformable Transformers for End-to-End Object Detection (arxiv.org)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nanaiii blog">
+<meta property="og:url" content="http://example.com/2022/03/04/DETR/index.html">
+<meta property="og:site_name" content="nanaiii blog">
+<meta property="og:description" content="论文：[2010.04159] Deformable DETR: Deformable Transformers for End-to-End Object Detection (arxiv.org)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220119220603117.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220120132237764.png">
+<meta property="article:published_time" content="2022-03-04T00:44:59.000Z">
+<meta property="article:modified_time" content="2022-03-04T00:46:50.788Z">
+<meta property="article:author" content="nanaiii">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220119220603117.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/04/DETR/"/>
+
+
+
+
+
+  <title> | nanaiii blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nanaiii blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/DETR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nanaiii blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-04T08:44:59+08:00">
+                2022-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/03/04/DETR/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/03/04/DETR/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>论文：[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.04159">2010.04159] Deformable DETR: Deformable Transformers for End-to-End Object Detection (arxiv.org)</a></p>
+<span id="more"></span>
+<h1 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h1><h2 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h2><p>注意力机制可以理解为，计算机视觉系统在模拟人类视觉系统中可以迅速高效地关注到重点区域的特性。<br>$$<br>Attention&#x3D;f(g(x),x)<br>$$<br>g(x)表示对输入特征进行处理并产生注意力的过程，f(g(x),x)表示结合注意力对输入特征进行处理的过程</p>
+<p>self-attention模型：<br>$$<br>Q,K,V&#x3D;Linear(x)\<br>g(x)&#x3D;Softmax(QK)\<br>f(g(x),x)&#x3D;g(x)V<br>$$<br>senet模型:<br>$$<br>g(x)&#x3D;Sigmoid(MLP(GAP(x)))\<br>f(g(x),x)&#x3D;g(x)x<br>$$</p>
+<p>注意力又可以细分为：通道注意力、空间注意力、时间注意力、分支注意力以及两种组合注意力：通道-空间注意力、空间-时间注意力</p>
+<p><strong>通道注意力：</strong>将输入的特征图，经过<strong>基于宽度与高度</strong>的global max pooling 和global average pooling，然后分别经过MLP。将MLP输出的特征进行基于element-wise的加和操作，再经过sigmoid激活操作，生成最终的channel attention featuremap。将该channel attention featuremap和input featuremap做element-wise乘法操作，生成Spatial attention模块需要的输入特征。</p>
+<p><strong>空间注意力：</strong>将Channel attention模块输出的特征图作为本模块的输入特征图。首先做一个<strong>基于channel</strong>的global max pooling 和global average pooling，然后将这2个结果基于channel 做concat操作。然后经过一个卷积操作，降维为1个channel。再经过sigmoid生成spatial attention feature。最后将该feature和该模块的输入feature做乘法，得到最终生成的特征。</p>
+<p>Transformers网络包含self-attention和cross-attention机制，其主要的问题是时间开销、内存开销过高。现有许多思路来解决这个问题</p>
+<ol>
+<li>使用预定义的稀疏注意力模式，最直接的范式就是将注意力模式限制到固定的局部窗口。而这种方法会丧失全局信息。为了补偿对全局信息的提取，可以增加关键元素的接受域，或是允许少量特殊令牌访问所有关键元素，或是添加一些预定义的稀疏注意模式，直接注意远处的关键元素</li>
+<li>学习数据依赖的稀疏注意力，基于注意力的局部敏感数据哈希算法，将查询和关键元素散列到不同的容器中，或是使用k-means找到最相关的关键元素，或是学习block-wise稀疏注意力的block排序</li>
+<li>探索自我注意力的低秩性质，通过尺寸维度而不是通道维度的线性投影来减少关键元素数量，或是通过内核化近似重新计算自注意力</li>
+</ol>
+<p>本篇论文使用的可变性注意力是受可变性卷积启发，属于第二类，只关注从查询元素的特征中预测一个小的固定采样点集合。在相同FLOPS下，变形注意力要比传统卷积略慢。</p>
+<h2 id="目标检测的多尺度特征表示"><a href="#目标检测的多尺度特征表示" class="headerlink" title="目标检测的多尺度特征表示"></a>目标检测的多尺度特征表示</h2><p>在目标检测任务中，一张图像内真实对象的尺寸差别巨大，这也成为目标检测的一大困难。现代物体检测器通常利用多尺度特征来解决。FPN提出一个自顶向下路径融合多尺度特征；PANet进一步添加一条自底向上的路径到FPN顶部；或是结合通过一个全局注意力操作提取出的从所有尺寸中的特则；或是使用U型模型来融合多尺度特征。最近，NAS-FPN、Auto-FPN提出通过神经网络搜索自动设计交叉注意力联系；BiFPN是PANet的重复简化版本</p>
+<p>本篇论文使用多尺度可变性的注意力模块可以通过注意力机制自然的将多尺度特征累加起来，无需借助特征金字塔网络</p>
+<h2 id="Transformers中的多头检测"><a href="#Transformers中的多头检测" class="headerlink" title="Transformers中的多头检测"></a>Transformers中的多头检测</h2><p>Transformers是基于机器翻译的注意力机制的网络架构。为了使模型能够关注不同表示子空间和不同位置的内容，将不同注意力头的输出以可学习的权值线性聚合。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>DETR基于Transformer encoder-decoder框架，合并了set-based 匈牙利算法，通过二分图匹配，强制每一个ground-truth box都有唯一的预测结果（通过该算法找优化方向，哪个ground-truth由哪个slot负责）</p>
+<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><ol>
+<li>DETR训练周期长，到达收敛状态的时间长，初始化时，图上各个位置的权重相同，而在训练结束时，权重只集中在图像中出现物体的位置，这里权重的更新似乎需要经过很多轮训练才能达到收敛</li>
+<li>对小目标物体检测不友好，DETR使用多尺度特征处理小目标，而高分辨率的特征图会大大提高DETR复杂度</li>
+</ol>
+<h2 id="关键过程"><a href="#关键过程" class="headerlink" title="关键过程"></a>关键过程</h2><ol>
+<li>通过CNN骨干网络将输入特征提取出来。DETR利用标准的Transformer编码器-解码器体系结构将输入特征映射转换为一组对象查询的特征。在目标查询特征(由解码器产生)上添加一个三层前馈神经网络(FFN)和一个线性投影作为检测头。</li>
+<li>对于DETR的编码器，查询和关键元素都是特征图中的像素。编码器输入是ReaNet特征图，自注意的计算复杂度为O(h^2w^2c)，随空间大小呈二次型增长。</li>
+<li>对于DETR解码器，输入包括编码器中的特征图和N个由可学习位置嵌入表示的对象查询。解码器中存在两类注意模块，即<strong>交叉注意模块</strong>和<strong>自我注意模块</strong>。在交叉注意模块中，对象查询从特征映射中提取特征。查询元素是对象查询的元素，关键元素是编码器的输出特征映射的元素。复杂度随特征映射的空间大小呈线性增长。在自注意模块中，对象查询相互交互，以捕获它们之间的关系。查询和关键元素都是对象查询。因此，对于适度数量的对象查询，复杂性是可以接受的。</li>
+</ol>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220119220603117.png" alt="image-20220119220603117"></p>
+<h2 id="端到端适用于目标检测的可变性transformers模型"><a href="#端到端适用于目标检测的可变性transformers模型" class="headerlink" title="端到端适用于目标检测的可变性transformers模型"></a>端到端适用于目标检测的可变性transformers模型</h2><p>模型使用ResNet-50作预训练</p>
+<h2 id="可变性注意力模块"><a href="#可变性注意力模块" class="headerlink" title="可变性注意力模块"></a>可变性注意力模块</h2><p>不同于传统注意力模块注意图像中的所有位置，可变性注意力模块只关注参考点周围一小组关键采样点，无需考虑特征图的空间大小，即为每个查询只分配少量固定数量的关键点。<br>$$<br>DeformAttn(z_q,p_q,x)&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^K_{k&#x3D;1}A_{mqk}\times W^{‘}<em>mx(p_q+\Delta p</em>{mqk})],<br>$$<br>输入特征是C×H×W维的；q表示具有Zq个上下文特征、二维参考点Pq的查询元素；m表示注意力头；k表示采样的关键点的索引，K为采样关键点的总数，Δp和A分别为检测头的采样偏移量和权重</p>
+<h2 id="多尺度可变性注意力模块"><a href="#多尺度可变性注意力模块" class="headerlink" title="多尺度可变性注意力模块"></a>多尺度可变性注意力模块</h2><p>$$<br>MSDeformAttn(z_q,\hat{p_q},{x^l}^L_{l&#x3D;1})&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^L_{l&#x3D;1}\sum^K_{k&#x3D;1}A_{mlqk}\times W^{‘}<em>m x^l (\phi_l(\hat{p_q})+\Delta p</em>{mlqk})],<br>$$</p>
+<p>x是多尺度特征输入图，l是输入特征的等级，k为采样点。多尺度变形注意与之前的单尺度版本非常相似，不同的是它从多尺度特征映射中采样LK点，而不是从单尺度特征映射中采样K点。Φ将归一化坐标重新转换为第l层的特征图。</p>
+<p>可变形卷积是为单尺度输入而设计的，每个注意力头只关注一个采样点。然而，多尺度变形注意从多尺度输入中查看多个采样点。所提出的(多尺度)可变形注意模块也可以被视为Transformer注意的有效变体，其中可变形采样位置引入了<strong>预滤波机制</strong>（预先过滤不重要的点，降低计算复杂度）。当采样点遍历所有可能的位置时，所提出的注意模块相当于Transformer注意。</p>
+<h2 id="可变性transformer编码器"><a href="#可变性transformer编码器" class="headerlink" title="可变性transformer编码器"></a>可变性transformer编码器</h2><p>我们用提出的多尺度可变形注意模块替换DETR中的Transformer注意模块处理特征映射。该编码器的输入和输出都是具有相同分辨率的多尺度特征图。关键元素和查询元素都是多尺度特征图中的像素。对于每个查询像素，参考点就是它本身。为了确定每个查询像素所处的特征级别，除了位置嵌入之外，我们还在特征表示中添加了尺度级嵌入(记作el)。与固定编码的位置嵌入不同，尺度级嵌入{el}Ll&#x3D;1是随机初始化并与网络联合训练的。可变形变压器编码器的参数在不同的特征层之间共享。</p>
+<h2 id="可变性transformer解码器"><a href="#可变性transformer解码器" class="headerlink" title="可变性transformer解码器"></a>可变性transformer解码器</h2><p>解码器中存在交叉注意模块和自注意模块。两种类型的注意模块的查询元素都是对象查询。在交叉注意模块中，对象查询从特征映射中提取特征，其中关键元素是编码器的输出特征映射。在自注意模块中，对象查询相互交互，其中的关键元素是对象查询。（这里和DETR网络相似）由于提出的变形注意模块是为处理卷积特征映射作为关键元素而设计的，所以只将每个交叉注意模块替换为多尺度变形注意模块，而保持自我注意模块不变。</p>
+<p>由于多尺度可变形注意模块提取参考点周围的图像特征，通过让检测头相对于参考点的偏移量预测边界盒，可以进一步降低优化难度。</p>
+<p>通过将DETR中的Transformer注意模块替换为可变形注意模块，建立了一个高效、快速收敛的检测系统，称为可变形DETR</p>
+<h2 id="迭代边界框优化"><a href="#迭代边界框优化" class="headerlink" title="迭代边界框优化"></a>迭代边界框优化</h2><p>为了提高检测性能，作者建立了一种简单有效的迭代边界盒优化机制。这里，每个解码器层都根据前一层的预测来细化边界框。</p>
+<h2 id="两阶段可变性DETR"><a href="#两阶段可变性DETR" class="headerlink" title="两阶段可变性DETR"></a>两阶段可变性DETR</h2><p>在原始DETR中，解码器中的对象查询与当前图像无关。作者使用两阶段目标检测思想，第一阶段使用可变性DETR生成区域建议，生成的区域建议将作为对象查询提供给解码器以进一步细化，形成一个两阶段的可变形DETR。</p>
+<p>在第一阶段，为了实现高召回建议，多尺度特征图中的每个像素都将作为对象查询。然而，直接将对象查询设置为像素会给解码器中的自注意模块带来不可接受的计算和内存开销。为了避免这个问题，去掉了解码器，并形成了一个只有编码器的可变形DETR来生成区域建议。即每个像素被赋值为一个对象查询，直接预测一个边界框。得分最高的边界框被选为区域建议。在将区域建议提交到第二阶段之前，不应用NMS。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220120132237764.png" alt="image-20220120132237764"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/04/Faster-RCNN/" rel="next" title="Faster-RCNN">
+                <i class="fa fa-chevron-left"></i> Faster-RCNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前人的工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">注意力机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E5%A4%9A%E5%B0%BA%E5%BA%A6%E7%89%B9%E5%BE%81%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">目标检测的多尺度特征表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformers%E4%B8%AD%E7%9A%84%E5%A4%9A%E5%A4%B4%E6%A3%80%E6%B5%8B"><span class="nav-number">1.3.</span> <span class="nav-text">Transformers中的多头检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.</span> <span class="nav-text">存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">关键过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E9%80%82%E7%94%A8%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E5%8F%AF%E5%8F%98%E6%80%A7transformers%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">端到端适用于目标检测的可变性transformers模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">可变性注意力模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%B0%BA%E5%BA%A6%E5%8F%AF%E5%8F%98%E6%80%A7%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="nav-number">2.3.</span> <span class="nav-text">多尺度可变性注意力模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%80%A7transformer%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">可变性transformer编码器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%80%A7transformer%E8%A7%A3%E7%A0%81%E5%99%A8"><span class="nav-number">2.5.</span> <span class="nav-text">可变性transformer解码器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E8%BE%B9%E7%95%8C%E6%A1%86%E4%BC%98%E5%8C%96"><span class="nav-number">2.6.</span> <span class="nav-text">迭代边界框优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%8F%AF%E5%8F%98%E6%80%A7DETR"><span class="nav-number">2.7.</span> <span class="nav-text">两阶段可变性DETR</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">实验结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+<!-- 
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+ -->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://example.com/2022/03/04/DETR/';
+          this.page.identifier = '2022/03/04/DETR/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
