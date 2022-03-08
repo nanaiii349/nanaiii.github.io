@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="deep learning,Object Detection," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="论文：Sensors | Free Full-Text | SECOND: Sparsely Embedded Convolutional Detection (mdpi.com)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="second">
+<meta property="og:url" content="http://example.com/2022/03/08/second/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="论文：Sensors | Free Full-Text | SECOND: Sparsely Embedded Convolutional Detection (mdpi.com)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220111213034747.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112105038074.png">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-40a7e08f7a00a6e25ac4ff33a25fb849_1440w.jpg">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112212134401.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112220946220.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112222654032.png">
+<meta property="article:published_time" content="2022-03-08T12:54:12.000Z">
+<meta property="article:modified_time" content="2022-03-08T13:03:37.622Z">
+<meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="Object Detection">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220111213034747.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/08/second/"/>
+
+
+
+
+
+  <title>second | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/second/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">second</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-08T20:54:12+08:00">
+                2022-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>论文：<a target="_blank" rel="noopener" href="https://www.mdpi.com/1424-8220/18/10/3337">Sensors | Free Full-Text | SECOND: Sparsely Embedded Convolutional Detection (mdpi.com)</a></p>
+<span id="more"></span>
+<h1 id="前人贡献"><a href="#前人贡献" class="headerlink" title="前人贡献"></a>前人贡献</h1><p>使用<strong>RGB-D数据</strong>的二维表示的方法分为基于鸟瞰图、基于前景两种。</p>
+<h2 id="Front-View-and-Image-Based-Methods"><a href="#Front-View-and-Image-Based-Methods" class="headerlink" title="Front-View- and Image-Based Methods"></a>Front-View- and Image-Based Methods</h2><p>在一般的<strong>基于图像</strong>的方法中，先生成二维box类语义、实例语义，再使用手工方法生成特征图。另一种方法使用CNN从图像中估计3Dbox，并使用专门设计的离散连续CNN估计物体运动方向。</p>
+<p>对于基于激光雷达数据的方法包括将点云转换为前景的2D map，并应用2D探测器对前景视图中的图像进行定位、和其他方法相比，这些方法在BEV检测和三维检测方面都做得很差。</p>
+<p>代表论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2017/html/Mousavian_3D_Bounding_Box_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a>、[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1608.07916">1608.07916] Vehicle Detection from 3D Lidar Using Fully Convolutional Network (arxiv.org)</a></p>
+<h2 id="Bird’s-Eye-View-Based-Methods"><a href="#Bird’s-Eye-View-Based-Methods" class="headerlink" title="Bird’s-Eye-View-Based Methods"></a>Bird’s-Eye-View-Based Methods</h2><p>这种方法将点云数据转换为<strong>多个切片</strong>得到height maps（按不同高度划分），再将height maps与intensity map、density map 结合得到多通道特征。这种方法的问题是在生成BEV图时，许多数据点被丢弃，导致垂直轴上信息损失很大，这种信息丢失会严重影响在3Dbox回归中的性能</p>
+<p>如MV3D（首个将点云数据转换为BEV的方法）；ComplexYOLO使用YOLO网络和复杂角度编码方法来提高速度和定位性能、但在预测3D边界框时只能固定高度）；</p>
+<p>代表文章：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPRW_2019/html/WAD/Simon_Complexer-YOLO_Real-Time_3D_Object_Detection_and_Tracking_on_Semantic_Point_CVPRW_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a>、<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPRW_2019/html/WAD/Simon_Complexer-YOLO_Real-Time_3D_Object_Detection_and_Tracking_on_Semantic_Point_CVPRW_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a></p>
+<h2 id="3D-Based-Methods"><a href="#3D-Based-Methods" class="headerlink" title="3D-Based Methods"></a>3D-Based Methods</h2><p>多数的3D-based方法或者<strong>直接使用</strong>点云数据、或者将数据转换为3Dvoxel（而不是BEV），然后采用一种<strong>卷积式的投票算法</strong>进行检测。这种方法利用点云数据的稀疏性，以特征中心的投票方案提高计算速度。但是是使用<strong>手工制作</strong>特征方式，无法适应自动驾驶的复杂环境。</p>
+<p>之后又有人提出使用<strong>CNN网络、k-领域</strong>等方法从点云中学习局部空间信息。但是这些方法不能应用于大规模的点，需要用图像检测结果对原始数据点进行滤波。</p>
+<p>CNN网络应用到点云也是目前的研究热门，其基本思想是基于CNN的检测器将点云转换为voxel，有下列一些方向：</p>
+<ol>
+<li>将点云数据离散为二值的voxel，然后进行三维卷积</li>
+<li>将点云数据分组为voxel，提取voxel特征，再将这些特征转换为密集张量，利用3D或2D卷积网络进行处理</li>
+</ol>
+<p>这种方法的主要问题是3D CNN的高计算成本，而且3D CNN的计算复杂度随着voxel分辨率的增加而增加。因此，使用稀疏结构的卷积网络会降低计算复杂度。而 <a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2018/html/Graham_3D_Semantic_Segmentation_CVPR_2018_paper.html">CVPR 2018 Open Access Repository (thecvf.com)</a>提出了一种空间结构不变的3D CNN。这种网络已经应用于三维语义分割任务，但是还没有利用稀疏卷积进行检测的方法。</p>
+<p>代表论文：[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1505.02890">1505.02890] Sparse 3D convolutional neural networks (arxiv.org)</a>、<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2018/html/Graham_3D_Semantic_Segmentation_CVPR_2018_paper.html">CVPR 2018 Open Access Repository (thecvf.com)</a></p>
+<h2 id="Fusion-Based-Methods"><a href="#Fusion-Based-Methods" class="headerlink" title="Fusion-Based Methods"></a>Fusion-Based Methods</h2><p>这种方法将<strong>相机图像与点云</strong>相结合。</p>
+<ol>
+<li>使用3维的RPN两个尺度不同的接受域产生三维proposal，然后将每个三维proposal的深度数据反馈到三维CNN并且将相应的二维的颜色补充到二维CNN网络来预测最终结果。</li>
+<li>将点云数据转换为一个正视图和一个BEV，再从这两个图中提取特征图与图像特征图融合。但是它含有三个CNN网络并不适用于小心对象</li>
+<li>将图像与BEV结合，使用一种新的结构生成高分辨率的特征图的三位对象proposal</li>
+<li>使用二维检测结果过滤点云，PointNet就可以应用于三维box</li>
+</ol>
+<p>这些方法需要处理大量的数据，因此基于融合的方法运行缓慢。并且它对激光雷达的时间同步和校准摄像机的额外要求限制这种方法的使用环境，降低了鲁棒性。</p>
+<p>代表论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2017/html/Chen_Multi-View_3D_Object_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><h2 id="SECOND-Detector"><a href="#SECOND-Detector" class="headerlink" title="SECOND Detector"></a>SECOND Detector</h2><p>SECOND Detector以原始点云作为输入，将其转换为voxel特征和坐标，并应用两个VFE层和一个线性层。然后使用稀疏CNN。最后应用RPN生成检测结果。</p>
+<p><img src="/%5Cimages%5Cimage-20220111213034747.png" alt="image-20220111213034747"></p>
+<p> 作者的Point Cloud Grouping、Voxel-wise Feature Extractor与VoxelNet的处理相同此处便不再赘述。</p>
+<h3 id="稀疏卷积网络"><a href="#稀疏卷积网络" class="headerlink" title="稀疏卷积网络"></a>稀疏卷积网络</h3><p>作者的主要改进体现在引入了<strong>稀疏卷积网络</strong>，替代voxelNet中的三维卷积提取特征图。常规的稀疏卷积是如果没有相关的输入点，则不计算输出点。子簇卷积（常规卷积网络的替代）限制当且仅当相应的输入位置处于活动状态是，输出位置才处于活动状态，这可以避免生成过多的活动点，提升卷积速度。</p>
+<h3 id="稀疏卷积算法"><a href="#稀疏卷积算法" class="headerlink" title="稀疏卷积算法"></a>稀疏卷积算法</h3><ol>
+<li><p>将稀疏的<strong>输入特征</strong>通过gather操作获得<strong>密集的gather特征；</strong></p>
+</li>
+<li><p>然后使用GEMM对<strong>密集的gather特征</strong>进行卷积操作，获得<strong>密集的输出特征；</strong></p>
+</li>
+<li><p>通过预先构建的<strong>输入-输出索引规则矩阵</strong>，将<strong>密集的输出特征</strong>映射到<strong>稀疏的输出特征</strong>。</p>
+</li>
+</ol>
+<p><img src="/%5Cimages%5Cimage-20220112105038074.png" alt="image-20220112105038074"></p>
+<p>二维密集卷积算法中，W表示过滤元素，D表示图像元素。函数P(x,y)需要根据输出位置来计算输入位置。因此，卷积输出Y计算如下：<br>$$</p>
+
+Y_{x,y,m}=\sum_{u,v\in P(x,y)}{\sum_{l}{W_{u-u_0,v-v_0,l,m}D_{u,v,l} } }\quad(1)
+
+<p>$$<br>基于<strong>矩阵乘法GEMM算法</strong>可用于收集全部用于构建矩阵的数据，并执行GEMM本身。<br>$$</p>
+
+Y_{x,y,m}={\sum_{l}{W_{*,l,m}\tilde{D}_{P(x,y),l} } }\quad(2)
+{% rendrawaw %}
+<p>$$<br>此处的W与上式的W相同，只是<strong>使用GEMM形式</strong>。对于稀疏数据D‘和相关联的输出Y’直接计算算法如下：<br>$$</p>
+{% raw %}
+Y_{x,y,m}=\sum_{i\in P'(j)}{\sum_{l}{W_{k,l,m}D'_{i,l} } }\quad(3)
+{% endraw %}
+<p>$$<br>其中p‘是获取输入索引和滤波器偏移量的函数。<strong>基于GEMM的版本</strong>为<br>$$</p>
+{% raw %}
+Y’_{j,m}={\sum_{l}{W_{*,l,m}\tilde{D'}_{P'(j),l} } }\quad(4)
+{% endraw %}
+<p>$$<br>因为D’中含有大量的零不用参与计算，因此引入<strong>规则矩阵R</strong>，指定输入索引i给出核偏移量k和输出索引j，公式如下：<br>$$</p>
+{% raw %}
+Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
+{% endraw %}
+<p>$$<br>而5式的inner sum无法通过GEMM的计算，因此还需要收集足够的数据构建矩阵来执行GEMM，再将数据分散回去。实际中可以利用预先构造的<strong>输入-输出索引规则矩阵</strong>从原始稀疏矩阵数据中收集数据</p>
+<h3 id="生成规则算法"><a href="#生成规则算法" class="headerlink" title="生成规则算法"></a>生成规则算法</h3><p>常见的哈希表规则生成算法是基于CPU的，速度较慢，并且需要再CPU和GPU间进行数据传输。另一种方法是<strong>迭代输入点</strong>，找到每个输入点相关的输出，并将相应的索引存储到规则中。在迭代的过程中，需要使用一张表检查每个输出位置的存在性以决定是否使用全局输出索引计数器来累加数据，这也是制约并行计算在算法中使用的最大挑战。</p>
+<p>作者设计了一种<strong>基于GPU的规则生成算法</strong>。</p>
+<ol>
+<li><strong>收集输入的索引和对应的空间索引</strong>而非输出索引（此阶段会重复获得输出索引）</li>
+<li>在空间索引数据上使用一种独特的<strong>并行算法</strong>，以获得输出索引以及相关的空间索引。</li>
+<li>根据前两步的结果生成一个<strong>与稀疏数据空间维度相同的缓冲区</strong>，用于下一步的表查找</li>
+<li>对规则进行<strong>迭代</strong>，并使用存储的空间索引来获取每个输入索引的输出索引。</li>
+</ol>
+<p><img src="https://pic2.zhimg.com/80/v2-40a7e08f7a00a6e25ac4ff33a25fb849_1440w.jpg" alt="img"></p>
+<h3 id="稀疏卷积中间提取器"><a href="#稀疏卷积中间提取器" class="headerlink" title="稀疏卷积中间提取器"></a>稀疏卷积中间提取器</h3><p>中间提取器用于学习z轴信息，并将稀疏的三维数据转换为二维BEV图像。它包含了稀疏卷积的两个阶段。每个阶段都有几个子流形卷积层和一个正常的稀疏卷积，用于在z轴进行下采样。在 z 维被下采样到一维或二维后，稀疏数据被转换为密集特征图。 然后，将数据简单地重新整形为类似图像的 2D 数据。</p>
+<p><img src="/%5Cimages%5Cimage-20220112212134401.png" alt="image-20220112212134401"></p>
+<blockquote>
+<p>黄色表示稀疏卷积，白色表示子流形卷积，红色表示稀疏到密集层，图的上半部分是稀疏数据的空间维数。</p>
+</blockquote>
+<h3 id="Anchors与目标"><a href="#Anchors与目标" class="headerlink" title="Anchors与目标"></a>Anchors与目标</h3><p>作者的anchor size与<strong>VoxelNet</strong>中anchor size，对正负锚点的阈值选择都是一样。作者同时为每个锚点分配一个以分类为目标的one-hot向量、一个边界框回归为目标的7维向量、一个以方向分类为目标的one-hot向量。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><h3 id="Sine-Error-Loss-for-Angle-Regression（方向回归）"><a href="#Sine-Error-Loss-for-Angle-Regression（方向回归）" class="headerlink" title="Sine-Error Loss for Angle Regression（方向回归）"></a>Sine-Error Loss for Angle Regression（方向回归）</h3><p>作者在RPN中增加了一个direction classifer分支，将车头是否区分正确直接通过一个softmax loss来进行约束。如果θ&gt;0则为正，θ&lt;0则为负，将其转换为了一个简单的二分类问题。<br>$$<br>L_{\theta}&#x3D;SmoothL1(\sin{(\theta_p-\theta_t)})<br>$$</p>
+<p>它可以很好的解决0和Π两个角度的对抗样本问题，也可以根据角度偏移对IoU进行建模。</p>
+<h3 id="Focal-Loss-for-Classification"><a href="#Focal-Loss-for-Classification" class="headerlink" title="Focal Loss for Classification"></a>Focal Loss for Classification</h3><p>该网络产生的约70k个锚点中，只有约4k~6k是有用的。作者引入RetinaNet中的单级损失single-stage loss，即focal loss<br>$$<br>FL(p_t)&#x3D;-\alpha_t(1-p_t)^{\gamma}\log(p_t)<br>$$<br>pt是模型的估计概率，α&#x3D;0.25，γ&#x3D;2.</p>
+<h3 id="总训练损失"><a href="#总训练损失" class="headerlink" title="总训练损失"></a>总训练损失</h3><p>$$<br>L_{total}&#x3D;\beta_1L_{cls}+\beta_2(L_{reg-\theta}+L_{reg-other})+\beta_3L_{dir}<br>$$</p>
+<p>第一个损失函数是分类损失，第二个损失函数是新角度损失，第三个损失函数是位置和尺寸回归损失，第四个损失函数是方向分类损失。β1&#x3D;1.0、β2&#x3D;2.0、β3&#x3D;0.2（将β3使用较小的值，避免网络难以识别物体发方向情况）</p>
+<h2 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h2><h3 id="从数据库中采样Ground-Truths"><a href="#从数据库中采样Ground-Truths" class="headerlink" title="从数据库中采样Ground Truths"></a>从数据库中采样Ground Truths</h3><ol>
+<li>从训练数据集生成一个包含所有Ground Truths及其相关点云数据（ground truths的三维box中所有点）</li>
+<li>从数据库中随机选中几个ground truths，通过串联方式引入当前训练的点云中（可以增加训练中ground truths点的数量，以模拟不同环境中的物体）</li>
+<li>进行碰撞测试，删除任何与其他物体碰撞的采样对象</li>
+</ol>
+<h3 id="目标噪音"><a href="#目标噪音" class="headerlink" title="目标噪音"></a>目标噪音</h3><p>作者使用voxelNet方法对每个ground truth与其中点云独立、随机的进行转变。</p>
+<h3 id="全局旋转和放缩"><a href="#全局旋转和放缩" class="headerlink" title="全局旋转和放缩"></a>全局旋转和放缩</h3><p>作者对全部点云以及所有ground truth box进行全局放缩和旋转。从[0.95,1.05]的均匀分布提取局部噪音，从[-Π&#x2F;4,Π&#x2F;4]提取全局噪音</p>
+<h2 id="网络细节"><a href="#网络细节" class="headerlink" title="网络细节"></a>网络细节</h2><p>作者使用一大一小两个网络，在摄像机视野外的点被舍弃。</p>
+<h3 id="汽车检测任务"><a href="#汽车检测任务" class="headerlink" title="汽车检测任务"></a>汽车检测任务</h3><p>在SECOND中使用两个VFE层，即大型网络的VFE(32)和VFE(128)，较小的网络的VFE(32)和VFE(64)，在线性(128)层之后。因此，输出稀疏张量的维数对于大型网络为128  × 10 × 400 × 352，对于小型网络为128 × 10 × 320 ×  264。然后，我们使用两阶段稀疏CNN进行特征提取和降维。每个卷积层遵循一个BatchNorm层和一个ReLU层。所有稀疏卷积层都有一个64-output  feature map，核大小为(3,1,1)核大小，stride为(2,1,1)。对于大型网络，中间块的输出维数为64 × 2 × 400 ×  352。一旦输出被重塑为128 × 400 × 352，就可以应用RPN网络。我们使用Conv2D(cout, k,  s)来表示con2d - batchnorm - relu层，使用DeConv2D(cout, k, s)来表示DeConv2D- batchnorm -  relu层，其中cout为输出通道数，k为内核大小，s为stride。因为所有层在所有维度上都有相同的大小，所以我们对k和s使用标量值。所有Conv2D层都有相同的填充，所有DeConv2D层都有零填充。在我们的RPN的第一阶段，应用了三个Conv2D(128,  3,1(2))层。然后，在第二阶段和第三阶段分别应用5个Conv2D(128, 3, 1(2))层和5个Conv2D(256, 3,  1(2))层。在每一阶段中，只有第一卷积层的s &#x3D; 2;否则，s &#x3D; 1。我们对每个阶段的最后一次卷积应用一个单一的DeConv2D(128, 3,  s)层，三个阶段的s依次为1、2和4。</p>
+<p><img src="/%5Cimages%5Cimage-20220112220946220.png" alt="image-20220112220946220"></p>
+<h3 id="行人和骑自行车者检测任务"><a href="#行人和骑自行车者检测任务" class="headerlink" title="行人和骑自行车者检测任务"></a>行人和骑自行车者检测任务</h3><p>与汽车检测方面唯一的区别是RPN中第一个卷积层的步幅为1而不是2。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>在KITTI的验证集上，该网络无论大小网络都具有极高的平均准确度，以及极快的处理速度。同时该网络的角度编码速度、收敛速度也是非常快的。</p>
+<p><img src="/%5Cimages%5Cimage-20220112222654032.png" alt="image-20220112222654032"></p>
+<h3 id="汽车检测任务-1"><a href="#汽车检测任务-1" class="headerlink" title="汽车检测任务"></a>汽车检测任务</h3><p>该网络在检测汽车时展示出了极强的性能，尤其是该网络可以有效的检测被遮挡的汽车。但是对于获得数据量较少的汽车任然无法做到准确检测，尤其是对于<strong>点数小于10的车辆</strong></p>
+<h3 id="行人和骑自行车者检测任务-1"><a href="#行人和骑自行车者检测任务-1" class="headerlink" title="行人和骑自行车者检测任务"></a>行人和骑自行车者检测任务</h3><p>对行人和自行车的检测出现了更多的<strong>假阳性与假阴性</strong>，一些预测甚至出现在不合理的位置。这些问题可能归因于行人和自行车的实例包含的点更少，<strong>容易与其他点或是噪音混淆</strong>。此外，行人和自行车数量相对较少，导致包含他们的voxel数量较少，训练效果也就较差。过滤不相关信息并基于二维检测结果确定目标位置，应该会解决这个问题。</p>
+<h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
+<li>将稀疏卷积应用于基于激光雷达的目标检测</li>
+<li>提出了一种改进的稀疏卷积方法，显著提升训练与推理的速度</li>
+<li>引入一种新的<strong>角度损失回归</strong>方法</li>
+<li>，提高收敛速度和性能</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          
+            <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/08/CenterPoint/" rel="next" title="CenterPoint">
+                <i class="fa fa-chevron-left"></i> CenterPoint
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/08/PointPillars/" rel="prev" title="PointPillars">
+                PointPillars <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E4%BA%BA%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.</span> <span class="nav-text">前人贡献</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Front-View-and-Image-Based-Methods"><span class="nav-number">1.1.</span> <span class="nav-text">Front-View- and Image-Based Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bird%E2%80%99s-Eye-View-Based-Methods"><span class="nav-number">1.2.</span> <span class="nav-text">Bird’s-Eye-View-Based Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D-Based-Methods"><span class="nav-number">1.3.</span> <span class="nav-text">3D-Based Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fusion-Based-Methods"><span class="nav-number">1.4.</span> <span class="nav-text">Fusion-Based Methods</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SECOND-Detector"><span class="nav-number">2.1.</span> <span class="nav-text">SECOND Detector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%80%E7%96%8F%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C"><span class="nav-number">2.1.1.</span> <span class="nav-text">稀疏卷积网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%80%E7%96%8F%E5%8D%B7%E7%A7%AF%E7%AE%97%E6%B3%95"><span class="nav-number">2.1.2.</span> <span class="nav-text">稀疏卷积算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E8%A7%84%E5%88%99%E7%AE%97%E6%B3%95"><span class="nav-number">2.1.3.</span> <span class="nav-text">生成规则算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%80%E7%96%8F%E5%8D%B7%E7%A7%AF%E4%B8%AD%E9%97%B4%E6%8F%90%E5%8F%96%E5%99%A8"><span class="nav-number">2.1.4.</span> <span class="nav-text">稀疏卷积中间提取器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Anchors%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="nav-number">2.1.5.</span> <span class="nav-text">Anchors与目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sine-Error-Loss-for-Angle-Regression%EF%BC%88%E6%96%B9%E5%90%91%E5%9B%9E%E5%BD%92%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">Sine-Error Loss for Angle Regression（方向回归）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Focal-Loss-for-Classification"><span class="nav-number">2.2.2.</span> <span class="nav-text">Focal Loss for Classification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E8%AE%AD%E7%BB%83%E6%8D%9F%E5%A4%B1"><span class="nav-number">2.2.3.</span> <span class="nav-text">总训练损失</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="nav-number">2.3.</span> <span class="nav-text">数据增强</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E9%87%87%E6%A0%B7Ground-Truths"><span class="nav-number">2.3.1.</span> <span class="nav-text">从数据库中采样Ground Truths</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%99%AA%E9%9F%B3"><span class="nav-number">2.3.2.</span> <span class="nav-text">目标噪音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E7%BC%A9"><span class="nav-number">2.3.3.</span> <span class="nav-text">全局旋转和放缩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%86%E8%8A%82"><span class="nav-number">2.4.</span> <span class="nav-text">网络细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%BD%E8%BD%A6%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.4.1.</span> <span class="nav-text">汽车检测任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%BA%BA%E5%92%8C%E9%AA%91%E8%87%AA%E8%A1%8C%E8%BD%A6%E8%80%85%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.4.2.</span> <span class="nav-text">行人和骑自行车者检测任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%BD%E8%BD%A6%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1-1"><span class="nav-number">3.0.1.</span> <span class="nav-text">汽车检测任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%BA%BA%E5%92%8C%E9%AA%91%E8%87%AA%E8%A1%8C%E8%BD%A6%E8%80%85%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">行人和骑自行车者检测任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">21k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

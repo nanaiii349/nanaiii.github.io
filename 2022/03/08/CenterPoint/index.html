@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="deep learning,Object Detection," />
 
 
 
@@ -79,13 +79,22 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Next">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+<meta name="description" content="论文：2006.11275.pdf (arxiv.org)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CenterPoint">
+<meta property="og:url" content="http://example.com/2022/03/08/CenterPoint/index.html">
 <meta property="og:site_name" content="Next">
+<meta property="og:description" content="论文：2006.11275.pdf (arxiv.org)">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220121125306002.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220121125338945.png">
+<meta property="article:published_time" content="2022-03-08T12:49:48.000Z">
+<meta property="article:modified_time" content="2022-03-08T12:59:17.355Z">
 <meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220121125306002.png">
 
 
 
@@ -115,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/archives/2022/"/>
+  <link rel="canonical" href="http://example.com/2022/03/08/CenterPoint/"/>
 
 
 
 
 
-  <title>Archive | Next</title>
+  <title>CenterPoint | Next</title>
   
 
 
@@ -140,7 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,411 +223,245 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/CenterPoint/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">CenterPoint</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-08T20:49:48+08:00">
+                2022-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 11 posts in total. Keep on posting.
-      </span>
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.11275.pdf">2006.11275.pdf (arxiv.org)</a></p>
+<span id="more"></span>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>centerpoint是通过关键点检测来查询物体的中间位置和其特征，用<strong>两阶段</strong>的目标检测，第一阶段使用经典基于雷达激光的骨干网络如：VoxelNet、PointPillars来对输入点云进行处理，然后将表示转换为<strong>鸟瞰图</strong>，并使用标准的<strong>基于图像</strong>的关键点检测器来查找<strong>对象中心</strong>。这样对于每个检测中心可以通过中心位置的点特征来回归物体诸如三维大小、速度等特征。在第二阶段是轻量级的来<strong>细化对象位置</strong>。第二阶段提取估计对象三维box的每个面的三维中心点特征（具体来说只有四个向外的面）。该算法可以恢复由于步长和受限制的视野域带来的局部几何信息的丢失，以较小的成本带来了较好的性能提升。</p>
+<p><img src="/%5Cimages%5Cimage-20220121125306002.png" alt="image-20220121125306002"></p>
+<p>对于<strong>每一个点</strong>，使用<strong>双线性插值</strong>从地图视角的主干网输出中提取一个特征。接着，将提取的点特征连接起来，并将他们通过一个<strong>MLP</strong>传递。第二阶段在第一阶段的预测结果上预测一个与类无关的<strong>信心分数</strong>和对于box进一步细化。</p>
+<p>可信得分：<br>$$<br>I&#x3D;\min(1,\max{(0,2\times IoU_t-0.5}))<br>$$<br>IoUt是第t个proposal box与ground-truth间的IoU</p>
+<p>二元交叉熵损失：<br>$$<br>L_{socre}&#x3D;-I_t\log(\hat{I_t})-(1-I_t)\log(1-\hat{I_t})<br>$$<br>It即为可信得分</p>
+<p>对于<strong>框回归</strong>，模型预测在第一阶段建议之上的细化，用L1损失训练模型。两阶段CenterPoint简化并加速了之前计算复杂度较高的的基于PointNet特征提取器和RoIAlign操作的两阶段3D检测器。</p>
+<h2 id="Center-heatmap-head"><a href="#Center-heatmap-head" class="headerlink" title="Center heatmap head"></a>Center heatmap head</h2><p>Center heatmap head的目标就是在任何被探测的物体中心位置产生一个<strong>热力图峰值</strong>，Center heatmap head最终会产生一个k通道的热力图，一个通道代表了K类物体中的一种。在训练过程中，它将标注的box的三维中心投影到地图视图中，以生成二维高斯目标。使用<strong>focal loss</strong>。地图视角有图像视角不具备的优势，例如在地图视角下，汽车所占的比例很小，而在image视角下所占的比例可能会很大。此外，透视投影中对深度的压缩使得物体间的中心距离比image视角下更加接近。作者还通过放大每个ground truth的中心位置的高斯峰值来增强目标热力图的正监督，来抵消CenterNet带来的监督信号稀疏问题（使得大多数位置被认为是背景）。模型可以从附近的像素中得到更密集的监督。</p>
+<h2 id="Regression-heads"><a href="#Regression-heads" class="headerlink" title="Regression heads"></a>Regression heads</h2><p>对象的中心有如下几个特征：子体素o、高度h、三维大小s以及一个偏向旋转角度。子体素位置减少了骨干网的体素化和步长带来的误差。高度h帮助在三维中定位对象，并添加被地图视角删除的高度信息。方向预测使用sin、cos作为一个连续的回归目标。结合框的大小，这些Regression heads可以提供完整的物体状态信息。每个输出使用他自己的head，作者使用L1损失训练。在推理时，通过在每个对象的峰值位置对索引密集回归头输出来提取所有属性。</p>
+<h2 id="Velocity-head-and-tracking"><a href="#Velocity-head-and-tracking" class="headerlink" title="Velocity head and tracking"></a>Velocity head and tracking</h2><p>为了通过时间来跟踪物体，作者使用二维速度进行估计，并作为一个额外的回归输出。同时将前一帧中的点转换并归并到当前参考帧中，并通过时间差(速度)来预测当前和过去参考帧中物体位置的差异，来构建时间点云序列。作者对于速度回归也使用L1损失进行训练。</p>
+<p>在推理时，使用贪心策略通过偏移量将当前检测与过去检测关联起来。即通过应用负速度估计将当前帧中目标中心投影回前一帧，然后通过最近距离匹配将其与跟踪目标进行匹配。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220121125338945.png" alt="image-20220121125338945"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+          
+            <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
         
-        
+
         
 
         
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2022">2022</h1>
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
           </div>
         
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/PointRCNN/" itemprop="url">
-              
-                <span itemprop="name">PointRCNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T20:56:57+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/08/F-PointNet/" rel="next" title="F-PointNet">
+                <i class="fa fa-chevron-left"></i> F-PointNet
+              </a>
+            
+          </div>
 
-        
-        
+          <span class="post-nav-divider"></span>
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/PointPillars/" itemprop="url">
-              
-                <span itemprop="name">PointPillars</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T20:55:01+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/08/second/" rel="prev" title="second">
+                second <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/second/" itemprop="url">
-              
-                <span itemprop="name">second</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T20:54:12+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/CenterPoint/" itemprop="url">
-              
-                <span itemprop="name">CenterPoint</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T20:49:48+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/F-PointNet/" itemprop="url">
-              
-                <span itemprop="name">F-PointNet</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T20:48:11+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/04/PointNet/" itemprop="url">
-              
-                <span itemprop="name">PointNet</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-04T08:52:48+08:00"
-              content="2022-03-04" >
-          03-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/04/DETR/" itemprop="url">
-              
-                <span itemprop="name">DETR</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-04T08:44:59+08:00"
-              content="2022-03-04" >
-          03-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/04/Faster-RCNN/" itemprop="url">
-              
-                <span itemprop="name">Faster-RCNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-04T08:40:20+08:00"
-              content="2022-03-04" >
-          03-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/25/Fast-RCNN/" itemprop="url">
-              
-                <span itemprop="name">Fast-RCNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-25T21:54:30+08:00"
-              content="2022-02-25" >
-          02-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/25/RCNN/" itemprop="url">
-              
-                <span itemprop="name">RCNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-25T21:49:51+08:00"
-              content="2022-02-25" >
-          02-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-    </div>
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="extend next" rel="next" href="/archives/2022/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -626,6 +469,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -646,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -718,6 +574,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Center-heatmap-head"><span class="nav-number">1.1.</span> <span class="nav-text">Center heatmap head</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression-heads"><span class="nav-number">1.2.</span> <span class="nav-text">Regression heads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Velocity-head-and-tracking"><span class="nav-number">1.3.</span> <span class="nav-text">Velocity head and tracking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">实验结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -917,6 +789,10 @@ setInterval("createtime()",250);
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

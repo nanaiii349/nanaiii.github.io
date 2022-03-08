@@ -79,23 +79,22 @@
 
 
 
-<meta name="description" content="论文：CVPR 2017 Open Access Repository (thecvf.com)">
+<meta name="description" content="论文：CVPR 2019 Open Access Repository (thecvf.com)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PointNet">
-<meta property="og:url" content="http://example.com/2022/03/04/PointNet/index.html">
+<meta property="og:title" content="PointPillars">
+<meta property="og:url" content="http://example.com/2022/03/08/PointPillars/index.html">
 <meta property="og:site_name" content="Next">
-<meta property="og:description" content="论文：CVPR 2017 Open Access Repository (thecvf.com)">
+<meta property="og:description" content="论文：CVPR 2019 Open Access Repository (thecvf.com)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116120541325.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116233004972.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116234754228.png">
-<meta property="article:published_time" content="2022-03-04T00:52:48.000Z">
-<meta property="article:modified_time" content="2022-03-04T00:58:23.154Z">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220114222458551.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220115183322884.png">
+<meta property="article:published_time" content="2022-03-08T12:55:01.000Z">
+<meta property="article:modified_time" content="2022-03-08T13:03:59.516Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220116120541325.png">
+<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220114222458551.png">
 
 
 
@@ -125,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/03/04/PointNet/"/>
+  <link rel="canonical" href="http://example.com/2022/03/08/PointPillars/"/>
 
 
 
 
 
-  <title>PointNet | Next</title>
+  <title>PointPillars | Next</title>
   
 
 
@@ -238,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/04/PointNet/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/PointPillars/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -255,7 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PointNet</h1>
+          <h1 class="post-title" itemprop="name headline">PointPillars</h1>
         
 
         <div class="post-meta">
@@ -267,8 +266,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-04T08:52:48+08:00">
-                2022-03-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-08T20:55:01+08:00">
+                2022-03-08
               </time>
             
 
@@ -304,7 +303,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.8k 字
+                  2.1k 字
                 </span>
               
 
@@ -320,7 +319,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  6 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -341,54 +340,98 @@
       
 
       
-        <p>论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2017/html/Qi_PointNet_Deep_Learning_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a></p>
+        <p>论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Lang_PointPillars_Fast_Encoders_for_Object_Detection_From_Point_Clouds_CVPR_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
-<h1 id="前人的贡献"><a href="#前人的贡献" class="headerlink" title="前人的贡献"></a>前人的贡献</h1><p>传统的目标检测算法中对于数据格式有着严格的要求，将点云数据转换为符合要求的数据格式会使得数据规模扩大，影响计算效率。</p>
-<p>点云数据由<strong>无序</strong>的数据点构成一个<strong>集合</strong>来表示。因此，在使用图像识别任务的深度学习模型处理点云数据之前，需要对点云数据进行一些处理。目前采用的方式主要有两种：</p>
-<blockquote>
-<p>1、将点云数据投影到二维平面。此种方式不直接处理三维的点云数据，而是先将点云投影到某些特定视角再处理，如<strong>前视视角和鸟瞰视角</strong>。同时，也可以融合使用来自相机的图像信息。通过将这些不同视角的数据相结合，来实现点云数据的认知任务。比较典型的算法有MV3D和AVOD。</p>
-<p>2、将点云数据划分到有空间依赖关系的voxel。此种方式通过分割三维空间，引入空间依赖关系到点云数据中，再使用3D卷积等方式来进行处理。这种方法的精度依赖于三维空间的分割细腻度，而且<strong>3D卷积</strong>的运算复杂度也较高。</p>
-</blockquote>
-<h2 id="点集的性质"><a href="#点集的性质" class="headerlink" title="点集的性质"></a>点集的性质</h2><ol>
-<li>无序：三维N个点的数据需要N！个排列组合</li>
-<li>点之间相互作用：点云中的点不是独立存在的，模型需要提取局部信息</li>
-<li>转换不变性：作为一个几何物体，对物体进行变换不应该改变物体的某些特征</li>
+<p><img src="/%5Cimages%5Cimage-20220114222458551.png" alt="image-20220114222458551"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>本篇文献主要解决将点云编码为适合更适合目标检测的格式的问题。作者没有预训练网络，所有权值随机使用均匀分布。</p>
+<h2 id="特征解码网络"><a href="#特征解码网络" class="headerlink" title="特征解码网络"></a>特征解码网络</h2><p>将点云转换为稀疏的伪图像。</p>
+<p>不同于voxelNet将整个点云分割为许多的voxel，PointPillar只在xOy面进行划分，整个点云空间被分割为若干个高度为点云图高度（在z方向上近似是无限的，因此不需要超参数控制z维度）的柱体。</p>
+<p>与voxel类似，大部分的柱体都是空的。而对于包含点数过多N的柱体采用随机采样，对于包含点数过小的柱体应用零填充。并通过限制非空柱体的数量P，将整个点云用一个尺寸为(D,P,N)的密集张量。</p>
+<p>接着使用简化的PointNet，对于每个点应用一个线性层（张量的1×1卷积）、一个BN层、一个ReLU层，产生一个尺寸为(C,P,N)的张量。（C&#x3D;64）然后对其进行max操作，创建一个尺寸为(C,P)的输出张量（将三维点云转换为二维数据）。因为作者是使用的柱体而非voxel，所以可以在卷积中间层避免三维卷积，极大的提升计算效率。</p>
+<p>编码后特征被分散到原始位置，以创建一个大小为(C,H,W)的伪图像（H，W为画布的高度和宽度）    </p>
+<h2 id="二维卷积骨干网络"><a href="#二维卷积骨干网络" class="headerlink" title="二维卷积骨干网络"></a>二维卷积骨干网络</h2><p>将伪图像转换为高层的表示。该网络又可以分解为两个小的网络</p>
+<ol>
+<li>自上而下网络：在越来越小的空间分辨率上产生特征</li>
+<li>对自上而下的特征进行上采样和连接</li>
 </ol>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220116120541325.png" alt="image-20220116120541325"></p>
-<p>PointNet主要用于点云数据分类问题，即在点云数据中找到属于一个物体的所有点云。</p>
-<p>该分类网络以n个点作为输入，进行输入和特征转换，然后通过最大池法对点特征进行聚合。输出是k个类别的分类分数。分割网络是分类网络的延伸。它连接全局和局部特征，并输出每个分数。” mlp  “表示多层感知器，括号中的数字表示层大小。Batchnorm用于所有带有ReLU的层。在分类网的最后一个mlp中使用了Dropout层。</p>
-<p>PointNet更多的是为CV领域提供了一种新的研究方向，拓展了对于原始数据处理的思路，后续的Frustum PoinNet等是对于PointNet在目标检测方面的特定研究，以及其他网络会将其作为网络设计的一部分充分的发挥其网络结构简单，计算简单的特点。</p>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p> 作用于无序输入的对称函数</p>
-<p>不改变模型的输入排序有三种方法：将输入按正则序排序（在高维空间中很难实现）；将输入作为序列来训练RNN（会增加训练数据）；使用一个<strong>对称函数</strong>来聚合每个点的信息（如+、*）</p>
-<p>作者的主要思想是通过对一个点集中的变换<br>元素应用一个对称函数来逼近一个定义在点集上的一般函数：<br>$$<br>f({x_1,x_2,…,x_n})\approx g(h(x_1),…,h(x_n))\<br>f:2^{\mathbb{R}^N}\rightarrow \mathbb{R} ,h:\mathbb{R} ^N\rightarrow \mathbb{R} ^K,g:\mathbb{R} ^K\times …\times\mathbb{R} ^K\rightarrow \mathbb{R} (g为对称函数)<br>$$<br>根据经验，使用一个多层感知器网络近似h（mlp），使用一个单变量函数和一个最大池化函数组合近似g。通过h，可以学习到f中的不同性质,最后输出一个k维向量，表示数据的全局特征。</p>
-<p> 局部全局的数据增强</p>
-<p>根据上面网络得到的k维向量，可以训练SVM或是多层感知分类器对具有全局特征进行分类。</p>
-<p>在计算全局点云特征向量后，通过连接全局特征和每个点的特征，将其反馈给每个点。接着基于集合的点特征提取每个点的新特征（此时每个点特征同时拥有局部特征与全局特征）。</p>
-<p>之后，网络可以基于局部几何特性和全局语义预测每个点的数量。</p>
-<p> 联合定位网络</p>
-<p>作者通过一个微型网络T-Net预测一个仿射变换矩阵并且直接将这种变换应用到输入点的坐标上。</p>
-<p>这种思想同时适用于特征空间的对齐，通过在点特征上插入另一个对齐网络，并预测一个特征转换矩阵来对齐来自不同输入点云的特征。但是特征空间中的变换矩阵比空间变换矩阵的维数高很多，这会增加优化难度。因此在softmax训练损失中增加一个<strong>正则化项</strong>，将特征变换矩阵约束为接近<strong>正交矩阵</strong>，以获得了较好的效果。<br>$$<br>L_{reg}&#x3D;    \Vert I-AA^T    \Vert^2_F(A是由T-Net预测的特征对齐矩阵)<br>$$</p>
-<h2 id="理论研究"><a href="#理论研究" class="headerlink" title="理论研究"></a>理论研究</h2><ol>
-<li>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</li>
+<p>作者使用Block(S,L,F)来表示自顶向下的主干，每个block的操作步长为S（与初始的伪图像大小有关），每块都有一个二维卷积层L和输出通道F，以及一个BN层、一个ReLU层。</p>
+<p>第一层卷积步长为S&#x2F;Sin，<em>以确保block在执行步长为Sin卷积操作后还可以执行步长为S的操作。</em>（对于汽车S&#x3D;2，对于行人、自行车S&#x3D;1）（The first convolution inside the layer has stride S&#x2F;Sin to ensure the block operates on tride S after receiving an input blob of stride Sin）。后续block上的卷积步长为1.</p>
+<p>最终从每个自顶向下block得到的特征通过一定的上采样和拼接进行组合：</p>
+<ol>
+<li>对特征进行上采样Up(Sin,Sout,F)，初始步长Sin，最终步长Sout，利用转置二维卷积和F得到特征</li>
+<li>使用 BatchNorm和ReLU 应用上采样特征，最终的输出特征是从不同步长级联得到的特征</li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220116233004972.png" alt="image-20220116233004972"></p>
-<ol start="2">
-<li>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</li>
+<h2 id="Detection-Head"><a href="#Detection-Head" class="headerlink" title="Detection Head"></a>Detection Head</h2><p>检测三维box，并进行回归。这里的 Detection Head是模块化的，即对于不同的任务可以使用不同的 Detection Head。就像使用不同的镜头来拍摄不同的照片。</p>
+<p>作者这里使用 Single Shot Detector (SSD)以来处理三维目标检测。同时，使用二维的IoU将ground truth与先验box相匹配。而将box高度与高度elevation作为额外的回归目标</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>回归残差：<br>$$</p>
+
+\Delta x=\frac{x^{gt}-x^a}{d^a},
+\Delta y=\frac{y^{gt}-y^a}{d^a},
+\Delta z=\frac{z^{gt}-z^a}{d^a}\quad(d=\sqrt{(w^a)^2+(l^a)^2});\\
+\Delta l=\log{\frac{l^{gt} }{l^a} },
+\Delta w=\log{\frac{w^{gt} }{w^a} },
+\Delta h=\log{\frac{h^{gt} }{h^a} },
+\Delta\theta=\theta^{gt}-\theta^a;
+
+<p>$$<br>定位损失：由于角度定位无法区分翻转的box，在离散化方向上使用softmax分类损失Ldir学习车辆前进方向<br>$$<br>L_{loc}&#x3D;\sum_{b\in(x,y,z,w,l,\theta)}SmoothL1(\Delta b)<br>$$<br>目标分类损失：p^a是锚点是类的概率，α&#x3D;0.25，γ&#x3D;2<br>$$<br>L_{cls}&#x3D;-\alpha_a(1-p^a)^\gamma\log{p^a},<br>$$</p>
+<p>总损失函数：Npos为正锚点的数量、βloc&#x3D;2、βcls&#x3D;1、βdir&#x3D;0.2<br>$$</p>
+
+L=\frac{1}{N_{pos} }(\beta_{loc}L_{loc}+\beta_{cls}L_{cls}+\beta_{dir}L_{dir}),
+
+<p>$$<br>损失函数是以哦那个初始学习率为0.0002的Adam进行优化，每15个epoch减少0.8倍。用于验证与测试的epoch个数分别为160、320，batch大小分别为2、4.</p>
+<h2 id="超参数设置"><a href="#超参数设置" class="headerlink" title="超参数设置"></a>超参数设置</h2><ul>
+<li>xy分辨率：0.16m</li>
+<li>点柱最大数量P：12000</li>
+<li>点柱内最多点数N：100</li>
+<li>轴对齐非极大抑制NMS的IoU阈值：0.5</li>
+</ul>
+<h3 id="汽车检测任务："><a href="#汽车检测任务：" class="headerlink" title="汽车检测任务："></a>汽车检测任务：</h3><ul>
+<li><p>x,y,z检测范围：[(0, 70.4), (-40, 40), (-3, 1)]</p>
+</li>
+<li><p>锚点宽、长、高：(1.6, 3.9, 1.5)m，z中心：-1m</p>
+</li>
+<li><p>匹配正负阈值：0.6、0.45</p>
+</li>
+</ul>
+<h3 id="行人、自行车检测任务："><a href="#行人、自行车检测任务：" class="headerlink" title="行人、自行车检测任务："></a>行人、自行车检测任务：</h3><ul>
+<li><p>x,y,z检测范围：[(0, 48), (-20, 20), (-2.5, 0.5)]</p>
+</li>
+<li><p>行人锚点宽、长、高：(0.6, 0.8, 1.73)m，z中心：-0.6m</p>
+</li>
+<li><p>自行车锚点宽、长、高：(0.6, 1.76, 1.73)m，z中心：-0.6m</p>
+</li>
+<li><p>匹配正负阈值：0.5，0.35</p>
+</li>
+</ul>
+<h2 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h2><ol>
+<li>类似SECOND，创建一个查找表，其中包含所有类别的ground truth 3D boxes以及box中相关联的点云；对于每个样本随即选择若干个汽车、行人、自行车的真实样本将其放入当前环境中以提升对于不同环境下目标检测的能力</li>
+<li>对所有 <strong>ground truth boxes独立的旋转、转换</strong>，进一步丰富训练集。</li>
+<li>执行两个全局增强集合：随机沿x轴翻转并执行<strong>全局旋转和放缩</strong>、使用N(0,0,2)<strong>模拟噪声</strong>对x、y、z坐标转换</li>
 </ol>
-<p>因此，该网络通过稀疏的关键点集合来总结一个形状。</p>
-<h2 id="关键流程"><a href="#关键流程" class="headerlink" title="关键流程"></a>关键流程</h2><ol>
-<li>输入为一帧的全部点云数据的集合，表示为一个n×3的二维 tensor，其中n代表点云数量，3对应xyz坐标。</li>
-<li>输入数据先通过和一个T-Net学习到的转换矩阵相乘来对齐，保证了模型的对特定空间转换的不变性。</li>
-<li>通过多次mlp对各点云数据进行特征提取后，再用一个T-Net对特征进行对齐。</li>
-<li>在特征的各个维度上执行maxpooling操作来得到最终的全局特征。</li>
-<li>对分类任务，将全局特征通过mlp来预测最后的分类分数；对分割任务，将全局特征和之前学习到的各点云的局部特征进行串联，再通过mlp得到每个数据点的分类结果。</li>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220115183322884.png" alt="image-20220115183322884"></p>
+<p>实验发现该网络对于行人的检测仍有一些不足，行人与自行车会被误认为彼此。行人也容易被混淆为狭窄的带有垂直特性的物体，如树干、电线杆。</p>
+<p>推理速度快也是该网络的一大优势，总的运行时间：16.2ms。主要推理过程如下：（ Intel i7 CPU and a 1080ti GPU）</p>
+<ol>
+<li>根据图像的可见性、范围加载、过滤点云1.4ms</li>
+<li>将点分配到点柱并进行处理2.7ms</li>
+<li>将点柱张量加载进GPU2.9ms、<strong>编码1.3ms</strong>、分散为伪图像0.1ms</li>
+<li>由卷积骨干网、检测头处理7.7ms</li>
+<li>NMS处理0.1ms（使用CPU）</li>
 </ol>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220116234754228.png" alt="image-20220116234754228"></p>
+<p><strong>编码阶段</strong>是该网络运行时间少的关键，VoxelNet的解码时间190ms、SECOND的编码时间50ms。同时该网络只使用一个PointNet网络进行编码，将pytorch的运行时间减少了2.5ms。将第一个block的尺寸缩减到64以匹配解码输出的尺寸，并将上采样特征层输出尺寸减半到128，这些都大幅减少了运行时间。</p>
+<p>实验证明，当推理速度达到105Hz时，准确率只减少了一点。相比之下，激光雷达的工作频率为20Hz。但是需要注意的是，现在的实验是使用桌面级GPU，如果应用于实际，使用嵌入式GPU，计算效率会下降；一个可操作的AV需要查看完整的环境并处理全部点云，而实验使用的KITTI数据集中，只会使用10%的点云数据。实际中需要计算的数据量有很大区别。</p>
+<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><p>作者通过一系列消融实验得到以下结论：</p>
+<ol>
+<li>好的编码器明显优于固定的编码器，特别是对于更大的分辨率。</li>
+<li>box增强并不会带来更大提升，反而在检测行人方面导致性能下降</li>
+<li>更小的点柱使得定位更准确以及学习的特征更多，更大的点柱计算速度更快（更少的非空点柱）</li>
+</ol>
 <h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
-<li>设计一种新的深度网络结构，适用于三维空间中的无序点集</li>
-<li>展示这样的网络如何执行三维形状分类、形状部分分割和场景语义解析任务</li>
-<li>对这种方法的稳定性和有效性进行深入的实证和理论分析</li>
-<li>举例说明网络中选定的神经元三维特征，研究其性能的直观解释</li>
+<li>提出一个新的基于点云解码器和网络PointPliiar，适用于端到端的基于点云的三维目标检测网络的训练</li>
+<li>将对点云的柱上的计算变为密集的二维卷积，使得推理速率到达62Hz</li>
+<li>在KITTI数据集上的实验，该网络表现出对于汽车、自行车、行人检测最先进的结果</li>
+<li>通过消融实验 ablation studies，发现对检测性能起到关键影响的因素</li>
+<li>作者提出的点柱偏移Xp、Yp以及簇偏移Xc、Yc、Zc带来更好的检测效果</li>
 </ol>
 
       
@@ -466,8 +509,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/03/04/DETR/" rel="next" title="DETR">
-                <i class="fa fa-chevron-left"></i> DETR
+              <a href="/2022/03/08/second/" rel="next" title="second">
+                <i class="fa fa-chevron-left"></i> second
               </a>
             
           </div>
@@ -476,8 +519,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/03/08/F-PointNet/" rel="prev" title="F-PointNet">
-                F-PointNet <i class="fa fa-chevron-right"></i>
+              <a href="/2022/03/08/PointRCNN/" rel="prev" title="PointRCNN">
+                PointRCNN <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E4%BA%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.</span> <span class="nav-text">前人的贡献</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E9%9B%86%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">点集的性质</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E7%A0%94%E7%A9%B6"><span class="nav-number">2.2.</span> <span class="nav-text">理论研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">关键流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E8%A7%A3%E7%A0%81%E7%BD%91%E7%BB%9C"><span class="nav-number">1.1.</span> <span class="nav-text">特征解码网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%8D%B7%E7%A7%AF%E9%AA%A8%E5%B9%B2%E7%BD%91%E7%BB%9C"><span class="nav-number">1.2.</span> <span class="nav-text">二维卷积骨干网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detection-Head"><span class="nav-number">1.3.</span> <span class="nav-text">Detection Head</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.5.</span> <span class="nav-text">超参数设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%BD%E8%BD%A6%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">汽车检测任务：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%BA%BA%E3%80%81%E8%87%AA%E8%A1%8C%E8%BD%A6%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">行人、自行车检测任务：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="nav-number">1.6.</span> <span class="nav-text">数据增强</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="nav-number">2.0.1.</span> <span class="nav-text">消融实验</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">3.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
             
 
           </div>

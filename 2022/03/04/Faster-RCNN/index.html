@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106213651479.png">
 <meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220108211045368.png">
 <meta property="article:published_time" content="2022-03-04T00:40:20.000Z">
-<meta property="article:modified_time" content="2022-03-04T00:44:05.714Z">
+<meta property="article:modified_time" content="2022-03-08T13:03:59.517Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
@@ -358,7 +358,11 @@
 <p>作者对每个anchor使用128、256、512三个尺度以及一比一、一比二、二比一三个纵横比，发现即使物体比底层的接受域还要大，该算法仍然可以检测出物体。在实际中，人们也可以只通过观察物体的中间位置来感知物体。这也就作者的解决方案不需要使用多尺度特征或多尺度滑动窗口来预测大的物体，节省大量运行时间。</p>
 <p>对于跨越图像边界的anchor。训练中，作者忽略所有跨越图像边界的anchor，以避免带来极大的误差，使得结果无法收敛。在测试中，对于这些anchor，作者只保留其图像中的部分</p>
 <h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>作者将anchor打上正负标签。正标签：与ground-truth box重叠程度IoU最高的区域；或者IoU大于0.7的anchor。负标签:对于所有的ground-truth box其IoU都小于0.3的anchor。不属于正负样本的样本对于目标检测没有帮助。</p>
-<p>根据这些定义，作者最小化Fast-RCNN中的多任务损失目标函数<br>$$<br>L({p_i},{t_i})&#x3D;\frac{1}{N_{cls}}\sum{L_{cls}(p_i,p_i^{<em>})}+\lambda\frac{1}{N_{reg}}\sum{p_i^{</em>}L_{reg}(t_i,t_i^{<em>})}<br>$$<br>此处的i为该batch中anchor的索引，pi是anchor为对象的概率，如果anchor为正pi</em>&#x3D;1，如果anchor为负pi*&#x3D;0；ti为预测边界框四个参数化坐标，ti*是与一个正anchor相关的ground-truth box。</p>
+<p>根据这些定义，作者最小化Fast-RCNN中的多任务损失目标函数<br>$$</p>
+
+L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{N_{reg} }\sum{p_i^{*}L_{reg}(t_i,t_i^{*})}
+
+<p>$$<br>此处的i为该batch中anchor的索引，pi是anchor为对象的概率，如果anchor为正pi*&#x3D;1，如果anchor为负pi*&#x3D;0；ti为预测边界框四个参数化坐标，ti*是与一个正anchor相关的ground-truth box。</p>
 <p>Lcls（分类损失）：使用log loss；Lreg（回归损失）：使用smooth L1(R)，而只有anchor为正时，Lreg才会被激活。<br>$$<br>L_{reg}(t_i,t_i^{<em>})&#x3D;R(t_i,t_i^{</em>})<br>$$<br>作者使用Ncls、Nreg两项进行归一化，并使用lambda作为平衡因子。</p>
 <p><img src="/%5Cimages%5Cimage-20220108211045368.png" alt="image-20220108211045368"></p>
 <p>在回归时，要对4个坐标参数化。其中x,y,w,h为边界框box的中心位置、宽与高。x，xa，x*是预测box、anchor box、ground-truth box的参数。</p>
@@ -546,7 +550,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -642,7 +646,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">10.9k</span>
+    <span title="Site words total count">21k</span>
   
 </div>
 
