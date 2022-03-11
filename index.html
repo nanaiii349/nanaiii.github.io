@@ -709,7 +709,7 @@
 <ul>
 <li><p>兼容：指计算机软件与硬件的通用性，通常在同一系列不同型号的计算机间通用（❌软硬件间的通用性）</p>
 </li>
-<li><p>平均指令执行速度：MIPS；平均指令周期：<img src="/%5Cimages/clip_image012.gif" alt="img"></p>
+<li><p>平均指令执行速度：MIPS；平均指令周期：<img src="/%5Cimages%5Cclip_image012.gif" alt="img"></p>
 </li>
 </ul>
 <h2 id="机器字长、指令字长、存储字长"><a href="#机器字长、指令字长、存储字长" class="headerlink" title="机器字长、指令字长、存储字长"></a>机器字长、指令字长、存储字长</h2><blockquote>
@@ -799,7 +799,7 @@
 </tr>
 </tbody></table>
 <ul>
-<li><p>海明码可以发现两位错误并进行以为纠错（<img src="/%5Cimages/clip_image015.gif" alt="img">）</p>
+<li><p>海明码可以发现两位错误并进行以为纠错（<img src="/%5Cimages%5Cclip_image015.gif" alt="img">）</p>
 </li>
 <li><p>被校验数据位的海明位号等于该数据位的各校验位海明位号之和（D1在H3（011），则由P1、P2进行校验）</p>
 </li>
@@ -809,7 +809,7 @@
 </li>
 <li><p>双符号位的最高符号位代表真正的符号，低位符号位用于参与位移操作以判断是否发出溢出（”01”正溢出，”10”负溢出）</p>
 </li>
-<li><p>原码一位乘法，符号位<img src="/%5Cimages/clip_image017.gif" alt="img">，数值位两数绝对值相乘，累加次数n次</p>
+<li><p>原码一位乘法，符号位<img src="/%5Cimages%5Cclip_image017.gif" alt="img">，数值位两数绝对值相乘，累加次数n次</p>
 </li>
 <li><p>补码一位乘法，符号位参与运算，累加次数n+1次</p>
 </li>
@@ -847,21 +847,21 @@
 </li>
 <li><p>补码不恢复余数法中，异号相除时，够减商0，不够减商1</p>
 </li>
-<li><p>判断加减法溢出时，如果采用判断进位的方式（符号位进位<img src="/%5Cimages/clip_image019.gif" alt="img">，最高位进位<img src="/%5Cimages/clip_image021.gif" alt="img">），则产生溢出的条件为<img src="/%5Cimages/clip_image023.gif" alt="img"></p>
+<li><p>判断加减法溢出时，如果采用判断进位的方式（符号位进位<img src="/%5Cimages%5Cclip_image019.gif" alt="img">，最高位进位<img src="/%5Cimages%5Cclip_image021.gif" alt="img">），则产生溢出的条件为<img src="/%5Cimages%5Cclip_image023.gif" alt="img"></p>
 </li>
-<li><p>无符号数的加减计算与有符号计算相同（化为二进制按位运算）：<img src="/%5Cimages/clip_image025.gif" alt="img"></p>
+<li><p>无符号数的加减计算与有符号计算相同（化为二进制按位运算）：<img src="/%5Cimages%5Cclip_image025.gif" alt="img"></p>
 </li>
 </ul>
 <h2 id="标志位OF、SF、CF（新增考点）"><a href="#标志位OF、SF、CF（新增考点）" class="headerlink" title="标志位OF、SF、CF（新增考点）"></a>标志位OF、SF、CF（新增考点）</h2><ul>
 <li><p>溢出标志位OF（Overflow Flag）（有符号数加减运算）：1表示溢出（寄存器中值不是真正结果）</p>
 </li>
-<li><p>OF&#x3D;最高位产生的进位<img src="/%5Cimages/clip_image027.gif" alt="img">次高位产生的进位</p>
+<li><p>OF&#x3D;最高位产生的进位<img src="/%5Cimages%5Cclip_image027.gif" alt="img">次高位产生的进位</p>
 </li>
 <li><p>符号标志位SF（有符号数加减运算）：0表示结果为正数，1表示结果为负数</p>
 </li>
 <li><p>进位标志位CF（Carry Flag）（无符号数加减运算）：1表示最高位有进位，0表示最高位无进位（最高位是否进位与是否溢出无关）</p>
 </li>
-<li><p>无符号数运算时借位标志<img src="/%5Cimages/clip_image029.gif" alt="img">,(C为进位输出，减法运算：sub&#x3D;1，加法运算：sub&#x3D;0，加法运算时有进位则说明溢出)</p>
+<li><p>无符号数运算时借位标志<img src="/%5Cimages%5Cclip_image029.gif" alt="img">,(C为进位输出，减法运算：sub&#x3D;1，加法运算：sub&#x3D;0，加法运算时有进位则说明溢出)</p>
 </li>
 <li><p>乘法运算时，如果高33位不是全0或全1，OF&#x3D;1，表示溢出</p>
 </li>
@@ -873,11 +873,11 @@
 </li>
 <li><p>在IEEE 754标准下，尾数全部为隐藏最高位”1”的正数原码(临时浮点数无隐含位)</p>
 </li>
-<li><p>规格化浮点数就是让尾数<img src="/%5Cimages/clip_image031.gif" alt="img"></p>
+<li><p>规格化浮点数就是让尾数<img src="/%5Cimages%5Cclip_image031.gif" alt="img"></p>
 </li>
 <li><p>（基数为2时）原码规格化数的尾数最高位一定是1；补码规格化数的尾数最高位一定与尾数符号相反（0.11 1、1.011 1（最大负数形式））</p>
 </li>
-<li><p>基数为<img src="/%5Cimages/clip_image033.gif" alt="img">时，若浮点数为正数，数值位前n位不全为0；若浮点数为负数，数值位前n位不全为1</p>
+<li><p>基数为<img src="/%5Cimages%5Cclip_image033.gif" alt="img">时，若浮点数为正数，数值位前n位不全为0；若浮点数为负数，数值位前n位不全为1</p>
 </li>
 </ul>
 <blockquote>
@@ -920,13 +920,13 @@
 </tr>
 </tbody></table>
 <ul>
-<li><p>float类型最小正数值：<img src="/%5Cimages/clip_image035.gif" alt="img">（阶码不能取到全0）</p>
+<li><p>float类型最小正数值：<img src="/%5Cimages%5Cclip_image035.gif" alt="img">（阶码不能取到全0）</p>
 </li>
-<li><p>float类型最大正数值:<img src="/%5Cimages/clip_image037.gif" alt="img"></p>
+<li><p>float类型最大正数值:<img src="/%5Cimages%5Cclip_image037.gif" alt="img"></p>
 </li>
-<li><p>double类型最小正数值：<img src="/%5Cimages/clip_image039.gif" alt="img"></p>
+<li><p>double类型最小正数值：<img src="/%5Cimages%5Cclip_image039.gif" alt="img"></p>
 </li>
-<li><p>double类型最大正数值：<img src="/%5Cimages/clip_image041.gif" alt="img"></p>
+<li><p>double类型最大正数值：<img src="/%5Cimages%5Cclip_image041.gif" alt="img"></p>
 </li>
 <li><p>阶码全为1时表示无穷大，全为0时表示非规格化数</p>
 </li>
@@ -936,9 +936,9 @@
 </li>
 <li><p>最简单的截断方法为直接截断</p>
 </li>
-<li><p>加法器进位信号<img src="/%5Cimages/clip_image043.gif" alt="img"></p>
+<li><p>加法器进位信号<img src="/%5Cimages%5Cclip_image043.gif" alt="img"></p>
 </li>
-<li><p>加法器进位传递信号<img src="/%5Cimages/clip_image045.gif" alt="img"></p>
+<li><p>加法器进位传递信号<img src="/%5Cimages%5Cclip_image045.gif" alt="img"></p>
 </li>
 <li><p>相同字长下，定点数比浮点数精度更高（浮点数部分字段用作阶码表示）；浮点数表示范围更大</p>
 </li>
@@ -956,17 +956,17 @@
 </thead>
 <tbody><tr>
 <td></td>
-<td><img src="/%5Cimages/clip_image006.gif" alt="图像"></td>
+<td><img src="/%5Cimages%5Cclip_image006.gif" alt="图像"></td>
 </tr>
 </tbody></table>
 <p>加减运算器处理有符号数与无符号数的处理过程是相同的，但是判断是否溢出的方法不同</p>
 <p>加法器的低位进位信息，减法运算时为1（被减数取反加1），加法运算时为0</p>
 <h2 id="乘法电路和除法电路的基本结构"><a href="#乘法电路和除法电路的基本结构" class="headerlink" title="乘法电路和除法电路的基本结构"></a>乘法电路和除法电路的基本结构</h2><p>部分积和被乘数X做无符号数加法时，可能产生进位，因此需要一个专门的进位位C。乘积奇存器P初始时置0。计数器C，初值为 32，每循环一次减1。 ALU 是乘法核心部件，对乘积寄存器P和被乘数奇存器X的內容做“无符号加法” 运算，运算结果送回奇存器P，进位存放在C中。每次循环都对进位位C，乘积寄存器P和乘数奇存器Y 实现同步 “逻辑右移”，此时，进位位 C移入寄存器P的最高位，寄存器Y的最低位移出。每次寄存器Y的最低位都被送到控制逻辑，以决定被乘数是否“加”到部分积上。</p>
-<p><img src="/%5Cimages/clip_image008.jpg" alt="图像画廊"></p>
+<p><img src="/%5Cimages%5Cclip_image008.jpg" alt="图像画廊"></p>
 <p>无符号乘法溢出判断：前n比特有不是0，则发生了溢出</p>
 <p>有符号乘法溢出判断：高n+1位全1或全0说明没有溢出</p>
 <p>需要部件：支持加减法ALU、移位功能的寄存器（无符号乘法逻辑右移、有符号算术乘法右移、除法左移）、控制逻辑（加减法控制、左右移控制、写使能）、计数器</p>
-<h1 id="存储系统"><a href="#存储系统" class="headerlink" title="存储系统"></a>存储系统</h1><p><img src="/%5Cimages/clip_image047.gif" alt="图像"></p>
+<h1 id="存储系统"><a href="#存储系统" class="headerlink" title="存储系统"></a>存储系统</h1><p><img src="/%5Cimages%5Cclip_image047.gif" alt="图像"></p>
 <ul>
 <li><p>主存使用RAM和ROM实现，控制存储器使用ROM实现，主存主要使用DRAM，Cache主要使用SRAM</p>
 </li>
@@ -976,13 +976,13 @@
 </li>
 <li><p>编址方式属于计算机组成，与机器字长（计算机体系结构）没有关系</p>
 </li>
-<li><p>存取周期<img src="/%5Cimages/clip_image049.gif" alt="img">：存储芯片进行连续两次读、写操作所必须间隔的时间（存取时间+恢复时间）</p>
+<li><p>存取周期<img src="/%5Cimages%5Cclip_image049.gif" alt="img">：存储芯片进行连续两次读、写操作所必须间隔的时间（存取时间+恢复时间）</p>
 </li>
-<li><p>存取时间<img src="/%5Cimages/clip_image051.gif" alt="img">：执行一次读操作或写操作的时间（分有读出时间、写入时间）</p>
+<li><p>存取时间<img src="/%5Cimages%5Cclip_image051.gif" alt="img">：执行一次读操作或写操作的时间（分有读出时间、写入时间）</p>
 </li>
 </ul>
 <ol>
-<li><p>读出时间<img src="/%5Cimages/clip_image053.gif" alt="img">：从主存接收到有效地址开始，到读出所选中单元的内容并在外部数据总线上稳定地出现所需的时间（还需要一个总线周期才能将数据传入CPU）</p>
+<li><p>读出时间<img src="/%5Cimages%5Cclip_image053.gif" alt="img">：从主存接收到有效地址开始，到读出所选中单元的内容并在外部数据总线上稳定地出现所需的时间（还需要一个总线周期才能将数据传入CPU）</p>
 </li>
 <li><p>写入时间：从主存接收到有效地址开始到数据写入被写入单元为止</p>
 </li>
@@ -1038,7 +1038,7 @@
 </li>
 <li><p>一个存储周期可以对所有芯片各读取一个字节</p>
 </li>
-<li><p>芯片引脚数目N&#x3D;数据线<img src="/%5Cimages/clip_image055.gif" alt="img"> + 地址线<img src="/%5Cimages/clip_image057.gif" alt="img">（DRAM采用地址复用技术，因此地址线是原来的1&#x2F;2）+片选线（1根）+读写控制线（2根）（读写控制线有时候也可以共用一根）</p>
+<li><p>芯片引脚数目N&#x3D;数据线<img src="/%5Cimages%5Cclip_image055.gif" alt="img"> + 地址线<img src="/%5Cimages%5Cclip_image057.gif" alt="img">（DRAM采用地址复用技术，因此地址线是原来的1&#x2F;2）+片选线（1根）+读写控制线（2根）（读写控制线有时候也可以共用一根）</p>
 </li>
 <li><p>地址的编码是由低位向高位编码，先将片内地址由最低位填入，再填入片选地址（最高位可以空闲）</p>
 </li>
@@ -1052,7 +1052,7 @@
 </li>
 <li><p>动态磨损：偏向使用较新的内存颗粒进行擦除写入（优化不够）</p>
 </li>
-<li><p>静态磨损：将长时间不用的数据写入较老的内存颗粒中，将新数据写入新的内存颗粒（磨损均衡、主控压力较大）<img src="/%5Cimages/clip_image010.gif" alt="图像"></p>
+<li><p>静态磨损：将长时间不用的数据写入较老的内存颗粒中，将新数据写入新的内存颗粒（磨损均衡、主控压力较大）<img src="/%5Cimages%5Cclip_image010.gif" alt="图像"></p>
 </li>
 </ol>
 <h2 id="三级Cache"><a href="#三级Cache" class="headerlink" title="三级Cache"></a>三级Cache</h2><ul>
@@ -1078,11 +1078,11 @@
 </li>
 <li><p>LRU算法中替换算法位长度与Cache组大小有关，2路组相联使用1位LRU位，4路组相联使用2位LRU位</p>
 </li>
-<li><p>语句<img src="/%5Cimages/clip_image059.gif" alt="img">，需要访存两次。第一次读取a[k]的值；第二次将新值写回a[k]</p>
+<li><p>语句<img src="/%5Cimages%5Cclip_image059.gif" alt="img">，需要访存两次。第一次读取a[k]的值；第二次将新值写回a[k]</p>
 </li>
 <li><p>Cache的效率公式：Cache访问时间&#x2F;实际访存的平均访问时间</p>
 </li>
-<li><p><img src="/%5Cimages/clip_image061.gif" alt="图像画廊"></p>
+<li><p><img src="/%5Cimages%5Cclip_image061.gif" alt="图像画廊"></p>
 </li>
 </ul>
 <h2 id="CPU使用虚拟内存过程"><a href="#CPU使用虚拟内存过程" class="headerlink" title="CPU使用虚拟内存过程"></a>CPU使用虚拟内存过程</h2><p>CPU使用的是虚拟地址，由辅助硬件（TLB、页表）找到虚地址与实地址间的对应关系，并判断该虚地址对应的存储单元是否已装入主存（有效位为1）。若已在主存中，通过地址变换，CPU可直接访问主存指示的存储单元（或直接访问Cache获得数据）；若不在主存，通过缺页中断，把包含该字的一页或是一段掉入主存后再由CPU访问。若主存已满，采用替换算法置换主存中的一页或一段</p>
@@ -1116,7 +1116,7 @@
 </ul>
 <p>微程序控制中，确定一条指令的地址</p>
 <ol>
-<li><p>增量计数法：由<img src="/%5Cimages/clip_image063.gif" alt="img">确定下一条微指令地址</p>
+<li><p>增量计数法：由<img src="/%5Cimages%5Cclip_image063.gif" alt="img">确定下一条微指令地址</p>
 </li>
 <li><p>下地址法（断定法）：由微指令的下地址字段给出后续指令地址</p>
 </li>
@@ -1130,13 +1130,13 @@
 </li>
 <li><p>简化地址结构的基本方法是尽量使用隐含取值</p>
 </li>
-<li><p>如果一条指令由两字节组成，每取一字节PC值+1（每次PC自加的值由指令字长决定）<img src="/%5Cimages/clip_image065.gif" alt="图像"></p>
+<li><p>如果一条指令由两字节组成，每取一字节PC值+1（每次PC自加的值由指令字长决定）<img src="/%5Cimages%5Cclip_image065.gif" alt="图像"></p>
 </li>
 <li><p>对按字寻址的机器，程序计数器取决于存储器字数、指令寄存器取决于指令字长</p>
 </li>
 <li><p>内存地址都为无符号数，寻址时对补码操作数需要一定转换</p>
 </li>
-<li><p>执行<img src="/%5Cimages/clip_image067.gif" alt="img">指令时，通过<img src="/%5Cimages/clip_image069.gif" alt="img">实现对a与b的比较</p>
+<li><p>执行<img src="/%5Cimages%5Cclip_image067.gif" alt="img">指令时，通过<img src="/%5Cimages%5Cclip_image069.gif" alt="img">实现对a与b的比较</p>
 </li>
 </ul>
 <h1 id="中央处理器"><a href="#中央处理器" class="headerlink" title="中央处理器"></a>中央处理器</h1><ul>
@@ -1201,9 +1201,9 @@
 <li><p>一个m段流水线稳定流出时CPU的吞吐能力，与m个并行部件的CPU吞吐能力相等</p>
 </li>
 </ul>
-<h1 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h1><p><img src="/%5Cimages/clip_image071.gif" alt="图像"></p>
+<h1 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h1><p><img src="/%5Cimages%5Cclip_image071.gif" alt="图像"></p>
 <ul>
-<li><p>猝发传送：一个总线周期内传输存储地址连续的n个数据字，<img src="/%5Cimages/clip_image073.gif" alt="img">(t_1传输地址，t_2传输一个数据字)</p>
+<li><p>猝发传送：一个总线周期内传输存储地址连续的n个数据字，<img src="/%5Cimages%5Cclip_image073.gif" alt="img">(t_1传输地址，t_2传输一个数据字)</p>
 </li>
 <li><p>一个总线的时钟周期可以传输一个存储字（长度为总线位宽）</p>
 </li>
@@ -1217,7 +1217,7 @@
 </li>
 <li><p>靠近CPU的总线速度快（连接高速设备）</p>
 </li>
-<li><p><img src="/%5Cimages/clip_image075.gif" alt="img">采用并行传输方式</p>
+<li><p><img src="/%5Cimages%5Cclip_image075.gif" alt="img">采用并行传输方式</p>
 </li>
 <li><p>USB是连接外部设备的IO总线，用于设备与设备控制器（IO接口）间互连的接口标准</p>
 </li>
@@ -1265,7 +1265,7 @@
 </li>
 <li><p>在字符显示的VRAM中存放ASCII码用以显示字符</p>
 </li>
-<li><p>总线仲裁中，计数器定时查询需要一根总线请求BR，和<img src="/%5Cimages/clip_image077.gif" alt="img">根设备地址线</p>
+<li><p>总线仲裁中，计数器定时查询需要一根总线请求BR，和<img src="/%5Cimages%5Cclip_image077.gif" alt="img">根设备地址线</p>
 </li>
 <li><p>总线仲裁一般是IO设备争用总线的判优方式，而中断判优方式一般是IO设备争用CPU的判优方式</p>
 </li>
@@ -1324,7 +1324,7 @@
 <li><p>DMA请求不会导致被中断指令重新执行</p>
 </li>
 </ul>
-<p><img src="/%5Cimages/clip_image079.jpg" alt="图像"></p>
+<p><img src="/%5Cimages%5Cclip_image079.jpg" alt="图像"></p>
 <h2 id="通道"><a href="#通道" class="headerlink" title="通道"></a>通道</h2><ul>
 <li><p>通道程序存放在主存中，由通道从主存中取出并执行（通道执行）</p>
 </li>
@@ -1513,7 +1513,7 @@
 </li>
 <li><p>TCP首部开销为20字节，UDP首部开销为8字节 </p>
 </li>
-<li><p><img src="/%5Cimages/clip_image006.gif" alt="图像"></p>
+<li><p><img src="/%5Cimages%5Cclip_image006.gif" alt="图像"></p>
 </li>
 </ul>
 <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><ul>
@@ -1540,7 +1540,7 @@
 <li><p>曼彻斯特编码的编码效率为50%，4B&#x2F;5B编码的编码效率为80%</p>
 </li>
 </ul>
-<p><img src="/%5Cimages/clip_image008.gif" alt="图像"></p>
+<p><img src="/%5Cimages%5Cclip_image008.gif" alt="图像"></p>
 <ul>
 <li><p>非归零编码（NRZ）：高电平为1，低电平为0，不用归零</p>
 </li>
@@ -1552,15 +1552,15 @@
 </li>
 <li><p>转发器作用是放大信号</p>
 </li>
-<li><p>奈奎斯特定理：<img src="/%5Cimages/clip_image010.gif" alt="img">（V为每个码元离散电平数目，W理想低通信道带宽）</p>
+<li><p>奈奎斯特定理：<img src="/%5Cimages%5Cclip_image010.gif" alt="img">（V为每个码元离散电平数目，W理想低通信道带宽）</p>
 </li>
-<li><p>香农定理：<img src="/%5Cimages/clip_image012.gif" alt="img">（S&#x2F;N为信噪比）</p>
+<li><p>香农定理：<img src="/%5Cimages%5Cclip_image012.gif" alt="img">（S&#x2F;N为信噪比）</p>
 </li>
 <li><p>两个公式中取较小的一个指固定带宽后取较小速率的值为实际最高理论速率</p>
 </li>
 <li><p>同步TDM方式复用要求复用线路的数据率相同，对于数据传输率低的复用线路采用脉冲填充方式</p>
 </li>
-<li><p>语音信号需要128个量化级，每次采样需要<img src="/%5Cimages/clip_image014.gif" alt="img">来标识，语音频率4kHz，每秒需采样8000次。则一路话音需要的数据传输速率为<img src="/%5Cimages/clip_image016.gif" alt="img"></p>
+<li><p>语音信号需要128个量化级，每次采样需要<img src="/%5Cimages%5Cclip_image014.gif" alt="img">来标识，语音频率4kHz，每秒需采样8000次。则一路话音需要的数据传输速率为<img src="/%5Cimages%5Cclip_image016.gif" alt="img"></p>
 </li>
 </ul>
 <h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><ul>
@@ -1574,7 +1574,7 @@
 <ul>
 <li><p>海明码纠错d位需要码距为2d+1的编码方案；检错d位需要码距为d+1的编码方案</p>
 </li>
-<li><p>海明码能纠一位错应该满足<img src="/%5Cimages/clip_image018.gif" alt="img">（k为校验码位数、n为数据码位数）</p>
+<li><p>海明码能纠一位错应该满足<img src="/%5Cimages%5Cclip_image018.gif" alt="img">（k为校验码位数、n为数据码位数）</p>
 </li>
 <li><p>循环冗余码的帧检验序列与帧数据一同发出，在接受端对这m+r位数据与多项式做模2除法</p>
 </li>
@@ -1584,11 +1584,11 @@
 </li>
 <li><p>DBN协议中，接收端在收到不合要求的数据帧需要全部抛弃，但是会重复返回最后一个确认帧（防止已发送的ACK丢失）</p>
 </li>
-<li><p>拥塞控制中的选择重传协议接受窗口大小必须满足发送窗口大小<img src="/%5Cimages/clip_image020.gif" alt="img">接受窗口大小<img src="/%5Cimages/clip_image022.gif" alt="img">，且<img src="/%5Cimages/clip_image024.gif" alt="img">（m为帧序号位数）；接受窗口的最大值为<img src="/%5Cimages/clip_image026.gif" alt="img"></p>
+<li><p>拥塞控制中的选择重传协议接受窗口大小必须满足发送窗口大小<img src="/%5Cimages%5Cclip_image020.gif" alt="img">接受窗口大小<img src="/%5Cimages%5Cclip_image022.gif" alt="img">，且<img src="/%5Cimages%5Cclip_image024.gif" alt="img">（m为帧序号位数）；接受窗口的最大值为<img src="/%5Cimages%5Cclip_image026.gif" alt="img"></p>
 </li>
 <li><p>信道效率：指发送方在一个发送周期（发送方开始发送数据到收到第一个ACK）内，有效发送数据所需要的时间占整个发送周期的比率</p>
 </li>
-<li><p>信道吞吐率：信道利用率<img src="/%5Cimages/clip_image028.gif" alt="img">发送方发送速率</p>
+<li><p>信道吞吐率：信道利用率<img src="/%5Cimages%5Cclip_image028.gif" alt="img">发送方发送速率</p>
 </li>
 <li><p>以太网中，当数据传输速率提高时，帧的发送时间相应地缩短。为了能有效地检测冲突，可以减少电缆介质的长度或增加最短帧长</p>
 </li>
@@ -1643,7 +1643,7 @@
 </ol>
 <p>A.   CSMA&#x2F;CA协议的退避算法需要等待一个DIFS，而且要进入争用窗口，计算随机退避时间以便再次试图接入信道</p>
 <p>B.   CSMA&#x2F;CA协议只有当检测到信道空闲且该数据帧是要发送的第一条数据帧才不使用退避算法，当（1）发送第一帧前检测到信道忙；（2）每次重传；（3）每次成功发送后再发送下一帧时都需要使用退避算法</p>
-<p>C.  CSMA&#x2F;CD协议当发生冲突后会，收发端检测到冲突后会发送干扰信号，干扰信号需要<img src="/%5Cimages/clip_image030.gif" alt="img">时间在网络内传播，而退避算法是在检测到冲突后就开始执行</p>
+<p>C.  CSMA&#x2F;CD协议当发生冲突后会，收发端检测到冲突后会发送干扰信号，干扰信号需要<img src="/%5Cimages%5Cclip_image030.gif" alt="img">时间在网络内传播，而退避算法是在检测到冲突后就开始执行</p>
 <p>D.  以太网中可以发送数据后，还需要再等待96比特时间（最小帧间隔时间）</p>
 <h2 id="CSMA-x2F-CA算法"><a href="#CSMA-x2F-CA算法" class="headerlink" title="CSMA&#x2F;CA算法"></a>CSMA&#x2F;CA算法</h2><p>I.    如果最初有数据要发送，且信道空闲，在等待DIFS后，就发送整个数据帧</p>
 <p>II.   当检测到信道忙，站点执行CSMA&#x2F;CA退避算法，选取一个随机回退值。一旦检测到信道忙，退避计时器就保持不变；只要信道空闲，退避计时器就进行倒计时</p>
@@ -1761,7 +1761,7 @@
 </li>
 <li><p>以太网使用曼彻斯特编码，总线形拓扑，</p>
 </li>
-<li><p>以太网交换机直通交换，在输入端口检测到一个数据帧时，检查帧首部，获取帧的目的地址，启动内部动态查找表转换为相应的输出端口，在输入端与输出端交叉处接通，把数据帧直通到相应的端口，实现交换功能。直通交换只检查帧的目的地址（6Ｂ），最短传输延迟为<img src="/%5Cimages/clip_image032.gif" alt="img"></p>
+<li><p>以太网交换机直通交换，在输入端口检测到一个数据帧时，检查帧首部，获取帧的目的地址，启动内部动态查找表转换为相应的输出端口，在输入端与输出端交叉处接通，把数据帧直通到相应的端口，实现交换功能。直通交换只检查帧的目的地址（6Ｂ），最短传输延迟为<img src="/%5Cimages%5Cclip_image032.gif" alt="img"></p>
 </li>
 <li><p>交换机所连主机可以同时连通多个端口，使每对相互通信的主机像独占信道一样，进行无碰撞💥的数据传输</p>
 </li>
