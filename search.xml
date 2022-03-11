@@ -1402,7 +1402,8 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>计算机组成原理</title>
     <url>/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p><strong>冯诺依曼机的基本工作方式是控制流驱动方式</strong></p>
+<span id="more"></span>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="翻译、汇编、编译"><a href="#翻译、汇编、编译" class="headerlink" title="翻译、汇编、编译"></a>翻译、汇编、编译</h2><ul>
 <li><p>翻译程序：翻译一句执行一句</p>
 </li>
@@ -1428,8 +1429,6 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li><p>系统软件：操作系统OS、数据库管理系统DBMS、语言处理程序、分布式软件系统、网络软件系统、标准库程序、服务性程序等</p>
 </li>
 <li><p>完整的计算机系统应包括配套的硬件设备与软件设备</p>
-</li>
-<li><p>冯诺依曼机的基本工作方式是控制流驱动方式</p>
 </li>
 <li><p>❌软件功能不能被硬件取代</p>
 </li>
@@ -2100,7 +2099,8 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>计算机网络</title>
     <url>/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<span id="more"></span>
+    <content><![CDATA[<p><strong>计算机网络资源：计算机硬件、软件、数据</strong></p>
+<span id="more"></span>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
 <li><p>计算机网络资源：计算机硬件、软件、数据</p>
 </li>
