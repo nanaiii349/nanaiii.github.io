@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="408," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述 计算机网络资源：计算机硬件、软件、数据  局域网与广域网差异不仅在覆盖范围，还主要在于所使用协议不同（局域网广播技术、广域网点对点交换技术）  局域网与广域网的互联是通过路由器来实现的  广播式网络（通常为局域网通信方式，局域网工作在数据链路层）可以不要网络层，但需要服务访问点（链路层与物理层）  定义功能执行的方法不是对网络模型进行分层的目标  OSI模型精确定义了服务、协议、接口三个概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://example.com/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="概述 计算机网络资源：计算机硬件、软件、数据  局域网与广域网差异不仅在覆盖范围，还主要在于所使用协议不同（局域网广播技术、广域网点对点交换技术）  局域网与广域网的互联是通过路由器来实现的  广播式网络（通常为局域网通信方式，局域网工作在数据链路层）可以不要网络层，但需要服务访问点（链路层与物理层）  定义功能执行的方法不是对网络模型进行分层的目标  OSI模型精确定义了服务、协议、接口三个概念">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image006.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image008.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image010.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image012.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image014.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image016.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image018.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image020.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image022.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image024.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image026.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image028.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image030.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image032.gif">
+<meta property="article:published_time" content="2022-03-11T02:11:43.000Z">
+<meta property="article:modified_time" content="2022-03-11T02:14:39.046Z">
+<meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="408">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%5Cimages/clip_image006.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/11/计算机网络/"/>
+
+
+
+
+
+  <title>计算机网络 | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-11T10:11:43+08:00">
+                2022-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  5.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  19 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li><p>计算机网络资源：计算机硬件、软件、数据</p>
+</li>
+<li><p>局域网与广域网差异不仅在覆盖范围，还主要在于所使用协议不同（局域网广播技术、广域网点对点交换技术）</p>
+</li>
+<li><p>局域网与广域网的互联是通过路由器来实现的</p>
+</li>
+<li><p>广播式网络（通常为局域网通信方式，局域网工作在数据链路层）可以不要网络层，但需要服务访问点（链路层与物理层）</p>
+</li>
+<li><p>定义功能执行的方法不是对网络模型进行分层的目标</p>
+</li>
+<li><p>OSI模型精确定义了服务、协议、接口三个概念，TCP&#x2F;IP模型没有</p>
+</li>
+<li><p>ISO&#x2F;OSI模型中，网络层可同时提供无连接服务与面向链接服务（TCP&#x2F;IP中传输层提供）</p>
+</li>
+<li><p>ISO&#x2F;OSI模型中，传输层只提供面向连接的服务</p>
+</li>
+<li><p>OSI模型中，表示层的功能是表示出用户看得懂的数据格式。主要完成数据字符集的转换、数据格式化和文本压缩、数据加密解密等</p>
+</li>
+<li><p>TCP&#x2F;IP模型中，传输层处理关于可靠性、流量控制、错误校正等问题</p>
+</li>
+<li><p>TCP&#x2F;IP协议族：TCP,IP,ICMP,IGMP,ARP,RARP,UDP,DNS,FTP,HTTP</p>
+</li>
+<li><p>以太网的MAC数据帧的首部和尾部长度为18字节</p>
+</li>
+<li><p>以太网前导码8字节，第一个字段7字节（前同步码）；第二个字段1字节（帧开始定界符）</p>
+</li>
+<li><p>IPv4常用首部长度为20字节</p>
+</li>
+<li><p>TCP首部开销为20字节，UDP首部开销为8字节 </p>
+</li>
+<li><p><img src="/%5Cimages/clip_image006.gif" alt="图像"></p>
+</li>
+</ul>
+<h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><ul>
+<li><p>物理层规定了电气特性，因此能够识别所传送的比特流</p>
+</li>
+<li><p>在数值上，波特率等于比特率与每符号所含比特数的比值</p>
+</li>
+<li><p>信道不等同于通信电路，一条可双向通信的电路往往包含两个信道，一条是发送信道，一条是接受信道。多个通信用户公用通信电路时，每个用户在该通信电路上都有一条信道（时分复用）</p>
+</li>
+<li><p>波特率等于每秒可能发生的信号变化次数</p>
+</li>
+<li><p>报文交换不能用于语音数据交换</p>
+</li>
+<li><p>虚电路对网络中的故障敏感，因此不能在出错率高（设备故障率高）的传输系统中使用（可以使用数据报方式）</p>
+</li>
+<li><p>电路交换不支持差错控制</p>
+</li>
+<li><p>电缆采用屏蔽技术的好处是减少电磁干扰辐射</p>
+</li>
+<li><p>描述物理层接口引脚处于高电位的含义属于功能描述</p>
+</li>
+<li><p>利用中继器扩大网络传输距离就是将衰弱信号进行整形再生</p>
+</li>
+<li><p>曼彻斯特编码的编码效率为50%，4B&#x2F;5B编码的编码效率为80%</p>
+</li>
+</ul>
+<p><img src="/%5Cimages/clip_image008.gif" alt="图像"></p>
+<ul>
+<li><p>非归零编码（NRZ）：高电平为1，低电平为0，不用归零</p>
+</li>
+<li><p>反向非归零编码（NRZI）：信号翻转代表0，信号保持不变代表1</p>
+</li>
+<li><p>曼彻斯特编码（以太网使用）：一个码元分为两个相等间隔，每个码元位中间跳变，作为时钟信号；码元为1时，前一间隔高电平，后一间隔低电平；</p>
+</li>
+<li><p>差分曼彻斯特编码（局域网使用）：码元为1时，前半码元电平与上一码元的后半个码元电平相同</p>
+</li>
+<li><p>转发器作用是放大信号</p>
+</li>
+<li><p>奈奎斯特定理：<img src="/%5Cimages/clip_image010.gif" alt="img">（V为每个码元离散电平数目，W理想低通信道带宽）</p>
+</li>
+<li><p>香农定理：<img src="/%5Cimages/clip_image012.gif" alt="img">（S&#x2F;N为信噪比）</p>
+</li>
+<li><p>两个公式中取较小的一个指固定带宽后取较小速率的值为实际最高理论速率</p>
+</li>
+<li><p>同步TDM方式复用要求复用线路的数据率相同，对于数据传输率低的复用线路采用脉冲填充方式</p>
+</li>
+<li><p>语音信号需要128个量化级，每次采样需要<img src="/%5Cimages/clip_image014.gif" alt="img">来标识，语音频率4kHz，每秒需采样8000次。则一路话音需要的数据传输速率为<img src="/%5Cimages/clip_image016.gif" alt="img"></p>
+</li>
+</ul>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><ul>
+<li>通过提高信噪比可以减弱随机差错对数据传输的影响</li>
+</ul>
+<blockquote>
+<p>通信信道噪声可以分为：热噪声与冲击噪声</p>
+<p>热噪声：信道固有噪声，随即差错，提高信噪比可以降低它对数据传输的影响</p>
+<p>冲击噪声：外界电磁干扰，突发错差</p>
+</blockquote>
+<ul>
+<li><p>海明码纠错d位需要码距为2d+1的编码方案；检错d位需要码距为d+1的编码方案</p>
+</li>
+<li><p>海明码能纠一位错应该满足<img src="/%5Cimages/clip_image018.gif" alt="img">（k为校验码位数、n为数据码位数）</p>
+</li>
+<li><p>循环冗余码的帧检验序列与帧数据一同发出，在接受端对这m+r位数据与多项式做模2除法</p>
+</li>
+<li><p>带r个校验位的多项式编码可以检测到所有长度小于等于r的突发性错误</p>
+</li>
+<li><p>TDM所用传输介质的性质是：介质的位速率大于单个信号的位速率</p>
+</li>
+<li><p>DBN协议中，接收端在收到不合要求的数据帧需要全部抛弃，但是会重复返回最后一个确认帧（防止已发送的ACK丢失）</p>
+</li>
+<li><p>拥塞控制中的选择重传协议接受窗口大小必须满足发送窗口大小<img src="/%5Cimages/clip_image020.gif" alt="img">接受窗口大小<img src="/%5Cimages/clip_image022.gif" alt="img">，且<img src="/%5Cimages/clip_image024.gif" alt="img">（m为帧序号位数）；接受窗口的最大值为<img src="/%5Cimages/clip_image026.gif" alt="img"></p>
+</li>
+<li><p>信道效率：指发送方在一个发送周期（发送方开始发送数据到收到第一个ACK）内，有效发送数据所需要的时间占整个发送周期的比率</p>
+</li>
+<li><p>信道吞吐率：信道利用率<img src="/%5Cimages/clip_image028.gif" alt="img">发送方发送速率</p>
+</li>
+<li><p>以太网中，当数据传输速率提高时，帧的发送时间相应地缩短。为了能有效地检测冲突，可以减少电缆介质的长度或增加最短帧长</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>滑动窗口协议</th>
+<th>一比特滑动窗口</th>
+<th>Go back n协议</th>
+<th>选择重传协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发送窗口大小</td>
+<td>1</td>
+<td>n（小于序号范围）</td>
+<td>n（小于序号范围的一半）</td>
+</tr>
+<tr>
+<td>接受窗口大小</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>ACK</td>
+<td>每次都需要返回ACK</td>
+<td>累计ACK</td>
+<td>NAK或ACK定时器</td>
+</tr>
+<tr>
+<td>超时重传的帧</td>
+<td>未收到ACK的帧</td>
+<td>i号帧以后的所有帧</td>
+<td>未收到ACK的帧</td>
+</tr>
+</tbody></table>
+<h2 id="码分复用"><a href="#码分复用" class="headerlink" title="码分复用"></a>码分复用</h2><ul>
+<li><p>A、B同时向C发送数据，则A、B的码序列内积为0</p>
+</li>
+<li><p>C读取A发送的数据就要将接收到的数据与A的码片序列进行内积（&gt;0表示1；&lt;0表示0）</p>
+</li>
+</ul>
+<h2 id="CSMA-x2F-CA"><a href="#CSMA-x2F-CA" class="headerlink" title="CSMA&#x2F;CA"></a>CSMA&#x2F;CA</h2><ol>
+<li><p>DIFS（分布式协调IFS）：最长的IFS，优先级最低，用于异步帧竞争访问的时延。即载波监听到信道空闲，等待DIFS后发送RTS预约信道</p>
+</li>
+<li><p>PIFS（点协调式IFS）：PCF操作使用</p>
+</li>
+<li><p>SIFS（短IFS）：最短的IFS，最高优先级，目的站等待SIFS时间返回ACK</p>
+</li>
+</ol>
+<p>A.   CSMA&#x2F;CA协议的退避算法需要等待一个DIFS，而且要进入争用窗口，计算随机退避时间以便再次试图接入信道</p>
+<p>B.   CSMA&#x2F;CA协议只有当检测到信道空闲且该数据帧是要发送的第一条数据帧才不使用退避算法，当（1）发送第一帧前检测到信道忙；（2）每次重传；（3）每次成功发送后再发送下一帧时都需要使用退避算法</p>
+<p>C.  CSMA&#x2F;CD协议当发生冲突后会，收发端检测到冲突后会发送干扰信号，干扰信号需要<img src="/%5Cimages/clip_image030.gif" alt="img">时间在网络内传播，而退避算法是在检测到冲突后就开始执行</p>
+<p>D.  以太网中可以发送数据后，还需要再等待96比特时间（最小帧间隔时间）</p>
+<h2 id="CSMA-x2F-CA算法"><a href="#CSMA-x2F-CA算法" class="headerlink" title="CSMA&#x2F;CA算法"></a>CSMA&#x2F;CA算法</h2><p>I.    如果最初有数据要发送，且信道空闲，在等待DIFS后，就发送整个数据帧</p>
+<p>II.   当检测到信道忙，站点执行CSMA&#x2F;CA退避算法，选取一个随机回退值。一旦检测到信道忙，退避计时器就保持不变；只要信道空闲，退避计时器就进行倒计时</p>
+<p>III.  当退避计时器减到0时，站点发送整个帧并等待确认</p>
+<p>IV.  发送站收到确认，说明发送帧被目的站正确接收。如果发送第二帧，就从步骤2开始</p>
+<p>V.   若发送站没有收到ACK，必须重传该帧</p>
+<ul>
+<li>MAC帧不需要帧结束符（有IFS保障帧之间有间隙），但是以太网MAC帧，在数据链路层，帧既要加首部，也要加尾部</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>10BASE5</th>
+<th>10BASE2</th>
+<th>10BASE-T</th>
+<th>10BASE-FL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>传输媒体</td>
+<td>基带同轴电缆（粗缆）</td>
+<td>基带同轴电缆（细缆）</td>
+<td>非屏蔽双绞线</td>
+<td>光线对（850nm）</td>
+</tr>
+<tr>
+<td>编码</td>
+<td>曼彻斯特编码</td>
+<td>曼彻斯特编码</td>
+<td>曼彻斯特编码</td>
+<td>曼彻斯特编码</td>
+</tr>
+<tr>
+<td>拓扑结构</td>
+<td>总线形</td>
+<td>总线形</td>
+<td>星形</td>
+<td>点对点</td>
+</tr>
+<tr>
+<td>最大段长</td>
+<td>500m</td>
+<td>185m</td>
+<td>100m</td>
+<td>2000m</td>
+</tr>
+<tr>
+<td>最多结点数目</td>
+<td>100个</td>
+<td>30个</td>
+<td>2个</td>
+<td>2个</td>
+</tr>
+<tr>
+<td>使用协议</td>
+<td>CSMA&#x2F;CD</td>
+<td>CSMA&#x2F;CD</td>
+<td>半双工方式下CSMA&#x2F;CD</td>
+<td>半双工方式下CSMA&#x2F;CD</td>
+</tr>
+</tbody></table>
+<p>A.   允许在1Gb&#x2F;s下<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%85%A8%E5%8F%8C%E5%B7%A5/310007">全双工</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8D%8A%E5%8F%8C%E5%B7%A5/309852">半双工</a>两种方式工作</p>
+<p>B.   100Base-T的设备线路传输速率为100Mbps</p>
+<ul>
+<li><p>如果同一局域网的两台设备具有相同的静态MAC地址，则在网络上这两个设备无法正确通信</p>
+</li>
+<li><p>p坚持CSMA协议适用于时隙信道</p>
+</li>
+<li><p>p坚持CSMA协议如果监听到信道忙会持续监听（推迟到下一个时隙再监听），直到信道空闲，并以p概率发送数据，1-p概念推迟到下一个时隙</p>
+</li>
+<li><p>快速以太网仍然使用CSMA&#x2F;CD协议，采用保持最短帧长不变，而将最大电缆长度减少到100m的方法，使以太网的数据传输速率提高至100Mb&#x2F;s</p>
+</li>
+<li><p>吉比特以太网支持流量控制机制，其中IEEE 802.3z采用光纤通道；IEEE 802.3ab采用4对UTP5类线</p>
+</li>
+<li><p>IEEE802.11 在MAC层使用CSMA&#x2F;CA协议</p>
+</li>
+<li><p>令牌环网在源站进行差错控制</p>
+</li>
+<li><p>广域网使用存储转发式的传输方式</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PPP协议</th>
+<th>HDLC协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>面向字节（字节填充法）</td>
+<td>面向比特</td>
+</tr>
+<tr>
+<td>提供差错控制，不使用序号和确认机制</td>
+<td>信息帧使用序号和确认机制</td>
+</tr>
+<tr>
+<td>全双工通信、点对点、面向连接</td>
+<td>全双工通信、点对点、面向连接</td>
+</tr>
+<tr>
+<td>PPP帧比HDLC帧多一个2字节的协议字段（0x0021表示IP数据报）</td>
+<td>信息帧传输数据及其捎带确认，监督帧流量控制和差错控制，无编号帧建立链路</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>局域网交换机实现的功能主要是在物理层与数据链路层</p>
+</li>
+<li><p>在本地通信量较大的局域网内主要使用交换机，以降低冲突域</p>
+</li>
+<li><p>交换机按MAC地址转发，可以实现多端口并行传输</p>
+</li>
+<li><p>以太网MAC协议提供的是无连接不可靠的协议（不对发送的数据帧进行编号，不要求对方发回ACK确认）</p>
+</li>
+<li><p>以太网使用曼彻斯特编码，总线形拓扑，</p>
+</li>
+<li><p>以太网交换机直通交换，在输入端口检测到一个数据帧时，检查帧首部，获取帧的目的地址，启动内部动态查找表转换为相应的输出端口，在输入端与输出端交叉处接通，把数据帧直通到相应的端口，实现交换功能。直通交换只检查帧的目的地址（6Ｂ），最短传输延迟为<img src="/%5Cimages/clip_image032.gif" alt="img"></p>
+</li>
+<li><p>交换机所连主机可以同时连通多个端口，使每对相互通信的主机像独占信道一样，进行无碰撞💥的数据传输</p>
+</li>
+<li><p>交换机所连主机能达到的带宽是每个端口能达到的带宽最大值，集线器所连接主机所能达到的带宽是端口带宽的1&#x2F;n（n为所连主机数）</p>
+</li>
+</ul>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><ul>
+<li><p>在路由器连接的异构网络中，物理层、数据链路层、网络层的协议可以不相同，而网络层以上的协议必须相同（特定路由器可以连接IPv4与IPv6网络）</p>
+</li>
+<li><p>路由器分有直接交付与间接交付；当发送站与目的站处于同一网段时，使用直接交付；反之使用间接交付</p>
+</li>
+<li><p>距离-向量路由协议中，慢收敛导致路由器接受了无效的路由信息最可能导致路由回路问题</p>
+</li>
+</ul>
+<blockquote>
+<p>路由环路的产生：</p>
+<p>当A路由器一侧的X网络发生故障，则A路由器收到故障信息，并把X网络设置为不可达，等待更新周期来通知相邻的B路由器。但是，如果相邻的B路由器的更新周期先来了，则A路由器将从B路由器那学习了到达X网络的路由，就是错误路由，因为此时的X网络已经损坏，而A路由器却在自己的路由表内增加了一条经过B路由器到达X网络的路由。然后A路由器还会继续把该错误路由通告给B路由器，B路由器更新路由表，认为到达X网络须经过A路由，然后继续通知相邻的路由器，至此路由环路形成，A路由器认为到达X网络经过B路由器，而B则认为到达X网络进过A路由器。</p>
+</blockquote>
+<ul>
+<li>IPv4数据报中首部长度单位4B，总长度单位1B，片偏移单位8B（IPv6的首部长度是8B的整数倍）</li>
+</ul>
+<blockquote>
+<h2 id="TTL"><a href="#TTL" class="headerlink" title="TTL"></a>TTL</h2><p>TTL字段由IP数据包的发送者设置，在IP数据包从源到目的的整个转发路径上，每经过一个路由器，路由器都会修改这个TTL字段值，具体的做法是把该TTL的值减1，然后再将IP包转发出去。如果在IP包到达目的IP之前，TTL减少为0，路由器将会丢弃收到的TTL&#x3D;0的IP包并向IP包的发送者发送 ICMP time exceeded消息。</p>
+</blockquote>
+<ul>
+<li><p>ICMP报文作为IP层数据报的数据，加上IP数据报的首部，组成IP数据报发送出去（主要供网络层设备使用），即ICMP报文封装在数据链路层帧中发送</p>
+</li>
+<li><p>NAT表项需要管理员添加，以便控制一个内网到外网的网络连接。如果发送分组的IP：端口对在NAT表项中找不到，服务器不会转发该分组</p>
+</li>
+<li><p>DCHP服务器使用主机的以太网地址（MAC地址）标识主机</p>
+</li>
+<li><p>位于不同子网的主机相互通信时，路由器在转发IP数据报时，重新封装硬件源MAC地址（本路由器）与目的MAC地址（下一条路由器）</p>
+</li>
+<li><p>处于不同网段的主机必须通过路由器才能进行通信</p>
+</li>
+<li><p>RIP中每个网络的子网掩码必须相同，RIP2支持CIDR</p>
+</li>
+<li><p>OSPF协议使用Hello分组来保持与其邻居的连接</p>
+</li>
+<li><p>BGP交换的可达性信息是到达某个网络所经过的路径</p>
+</li>
+<li><p>网络地址不同的说明网络不同，需要使用路由器进行连接</p>
+</li>
+<li><p>IP网关等同于IP路由器</p>
+</li>
+<li><p>在一个广域网内的所有节点事先知道该广域网能通过的最大分组，因此广域网没有必要进行分片。但当数据报进入某个网络后，MTU可能发生变化，此时可能需要分片。</p>
+</li>
+<li><p>如果一台主机有两个以太网卡，那么它可以同时连接两个不同的网络（网络号不能相同，否则会发生冲突），这样它需要两个IP地址</p>
+</li>
+<li><p>IPv6的通信量类字段区分不同的IPv6数据报的类别或优先级（0最低），0-7表示允许延迟，8-15表示高优先级</p>
+</li>
+<li><p>IPv6流标号字段，所有属于同一个流的数据报都具有同样的流标号</p>
+</li>
+<li><p>IP组播地址映射为MAC地址方法：将IP地址的后23位转换为十六进制（第24位取0）组成后24位MAC，前24位MAC地址使用MAC地址的组播 </p>
+</li>
+<li><p>在设计组播路由时，为了避免路由环路，构造组播转发树</p>
+</li>
+<li><p>一个D类地址标志一个组播组</p>
+</li>
+<li><p>在组播情况下，是适配器NIC而不是CPU决定是否接受一个帧</p>
+</li>
+<li><p>NIC接受每一个广播帧，然后交付操作系统，由CPU决定是否接收</p>
+</li>
+<li><p>OSPF协议规定Area0是主干区域，区域路由器是与不同区域相连的路由器</p>
+</li>
+<li><p>不同局域网的两台主机若想通信，只需将数据包发给路由器即可，由路由器处理其他操作。（不用主机发送ARP报文）</p>
+</li>
+</ul>
+<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><ul>
+<li><p>TCP拥塞控制的慢启动算法中，发送端每收到一个确认段就将拥塞窗口加一；这样在经过一个RTT后拥塞窗口的大小会加倍（cwnd大小指数式增长）</p>
+</li>
+<li><p>TCP拥塞控制的拥塞避免算法中，每经过一轮RTT只增加一个cwnd（线性增加）</p>
+</li>
+<li><p>排序工作由传输层实现；重组工作由网络层实现</p>
+</li>
+</ul>
+<h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><p>网络数据进入主机后，首先到达网卡，然后进入内核，由网络协议栈处理（使用socket）</p>
+<p>每个进程在内核中都有一个表，保存该进程申请并占用的所有soket描述符。</p>
+<p>socket：源IP+port，目的IP+port，建立起进程与端口间的联系。内核根据传输层数据报中的端口找到相应的进程实现进程间的通信</p>
+<p>SOcket本质上是一种资源，理论上能够通过sendmsg将socket描述符传递到其他进程。同时，父子进程间，线程间也会进行socket共享。</p>
+<ul>
+<li><p>TCP，UDP分别拥有自己的端口号，它们互不干扰，可以共存于同一台主机</p>
+</li>
+<li><p>TCP协议规定HTTP服务器进程的端口号为80</p>
+</li>
+<li><p>TCP采用对报文段确认的确认机制</p>
+</li>
+<li><p>TCP将收到的报文段组成字节流交给上层</p>
+</li>
+<li><p>TCP将应用层交付的数据看作一串字节流</p>
+</li>
+<li><p>MSS是TCP报文的有效载荷长度</p>
+</li>
+<li><p>UDP不需要处理RTT</p>
+</li>
+<li><p>TCP、UDP报头都有目的端口号、源端口号、校验号</p>
+</li>
+<li><p>TCP第三次握手如果不携带数据则不消耗序号</p>
+</li>
+<li><p>TCP每次收到比期望序号大的失序报文就发送一个冗余ACK</p>
+</li>
+<li><p>传输层分用：接收方发传输层剥去报文首部后，能把这些数据正确交付到目的进程（目的端口号是在终点交付报文时使用，源端口号是需要对方回信时使用）</p>
+</li>
+</ul>
+<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><table>
+<thead>
+<tr>
+<th>DNS</th>
+<th>FTP</th>
+<th>电子邮件📧</th>
+<th>WWW</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UDP（53端口）</td>
+<td>TCP（控制连接21端口、数据连接20端口）</td>
+<td>TCP（SMTP  25端口、POP3 110端口、IMAP）</td>
+<td>TCP（HTTP  80端口）</td>
+</tr>
+<tr>
+<td>递归查询、迭代查询</td>
+<td>主动模式、被动模式</td>
+<td></td>
+<td>持久化连接、流水线</td>
+</tr>
+<tr>
+<td>根域名服务器、顶级域名服务器、授权域名服务器、本地域名服务器</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>客户机是面向用户的，服务器是面向任务的</p>
+</li>
+<li><p>多个不同的域名可以共用一个IP地址，访问一台服务器</p>
+</li>
+<li><p>匿名FTP访问通常使用anonymous作为用户名，该用户ID的密码可以是任何字符串</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="FTP工作"><a href="#FTP工作" class="headerlink" title="FTP工作"></a>FTP工作</h2><p>FTP服务器运行一个主进程，负责接收新的请求；以及若干个从属进程，负责处理单个请求。</p>
+<p>服务器主进程接收新的请求后（第一次登陆请求，第二次读取文件请求），服务器使用20号端口创建数据传输进程和TCP数据连接到客户端发送的接收文件的随机端口（实际的文件传输连接）。</p>
+<p>数据传输进程实际完成对文件的传输。传输完毕后关闭“数据传送连接”，并结束运行</p>
+<p>FTP客户端发送的控制连接发送给服务器端控制进程（建立TCP链接到服务器的21端口，发送登录账号与密码），并在整个会话期间一直保持打开。</p>
+<p>收到服务器返回的登陆成功信息后，客户端打开一个随机端口，并将该端口发送给服务器，从这个端口接收文件。</p>
+</blockquote>
+<ul>
+<li><p>POP3协议在传输层使用明文传输密码，并不对密码进行加密🔐</p>
+</li>
+<li><p>SMTP协议用于用户代理向邮件服务器发送邮件、邮件服务器间发送邮件（不支持邮件服务器向用户代理发送邮件）</p>
+</li>
+<li><p>POP3协议用于用户代理从邮件服务器读取邮件</p>
+</li>
+<li><p>SMTP协议只支持7比特的ASCII码内容</p>
+</li>
+<li><p>MIME邮件支持非ASCII码的编码规则（图片、视频等）</p>
+</li>
+<li><p>请求一个万维网文档所需的时间&#x3D;该文档传输时间+两倍的RTT（一次RTT建立TCP连接，另一个RTT用于请求文档和接收文档，即主机的第三次握手携带请求信息）</p>
+</li>
+<li><p>浏览器只会在先前访问过的网站上留下Cookie</p>
+</li>
+<li><p>Cookie是服务器产生的</p>
+</li>
+<li><p>使用浏览器访问WWW服务器的第一步是DNS解析，获取IP地址</p>
+</li>
+</ul>
+<p>客户端的 www浏览器获得 www服务器的主页并显示在客户端的屏幕上的过程如下(假设访问天勤论坛，域名为 <a href="http://www.csbji.com)：">www.csbji.com)：</a></p>
+<ol>
+<li><p>WWW 浏览器直接使用名称 <a target="_blank" rel="noopener" href="http://www.csbiji.com/">www.csbiji.com</a> 访问该www 服务器，首先需要完成对该服务器的域名解析，并最终获得天勤论坛服务器对应的IP 地址 116.255.187.175。</p>
+</li>
+<li><p>www 浏览器将通过TCP 协议与服务器建立一条TCP 连接。当 TCP 连接建立之后，wwW 浏览器就向 www 服务器发送要求获取其主页的 HTTP请求。</p>
+</li>
+<li><p>www 服务器在接收到浏览器的 HTTP 请求之后，将构建所请求的 web 页面必需的各种信息，并将信息通过 Internet 传送给客户端的浏览器。</p>
+</li>
+<li><p>浏览器将收到的信息进行解释，然后将web页面显示在用户的屏幕上。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/408/" rel="tag"># 408</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/08/PointRCNN/" rel="next" title="PointRCNN">
+                <i class="fa fa-chevron-left"></i> PointRCNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="prev" title="计算机组成原理">
+                计算机组成原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A0%81%E5%88%86%E5%A4%8D%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">码分复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSMA-x2F-CA"><span class="nav-number">3.2.</span> <span class="nav-text">CSMA&#x2F;CA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSMA-x2F-CA%E7%AE%97%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">CSMA&#x2F;CA算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TTL"><span class="nav-number">4.1.</span> <span class="nav-text">TTL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">5.</span> <span class="nav-text">传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3"><span class="nav-number">5.1.</span> <span class="nav-text">端口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">6.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FTP%E5%B7%A5%E4%BD%9C"><span class="nav-number">6.1.</span> <span class="nav-text">FTP工作</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">44.6k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

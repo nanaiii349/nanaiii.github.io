@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="408," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="算法应该是问题求解步骤的描述 线性表 顺序存储方式适用于图、树、线性表  定义一个顺序表需要包含的数据成员为：数组指针*data、表中元素个数n、表的大小MaxSize2 xde  kmp算法中，next数组看next[j],j，nextval数组中看next[i]（i为本位、j为上一位）   树 出现树的题要考虑树是一颗空树  树中结点数等于所有结点的度数之和加1  高度为n个结点的m叉树至多有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://example.com/2022/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="算法应该是问题求解步骤的描述 线性表 顺序存储方式适用于图、树、线性表  定义一个顺序表需要包含的数据成员为：数组指针*data、表中元素个数n、表的大小MaxSize2 xde  kmp算法中，next数组看next[j],j，nextval数组中看next[i]（i为本位、j为上一位）   树 出现树的题要考虑树是一颗空树  树中结点数等于所有结点的度数之和加1  高度为n个结点的m叉树至多有">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image006.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image008.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image010.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image012.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image014.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image016.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image018.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image020.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image022.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image018.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image024.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image026.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image028.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image030.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image032.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image034.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image036.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image038.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image040.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image042.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image042.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image044.jpg">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image046.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image048.gif">
+<meta property="og:image" content="http://example.com/%5Cimages/clip_image050.gif">
+<meta property="article:published_time" content="2022-03-11T02:16:05.000Z">
+<meta property="article:modified_time" content="2022-03-11T02:16:38.724Z">
+<meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="408">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%5Cimages/clip_image006.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/11/数据结构/"/>
+
+
+
+
+
+  <title>数据结构 | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-11T10:16:05+08:00">
+                2022-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.4k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>算法应该是问题求解步骤的描述</p>
+<h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><ul>
+<li><p>顺序存储方式适用于图、树、线性表</p>
+</li>
+<li><p>定义一个顺序表需要包含的数据成员为：数组指针*data、表中元素个数n、表的大小MaxSize2 xde</p>
+</li>
+<li><p>kmp算法中，next数组看next[j],j，nextval数组中看next[i]（i为本位、j为上一位）</p>
+</li>
+</ul>
+<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><ul>
+<li><p>出现树的题要考虑树是一颗空树</p>
+</li>
+<li><p>树中结点数等于所有结点的度数之和加1</p>
+</li>
+<li><p>高度为n个结点的m叉树至多有<img src="/%5Cimages/clip_image006.gif" alt="img">个结点</p>
+</li>
+<li><p>具有n个结点的m叉树最小高度为<img src="/%5Cimages/clip_image008.gif" alt="img">（向上取整）</p>
+</li>
+<li><p>非空二叉树上的叶子结点数等于度为2的结点数加1（<img src="/%5Cimages/clip_image010.gif" alt="img">）</p>
+</li>
+<li><p>具有n个结点的完全二叉树的高度为<img src="/%5Cimages/clip_image012.gif" alt="img">或<img src="/%5Cimages/clip_image014.gif" alt="img"></p>
+</li>
+<li><p>非空二叉树上第k层至多有<img src="/%5Cimages/clip_image016.gif" alt="img">个结点</p>
+</li>
+<li><p>高度为h的二叉树至多有<img src="/%5Cimages/clip_image018.gif" alt="img">个结点</p>
+</li>
+<li><p>完全二叉树中按层次编号，则结点i的双亲为<img src="/%5Cimages/clip_image020.gif" alt="img">，左孩子为2i，右孩子为2i+1，所在层次（深度）为<img src="/%5Cimages/clip_image022.gif" alt="img"></p>
+</li>
+<li><p>红黑树黑高为h时，内部结点数最少的情况<img src="/%5Cimages/clip_image018.gif" alt="img">，内部结点数最多的情况<img src="/%5Cimages/clip_image024.gif" alt="img"><img src="/%5Cimages/clip_image026.gif" alt="图像画廊"></p>
+</li>
+<li><p>红黑树上任一查找路径的红结点数量不可能超过一半，但整棵树的红结点总数有可能过半</p>
+</li>
+<li><p>哈夫曼树的WPL计算过程中：路径长度比结点在树中的高度少1</p>
+</li>
+</ul>
+<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><ul>
+<li><p>当带权连通图的任意一个环中包含的边的权值均不同时，其MST是唯一的</p>
+</li>
+<li><p>非连通的情况下边最多的情况：n-1个结点构成一个完全图，再任意加一条边变成连通图</p>
+</li>
+<li><p>一个有n条边n个结点的无向图是有环的</p>
+</li>
+<li><p>连通无向图边数至少是n-1条</p>
+</li>
+<li><p>有向图强连通情况下边最少的情况：至少需要n条边构成一个环路</p>
+</li>
+<li><p>在无向图中常讨论连通性，有向图中讨论强连通性</p>
+</li>
+<li><p>有向图的邻接表存储中，顶点v在边表中出现的次数是顶点v的入度</p>
+</li>
+<li><p>AOE图中只有关键路径上的活动同时减少时，才能缩短工期</p>
+</li>
+<li><p>增加任一关键活动的时间都会延长工程的工期</p>
+</li>
+<li><p>邻接表在更新边的操作时效率优于邻接矩阵（需要搜索所有结点）</p>
+</li>
+<li><p>广搜、深搜、拓扑排序、prime算法需要更新结点的边，因此选择邻接表表示图更好</p>
+</li>
+<li><p>一个单独的顶点也可以构成一个强连通分量</p>
+</li>
+</ul>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><ul>
+<li><p>折半查找判定树即在根据折半查找的过程构造的二叉树，其中mid的选择可以是向上取整、或是向下取整。但是需要在整个查找过程中保持一个取整方向</p>
+</li>
+<li><p>B+树适用于关系数据库系统的索引</p>
+</li>
+<li><p>折半查找的平均查找长度为<img src="/%5Cimages/clip_image028.gif" alt="img">。对折半查找进一步优化，可以使用索引顺序查找（将查找元素分块，为每块建立一个索引项，对索引项和块使用折半查找）</p>
+</li>
+<li><p>索引块的最佳大小是<img src="/%5Cimages/clip_image030.gif" alt="img"></p>
+</li>
+<li><p>折半查找的判定树高度为<img src="/%5Cimages/clip_image032.gif" alt="img">（查找不存在的元素进行的关键字比较次数、查找存在元素的最多比较次数）</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><img src="/%5Cimages/clip_image034.gif" alt="图像画廊"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>B树与B+树内部结点的子树个数<img src="/%5Cimages/clip_image036.gif" alt="img">只是结点所含关键字不同（B树中结点的关键字要比子树少1）</p>
+</li>
+<li><p>装填因子<img src="/%5Cimages/clip_image038.gif" alt="img">（n：表中记录数，m：散列表长度）</p>
+</li>
+<li><p>选择排序和归并排序时间性能与初始状态无关</p>
+</li>
+<li><p><img src="/%5Cimages/clip_image040.gif" alt="img">不表示可以避免碰撞（与散列函数有关）</p>
+</li>
+<li><p>求散列表的平均查找失败次数时，可能的取值是散列函数的取值范围（mod 7，表示散列只能取0-6，因此分母就是7，与散列表长度无关）</p>
+</li>
+</ul>
+<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><ul>
+<li><p>向具有n个关键字的堆中插入一个新元素的时间复杂度为<img src="/%5Cimages/clip_image042.gif" alt="img">，删除一个元素的时间复杂度为<img src="/%5Cimages/clip_image042.gif" alt="img"></p>
+</li>
+<li><p>堆排序适用于关键字较多的情况，建一个大小为n的小（大）根堆，遍历一遍 数据，即可得到最大（小）的n个数（建立小根堆，，而后依次读入余下的数，小于堆顶则舍弃，否则用该数取代堆顶并重新调整堆）<img src="/%5Cimages/clip_image044.jpg" alt="图像"></p>
+</li>
+<li><p>小根堆堆最大关键字一定在叶子结点上，二叉树最后一个非叶子结点存储在<img src="/%5Cimages/clip_image046.gif" alt="img">，最大关键字存储范围<img src="/%5Cimages/clip_image048.gif" alt="img">～<img src="/%5Cimages/clip_image050.gif" alt="img"></p>
+</li>
+<li><p>构建堆从n&#x2F;2出开始调整，递减处理其他子堆（n&#x2F;2为最后一个非叶子结点）</p>
+</li>
+<li><p>将两个各有N个元素的有序表合并为一个有序表，最少比较次数N次，最多比较次数2N-1次</p>
+</li>
+<li><p>有序顺序表、二叉排序树、堆、平衡二叉树相比，堆的查找效率最低（查找时是无序的）</p>
+</li>
+<li><p>排序趟数与原始状态无关的有：插入排序、选择排序、基数排序</p>
+</li>
+<li><p>就地算法要求空间复杂度为O(1),即所用空间大小为常数</p>
+</li>
+<li><p>元素规模较小时，使用直接插入、冒泡、简单选择排序</p>
+</li>
+<li><p>元素规模中等时，使用希尔排序</p>
+</li>
+<li><p>元素规模较大时，使用快排、堆排序、或基数排序；</p>
+</li>
+<li><p>快速排序算法中，不产生有序子序列，但每趟排序后会将枢轴元素放到最终位置上</p>
+</li>
+<li><p>外部排序进行多路归并时，能选取的最大归并段数取决于用于归并的内存大小。内存大小为一个输出缓存区+n个输入缓冲区（n即为归并段数）</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/408/" rel="tag"># 408</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="next" title="计算机组成原理">
+                <i class="fa fa-chevron-left"></i> 计算机组成原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="prev" title="操作系统">
+                操作系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">线性表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">4.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">5.</span> <span class="nav-text">排序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">44.6k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
