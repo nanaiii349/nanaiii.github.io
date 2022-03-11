@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="变形透视表1.pivot一般状态下，数据在DataFrame会以压缩（stacked）状态存放. pivot函数可将某一列作为新的cols.  1.index：用于制作新框架索引的列。如果为None，则使用现有索引。  2.columns：用于制作新框架列的列。  3.values：用于填充新框架值的列。如果未指定，将使用所有剩余的列，并且结果将具有按层次结构索引的列。   12345678910">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pandas学习（四）">
+<meta property="og:url" content="http://example.com/2020/07/17/Learning-pandas-04/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="变形透视表1.pivot一般状态下，数据在DataFrame会以压缩（stacked）状态存放. pivot函数可将某一列作为新的cols.  1.index：用于制作新框架索引的列。如果为None，则使用现有索引。  2.columns：用于制作新框架列的列。  3.values：用于填充新框架值的列。如果未指定，将使用所有剩余的列，并且结果将具有按层次结构索引的列。   12345678910">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-17T02:35:41.000Z">
+<meta property="article:modified_time" content="2021-01-24T04:47:40.488Z">
+<meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="计算机">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2020/07/17/Learning-pandas-04/"/>
+
+
+
+
+
+  <title>Pandas学习（四） | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/17/Learning-pandas-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pandas学习（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-17T10:35:41+08:00">
+                2020-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="变形"><a href="#变形" class="headerlink" title="变形"></a>变形</h1><h2 id="透视表"><a href="#透视表" class="headerlink" title="透视表"></a>透视表</h2><h3 id="1-pivot"><a href="#1-pivot" class="headerlink" title="1.pivot"></a>1.pivot</h3><p>一般状态下，数据在DataFrame会以压缩（stacked）状态存放.</p>
+<p>pivot函数可将某一列作为新的cols.</p>
+<ul>
+<li><p>1.index：用于制作新框架索引的列。如果为None，则使用现有索引。</p>
+</li>
+<li><p>2.columns：用于制作新框架列的列。</p>
+</li>
+<li><p>3.values：用于填充新框架值的列。如果未指定，将使用所有剩余的列，并且结果将具有按层次结构索引的列。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.read_csv(<span class="string">&#x27;data/table.csv&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.head()</span><br><span class="line">  School Class    ID Gender   Address  Height  Weight  Math Physics</span><br><span class="line"><span class="number">0</span>    S_1   C_1  <span class="number">1101</span>      M  street_1     <span class="number">173</span>      <span class="number">63</span>  <span class="number">34.0</span>      A+        </span><br><span class="line"><span class="number">1</span>    S_1   C_1  <span class="number">1102</span>      F  street_2     <span class="number">192</span>      <span class="number">73</span>  <span class="number">32.5</span>      B+        </span><br><span class="line"><span class="number">2</span>    S_1   C_1  <span class="number">1103</span>      M  street_2     <span class="number">186</span>      <span class="number">82</span>  <span class="number">87.2</span>      B+        </span><br><span class="line"><span class="number">3</span>    S_1   C_1  <span class="number">1104</span>      F  street_2     <span class="number">167</span>      <span class="number">81</span>  <span class="number">80.4</span>      B-        </span><br><span class="line"><span class="number">4</span>    S_1   C_1  <span class="number">1105</span>      F  street_4     <span class="number">159</span>      <span class="number">64</span>  <span class="number">84.8</span>      B+        </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.pivot(index=<span class="string">&#x27;ID&#x27;</span>,columns=<span class="string">&#x27;Gender&#x27;</span>,values=<span class="string">&#x27;Height&#x27;</span>).head()</span><br><span class="line">Gender      F      M</span><br><span class="line">ID</span><br><span class="line"><span class="number">1101</span>      NaN  <span class="number">173.0</span></span><br><span class="line"><span class="number">1102</span>    <span class="number">192.0</span>    NaN</span><br><span class="line"><span class="number">1103</span>      NaN  <span class="number">186.0</span></span><br><span class="line"><span class="number">1104</span>    <span class="number">167.0</span>    NaN</span><br><span class="line"><span class="number">1105</span>    <span class="number">159.0</span>    NaN</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-pivot-table"><a href="#2-pivot-table" class="headerlink" title="2.pivot_table"></a>2.pivot_table</h3><p><em>pivot_table比pivot功能更强大，但是也更耗时。</em></p>
+<ul>
+<li>1.aggfunc：对组内进行聚合统计，可传入各类函数，默认为’mean’</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.pivot_table(df,index=<span class="string">&#x27;School&#x27;</span>,columns=<span class="string">&#x27;Gender&#x27;</span>,values=<span class="string">&#x27;Height&#x27;</span>,aggfunc=[<span class="string">&#x27;mean&#x27;</span>,<span class="string">&#x27;sum&#x27;</span>]).head()</span><br><span class="line">              mean               <span class="built_in">sum</span>      </span><br><span class="line">Gender           F           M     F     M</span><br><span class="line">School</span><br><span class="line">S_1     <span class="number">173.125000</span>  <span class="number">178.714286</span>  <span class="number">1385</span>  <span class="number">1251</span></span><br><span class="line">S_2     <span class="number">173.727273</span>  <span class="number">172.000000</span>  <span class="number">1911</span>  <span class="number">1548</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.margins：汇总边际状态</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.pivot_table(df,index=<span class="string">&#x27;School&#x27;</span>,columns=<span class="string">&#x27;Gender&#x27;</span>,values=<span class="string">&#x27;Height&#x27;</span>,aggfunc=[<span class="string">&#x27;mean&#x27;</span>,<span class="string">&#x27;sum&#x27;</span>],margins=<span class="literal">True</span>,margins_name=<span class="string">&#x27;all&#x27;</span>).head()</span><br><span class="line"><span class="comment"># margins_name可以设置名字，默认为&#x27;All&#x27;</span></span><br><span class="line">              mean                           <span class="built_in">sum</span></span><br><span class="line">Gender           F           M         <span class="built_in">all</span>     F     M   <span class="built_in">all</span></span><br><span class="line">School</span><br><span class="line">S_1     <span class="number">173.125000</span>  <span class="number">178.714286</span>  <span class="number">175.733333</span>  <span class="number">1385</span>  <span class="number">1251</span>  <span class="number">2636</span></span><br><span class="line">S_2     <span class="number">173.727273</span>  <span class="number">172.000000</span>  <span class="number">172.950000</span>  <span class="number">1911</span>  <span class="number">1548</span>  <span class="number">3459</span></span><br><span class="line"><span class="built_in">all</span>     <span class="number">173.473684</span>  <span class="number">174.937500</span>  <span class="number">174.142857</span>  <span class="number">3296</span>  <span class="number">2799</span>  <span class="number">6095</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>3.行、列、值都可以为多级</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.pivot_table(df,index=[<span class="string">&#x27;School&#x27;</span>,<span class="string">&#x27;Class&#x27;</span>],</span><br><span class="line"><span class="meta">... </span>               columns=[<span class="string">&#x27;Gender&#x27;</span>,<span class="string">&#x27;Address&#x27;</span>],</span><br><span class="line"><span class="meta">... </span>               values=[<span class="string">&#x27;Height&#x27;</span>,<span class="string">&#x27;Weight&#x27;</span>])</span><br><span class="line">               Height                    ...   Weight</span><br><span class="line">Gender              F                    ...        M</span><br><span class="line">Address      street_1 street_2 street_4  ... street_5 street_6 street_7    </span><br><span class="line">School Class                             ...</span><br><span class="line">S_1    C_1        NaN    <span class="number">179.5</span>    <span class="number">159.0</span>  ...      NaN      NaN      NaN    </span><br><span class="line">       C_2        NaN      NaN    <span class="number">176.0</span>  ...     <span class="number">68.0</span>     <span class="number">53.0</span>      NaN    </span><br><span class="line">       C_3      <span class="number">175.0</span>      NaN      NaN  ...      NaN      NaN     <span class="number">82.0</span>    </span><br><span class="line">S_2    C_1        NaN      NaN      NaN  ...      NaN      NaN     <span class="number">84.0</span>    </span><br><span class="line">       C_2        NaN      NaN      NaN  ...    <span class="number">100.0</span>      NaN      NaN    </span><br><span class="line">       C_3        NaN      NaN    <span class="number">157.0</span>  ...     <span class="number">88.0</span>      NaN      NaN    </span><br><span class="line">       C_4        NaN    <span class="number">176.0</span>      NaN  ...      NaN      NaN     <span class="number">82.0</span>    </span><br><span class="line"></span><br><span class="line">[<span class="number">7</span> rows x <span class="number">24</span> columns]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-crosstab"><a href="#3-crosstab" class="headerlink" title="3.crosstab"></a>3.crosstab</h3><p>交叉表是一种特殊的透视表，典型的用途如分组统计</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计关于街道和性别分组的频数</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.crosstab(index=df[<span class="string">&#x27;Address&#x27;</span>],columns=df[<span class="string">&#x27;Gender&#x27;</span>])</span><br><span class="line">Gender    F  M</span><br><span class="line">Address</span><br><span class="line">street_1  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line">street_2  <span class="number">4</span>  <span class="number">2</span></span><br><span class="line">street_4  <span class="number">3</span>  <span class="number">5</span></span><br><span class="line">street_5  <span class="number">3</span>  <span class="number">3</span></span><br><span class="line">street_6  <span class="number">5</span>  <span class="number">1</span></span><br><span class="line">street_7  <span class="number">3</span>  <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>1.values、aggfunc：分组对某些数据进行聚合操作，这两个参数必须成对出现</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.crosstab(index=df[<span class="string">&#x27;Address&#x27;</span>],columns=df[<span class="string">&#x27;Gender&#x27;</span>],</span><br><span class="line">            values=np.random.randint(<span class="number">1</span>,<span class="number">20</span>,df.shape[<span class="number">0</span>]),aggfunc=<span class="string">&#x27;min&#x27;</span>)</span><br><span class="line"><span class="comment"># 默认参数等于如下方法：</span></span><br><span class="line"><span class="comment"># pd.crosstab(index=df[&#x27;Address&#x27;],columns=df[&#x27;Gender&#x27;],values=1,aggfunc=&#x27;count&#x27;)</span></span><br><span class="line"></span><br><span class="line">Gender     F   M</span><br><span class="line">Address</span><br><span class="line">street_1  <span class="number">16</span>   <span class="number">3</span></span><br><span class="line">street_2   <span class="number">5</span>   <span class="number">2</span></span><br><span class="line">street_4   <span class="number">5</span>   <span class="number">1</span></span><br><span class="line">street_5   <span class="number">6</span>   <span class="number">2</span></span><br><span class="line">street_6   <span class="number">2</span>  <span class="number">15</span></span><br><span class="line">street_7   <span class="number">1</span>   <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.② 除了边际参数margins外，还引入了normalize参数，可选’all’,’index’,’columns’参数值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.crosstab(index=df[<span class="string">&#x27;Address&#x27;</span>],columns=df[<span class="string">&#x27;Gender&#x27;</span>],normalize=<span class="string">&#x27;all&#x27;</span>,margins=<span class="literal">True</span>)</span><br><span class="line">Gender           F         M       All</span><br><span class="line">Address</span><br><span class="line">street_1  <span class="number">0.028571</span>  <span class="number">0.057143</span>  <span class="number">0.085714</span></span><br><span class="line">street_2  <span class="number">0.114286</span>  <span class="number">0.057143</span>  <span class="number">0.171429</span></span><br><span class="line">street_4  <span class="number">0.085714</span>  <span class="number">0.142857</span>  <span class="number">0.228571</span></span><br><span class="line">street_5  <span class="number">0.085714</span>  <span class="number">0.085714</span>  <span class="number">0.171429</span></span><br><span class="line">street_6  <span class="number">0.142857</span>  <span class="number">0.028571</span>  <span class="number">0.171429</span></span><br><span class="line">street_7  <span class="number">0.085714</span>  <span class="number">0.085714</span>  <span class="number">0.171429</span></span><br><span class="line">All       <span class="number">0.542857</span>  <span class="number">0.457143</span>  <span class="number">1.000000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其他变形方法"><a href="#其他变形方法" class="headerlink" title="其他变形方法"></a>其他变形方法</h2><h3 id="1-melt"><a href="#1-melt" class="headerlink" title="1.melt"></a>1.melt</h3><p>melt函数可以认为是pivot函数的逆操作，将unstacked状态的数据，压缩成stacked，使“宽”的DataFrame变“窄”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df_m = df[[<span class="string">&#x27;ID&#x27;</span>,<span class="string">&#x27;Gender&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df_m.head()</span><br><span class="line">     ID Gender  Math</span><br><span class="line"><span class="number">0</span>  <span class="number">1101</span>      M  <span class="number">34.0</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1102</span>      F  <span class="number">32.5</span></span><br><span class="line"><span class="number">2</span>  <span class="number">1103</span>      M  <span class="number">87.2</span></span><br><span class="line"><span class="number">3</span>  <span class="number">1104</span>      F  <span class="number">80.4</span></span><br><span class="line"><span class="number">4</span>  <span class="number">1105</span>      F  <span class="number">84.8</span></span><br></pre></td></tr></table></figure>
+
+<p>melt函数中的id_vars表示需要保留的列，value_vars表示需要stack的一组列</p>
+<h3 id="2-压缩与展开"><a href="#2-压缩与展开" class="headerlink" title="2. 压缩与展开"></a>2. 压缩与展开</h3><ul>
+<li><p>stack：这是最基础的变形函数，总共只有两个参数：level和dropna</p>
+</li>
+<li><p>unstack：stack的逆函数，功能上类似于pivot_table</p>
+</li>
+</ul>
+<h2 id="哑变量与因子化"><a href="#哑变量与因子化" class="headerlink" title="哑变量与因子化"></a>哑变量与因子化</h2><h3 id="1-Dummy-Variable（哑变量）"><a href="#1-Dummy-Variable（哑变量）" class="headerlink" title="1.Dummy Variable（哑变量）"></a>1.Dummy Variable（哑变量）</h3><p>主要介绍get_dummies函数，其功能主要是进行one-hot编码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df_d = df[[<span class="string">&#x27;Class&#x27;</span>,<span class="string">&#x27;Gender&#x27;</span>,<span class="string">&#x27;Weight&#x27;</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df_d.head()</span><br><span class="line">  Class Gender  Weight</span><br><span class="line"><span class="number">0</span>   C_1      M      <span class="number">63</span></span><br><span class="line"><span class="number">1</span>   C_1      F      <span class="number">73</span></span><br><span class="line"><span class="number">2</span>   C_1      M      <span class="number">82</span></span><br><span class="line"><span class="number">3</span>   C_1      F      <span class="number">81</span></span><br><span class="line"><span class="number">4</span>   C_1      F      <span class="number">64</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.get_dummies(df_d[[<span class="string">&#x27;Class&#x27;</span>,<span class="string">&#x27;Gender&#x27;</span>]]).join(df_d[<span class="string">&#x27;Weight&#x27;</span>]).head()</span><br><span class="line">   Class_C_1  Class_C_2  Class_C_3  Class_C_4  Gender_F  Gender_M  Weight</span><br><span class="line"><span class="number">0</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>         <span class="number">0</span>         <span class="number">1</span>      <span class="number">63</span>  </span><br><span class="line"><span class="number">1</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>         <span class="number">1</span>         <span class="number">0</span>      <span class="number">73</span>  </span><br><span class="line"><span class="number">2</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>         <span class="number">0</span>         <span class="number">1</span>      <span class="number">82</span>  </span><br><span class="line"><span class="number">3</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>         <span class="number">1</span>         <span class="number">0</span>      <span class="number">81</span>  </span><br><span class="line"><span class="number">4</span>          <span class="number">1</span>          <span class="number">0</span>          <span class="number">0</span>          <span class="number">0</span>         <span class="number">1</span>         <span class="number">0</span>      <span class="number">64</span>  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment">#可选prefix参数添加前缀，prefix_sep添加分隔符</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-factorize方法"><a href="#2-factorize方法" class="headerlink" title="2.factorize方法"></a>2.factorize方法</h3><p>该方法主要用于自然数编码，并且缺失值会被记做-1，其中sort参数表示是否排序后赋值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes, uniques = pd.factorize([<span class="string">&#x27;b&#x27;</span>, <span class="literal">None</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], sort=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">array([ <span class="number">1</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">2</span>,  <span class="number">1</span>], dtype=int64)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>uniques</span><br><span class="line">array([<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>], dtype=<span class="built_in">object</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"># 计算机</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/17/Learning-pandas-05/" rel="next" title="Pandas学习（四）">
+                <i class="fa fa-chevron-left"></i> Pandas学习（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/25/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E5%BD%A2"><span class="nav-number">1.</span> <span class="nav-text">变形</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E8%A7%86%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">透视表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pivot"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.pivot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-pivot-table"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.pivot_table</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-crosstab"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.crosstab</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8F%98%E5%BD%A2%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">其他变形方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-melt"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.melt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8E%8B%E7%BC%A9%E4%B8%8E%E5%B1%95%E5%BC%80"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 压缩与展开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%91%E5%8F%98%E9%87%8F%E4%B8%8E%E5%9B%A0%E5%AD%90%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">哑变量与因子化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Dummy-Variable%EF%BC%88%E5%93%91%E5%8F%98%E9%87%8F%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.Dummy Variable（哑变量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-factorize%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.factorize方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">74k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

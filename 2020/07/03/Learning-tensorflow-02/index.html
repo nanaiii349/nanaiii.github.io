@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇文章主要介绍TF的源码结构、神经网络概述以及Keras，TFLearn高级框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TF学习（二）">
+<meta property="og:url" content="http://example.com/2020/07/03/Learning-tensorflow-02/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="本篇文章主要介绍TF的源码结构、神经网络概述以及Keras，TFLearn高级框架">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/TF_02_01.png">
+<meta property="og:image" content="http://example.com/images/TF_02_02.png">
+<meta property="og:image" content="http://example.com/images/TF_02_03.png">
+<meta property="og:image" content="http://example.com/images/TF_02_04.png">
+<meta property="og:image" content="http://example.com/images/TF_02_05.png">
+<meta property="og:image" content="http://example.com/images/TF_02_06.png">
+<meta property="og:image" content="http://example.com/images/TF_02_07.jpg">
+<meta property="og:image" content="http://example.com/images/TF_02_08.jpg">
+<meta property="og:image" content="http://example.com/images/TF_02_09.jpg">
+<meta property="og:image" content="http://example.com/images/TF_02_10.jpg">
+<meta property="og:image" content="http://example.com/images/TF_02_11.jpg">
+<meta property="og:image" content="http://example.com/images/TF_02_12.jpg">
+<meta property="article:published_time" content="2020-07-03T03:07:28.000Z">
+<meta property="article:modified_time" content="2021-01-24T04:47:40.486Z">
+<meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="计算机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/TF_02_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2020/07/03/Learning-tensorflow-02/"/>
+
+
+
+
+
+  <title>TF学习（二） | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/03/Learning-tensorflow-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TF学习（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-03T11:07:28+08:00">
+                2020-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><strong>本篇文章主要介绍TF的源码结构、神经网络概述以及Keras，TFLearn高级框架</strong></p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="Tensorflow源码解析"><a href="#Tensorflow源码解析" class="headerlink" title="Tensorflow源码解析"></a>Tensorflow源码解析</h1><h2 id="Tensorflow目录结构"><a href="#Tensorflow目录结构" class="headerlink" title="Tensorflow目录结构"></a>Tensorflow目录结构</h2><p>tensorflow-1.1.0目录:</p>
+<p><img src="/images/TF_02_01.png" alt="avarat"></p>
+<p>tensorflow目录:</p>
+<p><img src="/images/TF_02_02.png" alt="avarat"></p>
+<h2 id="Tensorflow源代码学习方法"><a href="#Tensorflow源代码学习方法" class="headerlink" title="Tensorflow源代码学习方法"></a>Tensorflow源代码学习方法</h2><ul>
+<li><p>（1）了解自己要研究的基本领域，如图像分类、物体检测、语音识别等，了解对应这个领域所用的技术，如卷积神经网络 （convolutional neural network，CNN）和循环神经网络 （recurrentneural<br>network，RNN），知道实现的基本原理。</p>
+</li>
+<li><p>（2）尝试运行GitHub上对应的基本模型</p>
+</li>
+</ul>
+<p><img src="/images/TF_02_03.png" alt="avarat"></p>
+<p><strong>如果研究领域是计算机视觉，可以看代码中的如下几个目录：compresssion（图像压缩）、im2txt（图像描述）、inception（对ImageNet数据集用Inception<br>V3架构去训练和评估）、resnet（残差网络）、slim（图像分类）和street（路标识别或验证码识别）。</strong></p>
+<p>如果研究领域是自然语言处理，可以看lm_1b（语言模型）、namignizer（起名字）、swivel（使用Swivel算法转换词向量）、syntaxnet（分词和语法分析）、textsum（文本摘要）以及tutorials目录里的word2vec（词转换为向量）。</p>
+<h1 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h1><h2 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h2><p>卷积神经网络（CNN），属于人工神经网络的一种，它的权值共享 （weight sharing）的网络结构显著降低了模型的复杂度，减少了权值的数量，是目前语音分析和图像识别领域研究热点。</p>
+<p>卷积是泛函分析中的一种积分变换的数学方法，通过两个函数f 和g 生成第三个函数的一种数学算子，表征函数f 与g 经过翻转和平移的重叠部分的面积。 ① 设f (x )和g (x )是R 1 上的两个可积函数，做积分后的新函数就称为函数f 与g<br>的卷积：</p>
+<p><img src="/images/TF_02_04.png" alt="avarat"></p>
+<p>神经网络 （neural networks，NN）的基本组成包括输入层、隐藏层、输出层。卷积神经网络的特点在于隐藏层分为卷积层 和池化层 （pooling layer，又叫下采样层 ）。卷积层通过一块块卷积核 （conventional<br>kernel）在原始图像上平移来提取特征，每一个特征就是一个特征映射；而池化层通过汇聚特征后稀疏参数来减少要学习的参数，降低网络的复杂度，池化层最常见的包括最大值池化 （max pooling）和平均值池化 （average<br>pooling）</p>
+<p><img src="/images/TF_02_05.png" alt="avarat"></p>
+<p>卷积核在提取特征映射时的动作称为padding，其有两种方式，即SAME和VALID。由于移动步长（Stride）不一定能整除整张图的像素宽度，我们把不越过边缘取样称为Valid<br>Padding，取样的面积小于输入图像的像素宽度；越过边缘取样称为Same Padding，取样的面积和输入图像的像素宽度一致。</p>
+<h2 id="卷积神经网络发展"><a href="#卷积神经网络发展" class="headerlink" title="卷积神经网络发展"></a>卷积神经网络发展</h2><p><img src="/images/TF_02_06.png" alt="avarat"></p>
+<h3 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h3><p>LeNet的论文详见：<a target="_blank" rel="noopener" href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf">http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf</a></p>
+<p>LeNet包含的组件如下。</p>
+<ul>
+<li>输入层：32×32。</li>
+<li>卷积层：3个。</li>
+<li>降采样层：2个。</li>
+<li>全连接层：1个。</li>
+<li>输出层（高斯连接）：10个类别（数字0～9的概率）。</li>
+</ul>
+<p><img src="/images/TF_02_07.jpg" alt="avarat"></p>
+<p>各个层的用途及意义:</p>
+<p>（1）输入层。输入图像尺寸为32×32。这要比MNIST数据集中的字母（28×28）还大，即对图 像做了预处理reshape操作。这样做的目的是希望潜在的明显特征，如笔画断续、角点，能够出 现在最高层特征监测卷积核的中心。</p>
+<p>（2）卷积层（C1, C3, C5）。卷积运算的主要目的是使原信号特征增强，并且降低噪音。在一 个可视化的在线演示示例 [5] 中，我们可以看出不同的卷积核输出特征映射的不同，如图 6-5 所示。</p>
+<p>（3）下采样层（S2, S4）。下采样层主要是想降低网络训练参数及模型的过拟合程度。通常 有以下两种方式。</p>
+<ul>
+<li>最大池化 （max pooling）：在选中区域中找最大的值作为采样后的值。</li>
+<li>平均值池化 （mean pooling）：把选中的区域中的平均值作为采样后的值。</li>
+</ul>
+<p>（4）全连接层（F6）。F6是全连接层，计算输入向量和权重向量的点积，再加上一个偏置。 随后将其传递给sigmoid函数，产生单元i 的一个状态。</p>
+<p>（5）输出层。输出层由欧式径向基函数 （Euclidean radial basis function）单元组成，每个类 别（数字的0～9）对应一个径向基函数单元，每个单元有84个输入。也就是说，每个输出RBF单<br>元计算输入向量和该类别标记向量之间的欧式距离。距离越远，RBF输出越大。</p>
+<h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><p>AlexNet的论文详见Alex Krizhevsky、Ilya Sutskever和Geoffrey E．Hinton的《ImageNet Classification with Deep Convolutional Neural<br>Networks》</p>
+<p>AlexNet由5个卷积层、5个池化层、3个全连接层，大约5000万个可调参数组成。最后一个全连接层的输出被送到一个1000维的softmax层，产生一个覆盖1000类标记的分布。AlexNet由两个GPU协作：一个GPU运行图中顶部的层次部分，另一个GPU运行图中底部的层次部分。GPU之间仅在某些层互相通信。</p>
+<p><img src="/images/TF_02_08.jpg" alt="avarat"></p>
+<p>特点：</p>
+<ul>
+<li>防止过拟合：Dropout、数据增强 （data augmentation）。</li>
+<li>非线性激活函数：ReLU。</li>
+<li>大数据训练：120万（百万级）ImageNet图像数据。</li>
+<li>GPU实现、LRN（local responce normalization）规范化层的使用。</li>
+</ul>
+<blockquote>
+<p>Dropout。AlexNet做的是以0.5的概率将每个隐层神经元的输出设置为0。以这种方式被抑制的神经元既不参与前向传播，也不参与反向传播。因此，每次输入一个样本，就相当于该神经网络尝试了一个新结构，但是所有这些结构之间共享权重。因为神经元不能依赖于其他神经元而存在，所以这种技术降低了神经元复杂的互适应关系。因此，网络需要被迫学习更为健壮的特征，这些特征在结合其他神经元的一些不同随机子集时很有用。如果没有Dropout，我们的网络会表现出大量的过拟合。Dropout使收敛所需的迭代次数大致增加了一倍。</p>
+</blockquote>
+<h3 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h3><p>VGGNet可以看成是加深版本的AlexNet，参见Karen Simonyan和Andrew Zisserman 的论文《Very Deep Convolutional Networks for Large-Scale Visual<br>Recognition》</p>
+<p>VGGNet也是5个卷积组、2层全连接图像特征、1层全连接分类特征，可以看作和AlexNet一样总共8个部分。根据前5个卷积组，VGGNet论文中给出了A～E这5种配置。卷积层数从8（A配置）到16（E配置）递增。VGGNet不同于AlexNet的地方是：VGGNet使用的层更多，通常有16～19层，而AlexNet只有8层。</p>
+<p><img src="/images/TF_02_09.jpg" alt="avarat"></p>
+<h3 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h3><p>GoogLeNet的更多内容详见Christian Szegedy和Wei Liu等人的论文《Going Deeper with Convolutions》</p>
+<blockquote>
+<p>NIN（Network in Network）（详见Min Lin和Qiang Chen和Shuicheng Yan的论文《Network In Network》），它对传统的卷积方法做了两点改进：将原来的线性卷积层（linear convolution layer）变为多层感知卷积层（multilayer perceptron）；将全连接层的改进为全局平均池化。</p>
+</blockquote>
+<p><img src="/images/TF_02_10.jpg" alt="avarat"></p>
+<p>GoogLeNet的主要思想是围绕“深度”和“宽度”去实现的。</p>
+<ul>
+<li><p>（1）深度。层数更深，论文中采用了22层。为了避免梯度消失问题，GoogLeNet巧妙地在不同深度处增加了两个损失函数来避免反向传播时梯度消失的现象。</p>
+</li>
+<li><p>（2）宽度。增加了多种大小的卷积核，如1×1、3×3、5×5，但并没有将这些全都用在特征映射上，都结合起来的特征映射厚度将会很大。但是采用了图6-11右侧所示的降维的Inception模型，在3×3、5×5卷积前，和最大池化后都分别加上了1×1的卷积核，起到了降低特征映射厚度的作用。</p>
+</li>
+</ul>
+<h3 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h3><p>残差网络的更多内容详见Kaiming He、Xiangyu Zhang、Shaoqing Ren和Jian Sun的论文《Deep Residual Learningfor Image Recognition》</p>
+<h2 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h2><p>循环神经网络主要是自然语言处理（natural language<br>processing，NLP）应用的一种网络模型。循环神经网络的特点在于它是按时间顺序展开的，下一步会受本步处理的影响。循环神经网络的解决方式是，隐藏层的输入不仅包括上一层的输出，还包括上一时刻该隐藏层的输出。理论上，循环神经网络能够包含前面的任意多个时刻的状态，但实践中，为了降低训练的复杂性，一般只处理前面几个状态的输出。</p>
+<p><img src="/images/TF_02_11.jpg" alt="avarat"></p>
+<p>循环神经网络的训练也是使用误差反向传播 （backpropagation，BP）算法，并且参数w1、w2和w3是共享的。但是，其在反向传播中，不仅依赖当前层的网络，还依赖前面若干层的网络，这种算法称为随时间反向传播<br>（backpropagation through time，BPTT）算法。BPTT算法是BP算法的扩展，可以将加载在网络上的时序信号按层展开，这样就使得前馈神经网络的静态网络转化为动态网络。</p>
+<h2 id="循环神经网络发展"><a href="#循环神经网络发展" class="headerlink" title="循环神经网络发展"></a>循环神经网络发展</h2><p><img src="/images/TF_02_12.jpg" alt="avarat"></p>
+<h1 id="Tensorflow高级框架"><a href="#Tensorflow高级框架" class="headerlink" title="Tensorflow高级框架"></a>Tensorflow高级框架</h1><h2 id="TFLearn"><a href="#TFLearn" class="headerlink" title="TFLearn"></a>TFLearn</h2><h3 id="1-加载数据"><a href="#1-加载数据" class="headerlink" title="1.加载数据"></a>1.加载数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tflearn</span><br><span class="line"><span class="keyword">from</span> tflearn.layers.core <span class="keyword">import</span> input_data, dropout, fully_connected</span><br><span class="line"><span class="keyword">from</span> tflearn.layers.conv <span class="keyword">import</span> conv_2d, max_pool_2d</span><br><span class="line"><span class="keyword">from</span> tflearn.layers.normalization <span class="keyword">import</span> local_response_normalization</span><br><span class="line"><span class="keyword">from</span> tflearn.layers.estimator <span class="keyword">import</span> regression</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用的是牛津大学的鲜花数据集 [2] （Flower Dataset）。这个数据集提供了17个类别的鲜花数据，每个类别80张图片，并且图片有大量的姿态和光的变化。</span></span><br><span class="line"><span class="keyword">import</span> tflearn.datasets.oxflower17 <span class="keyword">as</span> oxflower17</span><br><span class="line">X, Y = oxflower17.load_data(one_hot=<span class="literal">True</span>, resize_pics=(<span class="number">227</span>, <span class="number">227</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-构建网络模型"><a href="#2-构建网络模型" class="headerlink" title="2.构建网络模型"></a>2.构建网络模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建AlexNet网络</span></span><br><span class="line">network = input_data(shape=[<span class="literal">None</span>, <span class="number">227</span>, <span class="number">227</span>, <span class="number">3</span>])</span><br><span class="line">network = conv_2d(network, <span class="number">96</span>, <span class="number">11</span>, strides=<span class="number">4</span>, activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">network = max_pool_2d(network, <span class="number">3</span>, strides=<span class="number">2</span>)</span><br><span class="line">network = local_response_normalization(network)</span><br><span class="line">network = conv_2d(network, <span class="number">256</span>, <span class="number">5</span>, activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">network = max_pool_2d(network, <span class="number">3</span>, strides=<span class="number">2</span>)</span><br><span class="line">network = local_response_normalization(network)</span><br><span class="line">network = conv_2d(network, <span class="number">384</span>, <span class="number">3</span>, activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">network = conv_2d(network, <span class="number">384</span>, <span class="number">3</span>, activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">network = conv_2d(network, <span class="number">256</span>, <span class="number">3</span>, activation=<span class="string">&#x27;relu&#x27;</span>)</span><br><span class="line">network = max_pool_2d(network, <span class="number">3</span>, strides=<span class="number">2</span>)</span><br><span class="line">network = local_response_normalization(network)</span><br><span class="line">network = fully_connected(network, <span class="number">4096</span>, activation=<span class="string">&#x27;tanh&#x27;</span>)</span><br><span class="line">network = dropout(network, <span class="number">0.5</span>)</span><br><span class="line">network = fully_connected(network, <span class="number">4096</span>, activation=<span class="string">&#x27;tanh&#x27;</span>)</span><br><span class="line">network = dropout(network, <span class="number">0.5</span>)</span><br><span class="line">network = fully_connected(network, <span class="number">17</span>, activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">network = regression(network, optimizer=<span class="string">&#x27;momentum&#x27;</span>,</span><br><span class="line">                    loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">                    learning_rate=<span class="number">0.001</span>) <span class="comment"># 回归操作，同时规定网络所使用的学习率、损失函数和优化器</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = tflearn.DNN(network, checkpoint_path=<span class="string">&#x27;model_alexnet&#x27;</span>,</span><br><span class="line">                    max_checkpoints=<span class="number">1</span>, tensorboard_verbose=<span class="number">2</span>)</span><br><span class="line">model.fit(X, Y, n_epoch=<span class="number">1000</span>, validation_set=<span class="number">0.1</span>, shuffle=<span class="literal">True</span>,</span><br><span class="line">        show_metric=<span class="literal">True</span>, batch_size=<span class="number">64</span>, snapshot_step=<span class="number">200</span>,</span><br><span class="line">        snapshot_epoch=<span class="literal">False</span>, run_id=<span class="string">&#x27;alexnet_oxflowers17&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h2><p>特点：</p>
+<ul>
+<li><p>模块化 ：模型的各个部分，如神经层、成本函数、优化器、初始化、激活函数、规范化都是独立的模块，可以组合在一起来创建模型。</p>
+</li>
+<li><p>极简主义 ：每个模块都保持简短和简单。</p>
+</li>
+<li><p>易扩展性 ：很容易添加新模块，因此Keras适于做进一步的高级研究。</p>
+</li>
+<li><p>使用Python语言：模型用Python实现，非常易于调试和扩展。</p>
+</li>
+</ul>
+<p>Keras的核心数据结构是模型。模型是用来组织网络层的方式。模型有两种，一种叫Sequential模型，另一种叫Model模型。</p>
+<ul>
+<li><p>Sequential模型是一系列网络层按顺序构成的栈，是单输入和单输出的，层与层之间只有相邻关系，是最简单的一种模型。</p>
+</li>
+<li><p>Model模型是用来建立更复杂的模型的。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sequential模型的使用</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense, Activation</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据</span></span><br><span class="line">model = Sequential()</span><br><span class="line">model.add(Dense(output_dim=<span class="number">64</span>, input_dim=<span class="number">100</span>))</span><br><span class="line">model.add(Activation(<span class="string">&quot;relu&quot;</span>))</span><br><span class="line">model.add(Dense(output_dim=<span class="number">10</span>))</span><br><span class="line">model.add(Activation(<span class="string">&quot;softmax&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译模型，同时指明损失函数和优化器：</span></span><br><span class="line">model.<span class="built_in">compile</span>(loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>, optimizer=<span class="string">&#x27;sgd&#x27;</span>, metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型和评估模型：</span></span><br><span class="line">model.fit(X_train, Y_train, nb_epoch=<span class="number">5</span>, batch_size=<span class="number">32</span>)</span><br><span class="line">loss_and_metrics = model.evaluate(X_test, Y_test, batch_size=<span class="number">32</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"># 计算机</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/30/Learning-tensorflow-01/" rel="next" title="TF学习（一）">
+                <i class="fa fa-chevron-left"></i> TF学习（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/17/Learning-pandas-05/" rel="prev" title="Pandas学习（四）">
+                Pandas学习（四） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">Tensorflow目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow%E6%BA%90%E4%BB%A3%E7%A0%81%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">Tensorflow源代码学习方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.1.</span> <span class="nav-text">卷积神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%91%E5%B1%95"><span class="nav-number">2.2.</span> <span class="nav-text">卷积神经网络发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LeNet"><span class="nav-number">2.2.1.</span> <span class="nav-text">LeNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AlexNet"><span class="nav-number">2.2.2.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VGGNet"><span class="nav-number">2.2.3.</span> <span class="nav-text">VGGNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">2.2.4.</span> <span class="nav-text">GoogLeNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResNet"><span class="nav-number">2.2.5.</span> <span class="nav-text">ResNet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.3.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8F%91%E5%B1%95"><span class="nav-number">2.4.</span> <span class="nav-text">循环神经网络发展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow%E9%AB%98%E7%BA%A7%E6%A1%86%E6%9E%B6"><span class="nav-number">3.</span> <span class="nav-text">Tensorflow高级框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TFLearn"><span class="nav-number">3.1.</span> <span class="nav-text">TFLearn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.加载数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9E%84%E5%BB%BA%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.构建网络模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.训练模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keras"><span class="nav-number">3.2.</span> <span class="nav-text">Keras</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">74k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Servlet其他服务 本篇文章最后介绍一些Servlet上文件上传，处理日期，网页重定向，自动刷新等一些操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet学习（三）">
+<meta property="og:url" content="http://example.com/2020/05/14/Learning-servlet-03/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="Servlet其他服务 本篇文章最后介绍一些Servlet上文件上传，处理日期，网页重定向，自动刷新等一些操作">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-14T13:54:28.000Z">
+<meta property="article:modified_time" content="2021-01-24T04:47:40.486Z">
+<meta property="article:author" content="nanaiii">
+<meta property="article:tag" content="计算机">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2020/05/14/Learning-servlet-03/"/>
+
+
+
+
+
+  <title>Servlet学习（三） | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/05/14/Learning-servlet-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet学习（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-14T21:54:28+08:00">
+                2020-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Servlet其他服务"><a href="#Servlet其他服务" class="headerlink" title="Servlet其他服务"></a>Servlet其他服务</h1><blockquote>
+<p>本篇文章最后介绍一些Servlet上文件上传，处理日期，网页重定向，自动刷新等一些操作</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>Servlet 可以与 HTML form 标签一起使用，来允许用户上传文件到服务器。上传的文件可以是文本文件或图像文件或任何文档。</p>
+<p><em>工程中需要引入jar文件：commons-fileupload-1.3.2、commons-io-2.5.jar。</em></p>
+<ol>
+<li>创建一个文件上传表单</li>
+</ol>
+<ul>
+<li>表单 method 属性应该设置为 POST 方法，不能使用 GET 方法。</li>
+<li>表单 enctype 属性应该设置为 multipart&#x2F;form-data.</li>
+<li>表单 action 属性应该设置为在后端服务器上处理文件上传的 Servlet 文件。下面的实例使用了 UploadServlet Servlet 来上传文件。</li>
+<li>上传单个文件，您应该使用单个带有属性 type&#x3D;”file” 的 &lt;input …&#x2F;&gt; 标签。为了允许多个文件上传，请包含多个 name 属性值不同的 input 标签。输入标签具有不同的名称属性的值。浏览器会为每个 input<br>标签关联一个浏览按钮。</li>
+</ul>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=<span class="string">&quot;post&quot;</span> action=<span class="string">&quot;/TomcatTest/UploadServlet&quot;</span> enctype=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span><br><span class="line">    选择一个文件:</span><br><span class="line">    &lt;input type=<span class="string">&quot;file&quot;</span> name=<span class="string">&quot;uploadFile&quot;</span> /&gt;</span><br><span class="line">    &lt;br/&gt;&lt;br/&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;上传&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编写后台 Servlet</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.FileItem;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.disk.DiskFileItemFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.fileupload.servlet.ServletFileUpload;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Servlet implementation class UploadServlet</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/UploadServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UploadServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">// 上传文件存储目录</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">UPLOAD_DIRECTORY</span> <span class="operator">=</span> <span class="string">&quot;upload&quot;</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 上传配置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MEMORY_THRESHOLD</span>   <span class="operator">=</span> <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">3</span>;  <span class="comment">// 3MB</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_FILE_SIZE</span>      <span class="operator">=</span> <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">40</span>; <span class="comment">// 40MB</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_REQUEST_SIZE</span>   <span class="operator">=</span> <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">50</span>; <span class="comment">// 50MB</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 上传数据及保存文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request,</span></span><br><span class="line"><span class="params">        HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">// 检测是否为多媒体上传</span></span><br><span class="line">        <span class="keyword">if</span> (!ServletFileUpload.isMultipartContent(request)) &#123;</span><br><span class="line">            <span class="comment">// 如果不是则停止</span></span><br><span class="line">            <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">            writer.println(<span class="string">&quot;Error: 表单必须包含 enctype=multipart/form-data&quot;</span>);</span><br><span class="line">            writer.flush();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 配置上传参数</span></span><br><span class="line">        <span class="type">DiskFileItemFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DiskFileItemFactory</span>();</span><br><span class="line">        <span class="comment">// 设置内存临界值 - 超过后将产生临时文件并存储于临时目录中</span></span><br><span class="line">        factory.setSizeThreshold(MEMORY_THRESHOLD);</span><br><span class="line">        <span class="comment">// 设置临时存储目录</span></span><br><span class="line">        factory.setRepository(<span class="keyword">new</span> <span class="title class_">File</span>(System.getProperty(<span class="string">&quot;java.io.tmpdir&quot;</span>)));</span><br><span class="line"> </span><br><span class="line">        <span class="type">ServletFileUpload</span> <span class="variable">upload</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServletFileUpload</span>(factory);</span><br><span class="line">         </span><br><span class="line">        <span class="comment">// 设置最大文件上传值</span></span><br><span class="line">        upload.setFileSizeMax(MAX_FILE_SIZE);</span><br><span class="line">         </span><br><span class="line">        <span class="comment">// 设置最大请求值 (包含文件和表单数据)</span></span><br><span class="line">        upload.setSizeMax(MAX_REQUEST_SIZE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 中文处理</span></span><br><span class="line">        upload.setHeaderEncoding(<span class="string">&quot;UTF-8&quot;</span>); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构造临时路径来存储上传的文件</span></span><br><span class="line">        <span class="comment">// 这个路径相对当前应用的目录</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">uploadPath</span> <span class="operator">=</span> request.getServletContext().getRealPath(<span class="string">&quot;./&quot;</span>) + File.separator + UPLOAD_DIRECTORY;</span><br><span class="line">       </span><br><span class="line">         </span><br><span class="line">        <span class="comment">// 如果目录不存在则创建</span></span><br><span class="line">        <span class="type">File</span> <span class="variable">uploadDir</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(uploadPath);</span><br><span class="line">        <span class="keyword">if</span> (!uploadDir.exists()) &#123;</span><br><span class="line">            uploadDir.mkdir();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 解析请求的内容提取文件数据</span></span><br><span class="line">            <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">            List&lt;FileItem&gt; formItems = upload.parseRequest(request);</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (formItems != <span class="literal">null</span> &amp;&amp; formItems.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 迭代表单数据</span></span><br><span class="line">                <span class="keyword">for</span> (FileItem item : formItems) &#123;</span><br><span class="line">                    <span class="comment">// 处理不在表单中的字段</span></span><br><span class="line">                    <span class="keyword">if</span> (!item.isFormField()) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(item.getName()).getName();</span><br><span class="line">                        <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> uploadPath + File.separator + fileName;</span><br><span class="line">                        <span class="type">File</span> <span class="variable">storeFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(filePath);</span><br><span class="line">                        <span class="comment">// 在控制台输出文件的上传路径</span></span><br><span class="line">                        System.out.println(filePath);</span><br><span class="line">                        <span class="comment">// 保存文件到硬盘</span></span><br><span class="line">                        item.write(storeFile);</span><br><span class="line">                        request.setAttribute(<span class="string">&quot;message&quot;</span>,</span><br><span class="line">                            <span class="string">&quot;文件上传成功!&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">            request.setAttribute(<span class="string">&quot;message&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;错误信息: &quot;</span> + ex.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 跳转到 message.jsp</span></span><br><span class="line">        request.getServletContext().getRequestDispatcher(<span class="string">&quot;/message.jsp&quot;</span>).forward(</span><br><span class="line">                request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>编译和运行 Servlet</li>
+</ol>
+<ul>
+<li>编译上面的 Servlet UploadServlet，并在 web.xml 文件中创建所需的条目，</li>
+</ul>
+<h2 id="Servlet-处理日期"><a href="#Servlet-处理日期" class="headerlink" title="Servlet 处理日期"></a>Servlet 处理日期</h2><p>Servlet可以直接使用Java 提供的 java.util 包中的 Date 类。</p>
+<table>
+<thead>
+<tr>
+<th>column0</th>
+<th>column1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>序号</td>
+<td>方法 &amp; 描述</td>
+</tr>
+<tr>
+<td>1</td>
+<td>boolean after(Date date)。如果调用的 Date 对象中包含的日期在 date 指定的日期之后，则返回 true，否则返回 false。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>boolean before(Date date)。如果调用的 Date 对象中包含的日期在 date 指定的日期之前，则返回 true，否则返回 false。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Object clone( )。重复调用 Date 对象。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>int compareTo(Date date)。把调用对象的值与 date 的值进行比较。如果两个值是相等的，则返回 0。如果调用对象在 date 之前，则返回一个负值。如果调用对象在 date 之后，则返回一个正值。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>int compareTo(Object obj)。如果 obj 是 Date 类，则操作等同于 compareTo(Date)。否则，它会抛出一个 ClassCastException。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>boolean equals(Object date)。如果调用的 Date 对象中包含的时间和日期与 date 指定的相同，则返回 true，否则返回 false。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>long getTime( )。返回 1970 年 1 月 1 日以来经过的毫秒数。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>int hashCode( )。为调用对象返回哈希代码。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>void setTime(long time)。设置 time 指定的时间和日期，这表示从 1970 年 1 月 1 日午夜以来经过的时间（以毫秒为单位）。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>String toString( )。转换调用的 Date 对象为一个字符串，并返回结果。</td>
+</tr>
+</tbody></table>
+<h2 id="Servlet-网页重定向"><a href="#Servlet-网页重定向" class="headerlink" title="Servlet 网页重定向"></a>Servlet 网页重定向</h2><p>当文档移动到新的位置，我们需要向客户端发送这个新位置时，我们需要用到网页重定向。网页重定向主要是为了实现负载均衡。</p>
+<p>实现方法如下：</p>
+<ol>
+<li>sendRedirect() 方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> HttpServletResponse.sendRedirect(String location)</span><br><span class="line"><span class="keyword">throws</span> IOException </span><br></pre></td></tr></table></figure>
+
+<p>该方法把响应连同状态码和新的网页位置发送回浏览器。</p>
+<ol start="2">
+<li>setStatus() 和 setHeader() 方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">site</span> <span class="operator">=</span> <span class="string">&quot;http://www.nanaiii.com&quot;</span> ;</span><br><span class="line">response.setStatus(response.SC_MOVED_TEMPORARILY);</span><br><span class="line">response.setHeader(<span class="string">&quot;Location&quot;</span>, site); </span><br></pre></td></tr></table></figure>
+
+<h2 id="Servlet-点击计数器"><a href="#Servlet-点击计数器" class="headerlink" title="Servlet 点击计数器"></a>Servlet 点击计数器</h2><h3 id="网页点击计数器"><a href="#网页点击计数器" class="headerlink" title="网页点击计数器"></a>网页点击计数器</h3><p>很多时候，您可能有兴趣知道网站的某个特定页面上的总点击量。使用 Servlet 来计算这些点击量是非常简单的，因为一个 Servlet 的生命周期是由它运行所在的容器控制的。</p>
+<p>以下是实现一个简单的基于 Servlet 生命周期的网页点击计数器需要采取的步骤：</p>
+<ol>
+<li>在 init() 方法中初始化一个全局变量。</li>
+<li>每次调用 doGet() 或 doPost() 方法时，都增加全局变量。</li>
+<li>如果需要，您可以使用一个数据库表来存储全局变量的值在 destroy() 中。在下次初始化 Servlet 时，该值可在 init() 方法内被读取。这一步是可选的。</li>
+<li>如果您只想对一个 session 会话计数一次页面点击，那么请使用 isNew() 方法来检查该 session 会话是否已点击过相同页面。这一步是可选的。</li>
+<li>您可以通过显示全局计数器的值，来在网站上展示页面的总点击量。这一步是可选的。</li>
+</ol>
+<h3 id="网站点击计数器"><a href="#网站点击计数器" class="headerlink" title="网站点击计数器"></a>网站点击计数器</h3><p>很多时候，您可能有兴趣知道整个网站的总点击量。在 Servlet 中，这也是非常简单的，我们可以使用过滤器做到这一点。</p>
+<p>以下是实现一个简单的基于过滤器生命周期的网站点击计数器需要采取的步骤：</p>
+<ol>
+<li>在过滤器的 init() 方法中初始化一个全局变量。</li>
+<li>每次调用 doFilter 方法时，都增加全局变量。</li>
+<li>如果需要，您可以在过滤器的 destroy() 中使用一个数据库表来存储全局变量的值。在下次初始化过滤器时，该值可在 init() 方法内被读取, 这一步是可选的。</li>
+</ol>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span>  <span class="title function_">doFilter</span><span class="params">(ServletRequest request, </span></span><br><span class="line"><span class="params">            ServletResponse response,</span></span><br><span class="line"><span class="params">            FilterChain chain)</span> </span><br><span class="line">            <span class="keyword">throws</span> java.io.IOException, ServletException &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把计数器的值增加 1</span></span><br><span class="line">    hitCount++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出计数器</span></span><br><span class="line">    System.out.println(<span class="string">&quot;网站访问统计：&quot;</span>+ hitCount );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把请求传回到过滤器链</span></span><br><span class="line">    chain.doFilter(request,response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>web.xml中的配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>SiteHitCounter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>SiteHitCounter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>SiteHitCounter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自动刷新页面"><a href="#自动刷新页面" class="headerlink" title="自动刷新页面"></a>自动刷新页面</h2><h3 id="setIntHeader-方法"><a href="#setIntHeader-方法" class="headerlink" title="setIntHeader()方法"></a>setIntHeader()方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setIntHeader</span><span class="params">(String header, <span class="type">int</span> headerValue)</span></span><br><span class="line"><span class="comment">//实例</span></span><br><span class="line"><span class="comment">// 设置刷新自动加载的事件间隔为 5 秒</span></span><br><span class="line">response.setIntHeader(<span class="string">&quot;Refresh&quot;</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+<p>此方法把头信息 “Refresh” 连同一个表示时间间隔的整数值（以秒为单位）发送回浏览器，从而实现自动刷新页面。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"># 计算机</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/13/Learning-pandas-02/" rel="next" title="Pandas学习（二）">
+                <i class="fa fa-chevron-left"></i> Pandas学习（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/21/Learning-pandas-03/" rel="prev" title="Pandas学习（三）">
+                Pandas学习（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">Servlet其他服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-number">1.1.</span> <span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-%E5%A4%84%E7%90%86%E6%97%A5%E6%9C%9F"><span class="nav-number">1.2.</span> <span class="nav-text">Servlet 处理日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-%E7%BD%91%E9%A1%B5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.3.</span> <span class="nav-text">Servlet 网页重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-%E7%82%B9%E5%87%BB%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">Servlet 点击计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E9%A1%B5%E7%82%B9%E5%87%BB%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.4.1.</span> <span class="nav-text">网页点击计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E7%82%B9%E5%87%BB%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.4.2.</span> <span class="nav-text">网站点击计数器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">自动刷新页面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setIntHeader-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">setIntHeader()方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">74k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
