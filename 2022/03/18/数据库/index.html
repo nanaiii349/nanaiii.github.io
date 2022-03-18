@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库">
+<meta property="og:url" content="http://example.com/2022/03/18/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="Next">
+<meta property="og:description" content="SQL">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220306115702702.png">
+<meta property="og:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220316200553339.png">
+<meta property="og:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220316200714312.png">
+<meta property="article:published_time" content="2022-03-18T01:47:06.000Z">
+<meta property="article:modified_time" content="2022-03-18T01:48:30.608Z">
+<meta property="article:author" content="nanaiii">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220306115702702.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'nanaiii'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/03/18/数据库/"/>
+
+
+
+
+
+  <title>数据库 | Next</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Next</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nanaiii blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/18/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-18T09:47:06+08:00">
+                2022-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  20 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><span id="more"></span>
+<h3 id="操作符的计算顺序"><a href="#操作符的计算顺序" class="headerlink" title="操作符的计算顺序"></a>操作符的计算顺序</h3><p>AND在计算次序中优先级比OR更高，因此下列命令会返回不符合我们预期的结果</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col1<span class="operator">=</span><span class="number">1</span> <span class="keyword">OR</span> col2<span class="operator">=</span><span class="number">2</span> <span class="keyword">AND</span> col3<span class="operator">=</span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时的计算顺序并不是从左至右，而是先计算<code>col2=2 AND col3=3</code>，如果想按由左至右的顺序计算，则应该按照如下写法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> (col1<span class="operator">=</span><span class="number">1</span> <span class="keyword">OR</span> col2<span class="operator">=</span><span class="number">2</span>) <span class="keyword">AND</span> col3<span class="operator">=</span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>因为圆括号具有比AND与OR更高的计算顺序</p>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>在where子句中使用LIKE谓词使用搜索模式利用通配符匹配而不是直接相等进行比较</p>
+<p>%（百分号）：表示<strong>任何字符</strong>出现任何次数（可以是0次）</p>
+<p>_（下划线）：表示匹配任何<strong>一个字符</strong></p>
+<blockquote>
+<p>需要注意的是通配符搜索处理需要花费较多的时间，因此不要过度使用通配符。</p>
+</blockquote>
+<h4 id="通配符与正则表达式的区别"><a href="#通配符与正则表达式的区别" class="headerlink" title="通配符与正则表达式的区别"></a>通配符与正则表达式的区别</h4><p>LIKE谓词是对整个列进行匹配（利用通配符%val%的形式可以实现对列值的匹配），REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP就会找到它。同时正则如果使用^和￥定位符也可以做到匹配整个列值。</p>
+<p>更详细的正则语法可以参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-tutorial.html">正则表达式 – 教程 | 菜鸟教程 (runoob.com)</a></p>
+<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>在SELECT子句中，我们常会使用聚集函数或是Conct拼接来输出想要的结果。需要注意的是，使用Concat拼接后的列是没有名字的，它只是一个值。而一个未命名的列不能用于客户机的应用中，为了之后更好的引用SQL支持使用AS来对一个字段或值进行替换名。同时AS还可以在实际表列中出现不符合规定的字符（空格）或是原有名字存在混淆容易误解的情况下重新命名。</p>
+<h3 id="日期和时间处理函数"><a href="#日期和时间处理函数" class="headerlink" title="日期和时间处理函数"></a>日期和时间处理函数</h3><p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220306115702702.png" alt="image-20220306115702702"></p>
+<h3 id="HAVING和WHERE的区别"><a href="#HAVING和WHERE的区别" class="headerlink" title="HAVING和WHERE的区别"></a>HAVING和WHERE的区别</h3><p>WHERE子句是在数据分组前进行约束，是约束声明，不能使用聚合函数。HAVING是在分组后进行过滤，不能使用聚合函数。也就是说HAVING是对已经经过WHERE过滤后的分组数据进行处理的。因此尽可能在where子句中对查询结果进行约束。</p>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><h4 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h4><p>自然连接首先形成它的两个参数的笛卡尔积，然后基于两个关系模式中都出现的属性上的相等性进行选择，最后去除重复属性。</p>
+<blockquote>
+<p>我们很有可能不会使用到不是自然连接的内部连接</p>
+</blockquote>
+<h4 id="内连接和自然连接的区别"><a href="#内连接和自然连接的区别" class="headerlink" title="内连接和自然连接的区别"></a>内连接和自然连接的区别</h4><p>内连接提供连接的列，而自然连接自动连接所有同名列</p>
+<h4 id="左外连接与右外连接"><a href="#左外连接与右外连接" class="headerlink" title="左外连接与右外连接"></a>左外连接与右外连接</h4><p>左外连接：取出左侧关系中所有与右侧关系的任一元组都不匹配的元组。用空值填充所有来自右侧关系的属性，再把产生的元组加入自然连接结果中。即最后得到的结果是左表中的所有行＋右表中对应的行（不匹配的行填充空值）</p>
+<h4 id="条件语句ON与USING的区别"><a href="#条件语句ON与USING的区别" class="headerlink" title="条件语句ON与USING的区别"></a>条件语句ON与USING的区别</h4><p>USING：只需要在指定属性上进行取值匹配</p>
+<p>ON：需要接一个predicate，是在参与连接的关系上设置通用的谓词</p>
+<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>SQL注入的原理是将SQL代码伪装到输入参数中，传递到服务器解析并执行的一种攻击手法。也就是说，在一些对SERVER端发起的请求参数中植入一些SQL代码，SERVER端在执行SQL操作时，会拼接对应参数，同时也将一些SQL注入攻击的“SQL”拼接起来，导致会执行一些预期之外的操作。</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><ol>
+<li>严格的参数校验：不符合参数类型要求的请求即认为是非法的</li>
+<li>SQL预编译：在服务器启动时，MySQL Client把SQL语句的模板（变量采用<strong>占位符</strong>进行占位）发送给MySQL服务器，MySQL服务器对SQL语句的模板进行编译，编译之后根据语句的优化分析对相应的索引进行优化，在最终绑定参数时把相应的参数传送给MySQL服务器，直接进行执行，节省了SQL查询时间，以及MySQL服务器的资源，达到一次编译、多次执行的目的，除此之外，还可以防止SQL注入。</li>
+</ol>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>通过创建唯一索引，可以保证数据库表中每一行数据的<strong>唯一性</strong>。</li>
+<li>可以大大加快数据的<strong>查询速度</strong>，这也是创建索引的主要原因。</li>
+<li>在实现数据的参考完整性方面，可以加速表和表之间的<strong>连接</strong>。</li>
+<li>在使用<strong>分组和排序子句</strong>进行数据查询时，也可以显著减少查询中分组和排序的时间。（可以在频繁进行排序或分组（即进行group by或order by操作）的列上建立索引，如果待排序的列有多个，可以在这些列上建立组合索引。）</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>创建索引和维护索引要<strong>耗费时间</strong>，并且随着数据量的增加所耗费的时间也会增加。</li>
+<li>索引需要占<strong>磁盘空间</strong>，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果有大量的索引，索引文件可能比数据文件更快达到最大文件尺寸。</li>
+<li>当对表中的数据进行增加、删除和修改的时候，索引也要动态地<strong>维护</strong>，这样就降低了数据的维护速度。</li>
+</ol>
+<h3 id="MySQL的Hash索引和B树索引的区别"><a href="#MySQL的Hash索引和B树索引的区别" class="headerlink" title="MySQL的Hash索引和B树索引的区别"></a>MySQL的Hash索引和B树索引的区别</h3><ol>
+<li>hash索引进行等值查询更快(一般情况下)，但是却无法进行范围查询。因为在hash索引中经过hash函数建立索引之后，索引的顺序与原顺序<strong>无法保持一致</strong>，不能支持范围查询。而B+树的的所有节点皆遵循(左节点小于父节点，右节点大于父节点，多叉树也类似)，天然支持范围。</li>
+<li>hash索引不支持使用索引进行<strong>排序</strong>，原理同上。</li>
+<li>hash索引不支持<strong>模糊查询</strong>以及多列索引的<strong>最左前缀匹配</strong>，原理也是因为hash函数的不可预测。</li>
+<li>hash索引任何时候都避免不了<strong>回表查询数据</strong>，而B+树在符合某些条件(聚簇索引，覆盖索引等)的时候可以只通过索引完成查询。</li>
+<li>hash索引虽然在<strong>等值查询上较快</strong>，但是不稳定，性能不可预测，当某个键值存在大量重复的时候，发生<strong>hash碰撞</strong>，此时效率可能极差。而B+树的查询效率比较稳定，对于所有的查询都是从根节点到叶子节点，且树的高度较低。</li>
+</ol>
+<h3 id="最左匹配原则"><a href="#最左匹配原则" class="headerlink" title="最左匹配原则"></a>最左匹配原则</h3><p>在联合索引中，如果 SQL 语句中用到了<strong>联合索引</strong>中的最左边的索引，那么这条 SQL 语句就可以利用这个联合索引去进行匹配。</p>
+<p>数据库的索引是使用B+树来实现的，联合索引也是一颗B+树。而B+树只能根据一个列值来构建，也就是联合索引的最左字段。一个形如(a,b,c)联合索引的 b+ 树，其中的<strong>非叶子节点</strong>存储的是第一个关键字的索引 a，而<strong>叶子节点</strong>存储的是三个关键字的数据。这里可以看出 a 是有序的，而 b，c 都是无序的。但是当在 a 相同的时候，b 是有序的，b 相同的时候，c 又是有序的。</p>
+<p>这也就是大部分索引失效的原因所在，<code>select * from t where a=5 and b&gt;0 and c =1;</code>为例，使用范围查询查找到b后，c就是无序的状态，因此无法使用联合索引确定c的位置</p>
+<h3 id="索引失效的场景"><a href="#索引失效的场景" class="headerlink" title="索引失效的场景"></a>索引失效的场景</h3><ol>
+<li>不满足最左匹配原则：在where子句中，最左谓词中含有索引项才会使用索引；<strong>当遇到范围查询(&gt;、&lt;、between、like)也会停止匹配</strong></li>
+<li>使用<code>select *</code>：使用*查询所有列的数据，大概率会非索引的数据，这样会使用全表扫描。而如果查询的都是索引列，被称为覆盖索引，会提升查询效率</li>
+<li>索引列上有计算</li>
+<li>索引列使用函数：3、4索引失效的原因相同。索引列如果进行计算或是函数计算，mysql在B+树上的索引搜索就会失效</li>
+<li>字段类型不同：mysql会将字符串类型自动转换为int类型，而int无法转换为varchar</li>
+<li>like左边包含%</li>
+<li>列对比：如果把两个单独建了索引的列，用来做列对比时，索引会失效。</li>
+<li>使用or关键字：如果使用了<code>or</code>关键字，那么它<strong>前面和后面</strong>的字段都要加索引，不然所有的索引都会失效</li>
+<li>not in和not exists：主键字段中使用not in关键字查询数据范围，仍然可以走索引。而普通索引字段使用了<code>not in</code>关键字查询数据范围，索引会失效。如果sql语句中使用<code>not exists</code>时，索引也会失效</li>
+<li>order by：<code>order by</code>后面的条件，也要遵循联合索引的最左匹配原则。同时还需要添加limit关键字,或是使用where子句；<code>order by</code>后面如果包含了联合索引的多个排序字段，只要它们的排序规律是相同的（要么同时升序，要么同时降序），也可以走索引。</li>
+</ol>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="ACID特性"><a href="#ACID特性" class="headerlink" title="ACID特性"></a>ACID特性</h3><ul>
+<li>A（atomicity），原子性。原子性指整个数据库事务是不可分割的工作单位。只有使事务中所有的数据库操作都执行成功，整个事务的执行才算成功。事务中任何一个SQL语句执行失败，那么已经执行成功的SQL语句也必须撤销，数据库状态应该退回到执行事务前的状态。</li>
+<li>C（consistency），一致性。一致性指事务将数据库从一种状态转变为另一种一致的状态。在事务开始之前和事务结束以后，数据库的完整性约束没有被破坏。</li>
+<li>I（isolation），隔离性。事务的隔离性要求每个读写事务的对象与其他事务的操作对象能相互分离，即该事务提交前对其他事务都不可见，这通常使用锁来实现。</li>
+<li>D（durability） ，持久性。事务一旦提交，其结果就是永久性的，即使发生宕机等故障，数据库也能将数据恢复。持久性保证的是事务系统的高可靠性，而不是高可用性。</li>
+</ul>
+<h3 id="事务类型"><a href="#事务类型" class="headerlink" title="事务类型"></a>事务类型</h3><ul>
+<li>扁平事务：是事务类型中最简单的一种，而在实际生产环境中，这可能是使用最为频繁的事务。在扁平事务中，所有操作都处于同一层次，其由BEGIN WORK开始，由COMMIT WORK或ROLLBACK WORK结束。处于之间的操作是原子的，要么都执行，要么都回滚。</li>
+<li>带有<strong>保存点</strong>的扁平事务：除了支持扁平事务支持的操作外，允许在事务执行过程中回滚到同一事务中较早的一个状态，这是因为可能某些事务在执行过程中出现的错误并不会对所有的操作都无效，放弃整个事务不合乎要求，开销也太大。保存点（savepoint）用来通知系统应该记住事务当前的状态，以便以后发生错误时，事务能回到该状态。</li>
+<li>链事务：可视为保存点模式的一个变种。链事务的思想是：在提交一个事务时，释放不需要的数据对象，将必要的处理上下文隐式地传给下一个要开始的事务。注意，提交事务操作和开始下一个事务操作将合并为一个原子操作。这意味着下一个事务将看到上一个事务的结果，就好像在一个事务中进行的。</li>
+<li>嵌套事务：是一个层次结构框架。有一个顶层事务（top-level transaction）控制着各个层次的事务。顶层事务之下嵌套的事务被称为子事务（subtransaction），其控制每一个局部的变换。</li>
+<li>分布式事务：通常是一个在分布式环境下运行的扁平事务，因此需要根据数据所在位置访问网络中的不同节点。对于分布式事务，同样需要满足ACID特性，要么都发生，要么都失效。</li>
+</ul>
+<h3 id="ACID特性的实现"><a href="#ACID特性的实现" class="headerlink" title="ACID特性的实现"></a>ACID特性的实现</h3><h4 id="实现原子性"><a href="#实现原子性" class="headerlink" title="实现原子性"></a>实现原子性</h4><p>原子性实现的关键，是当事务回滚时能够撤销所有已经成功执行的sql语句。InnoDB实现回滚靠的是undo log，当事务对数据库进行修改时，InnoDB会生成对应的undo log。如果事务执行失败或调用了rollback，导致事务需要回滚，便可以利用undo log中的信息将数据回滚到修改之前的样子。</p>
+<h4 id="实现持久性"><a href="#实现持久性" class="headerlink" title="实现持久性"></a>实现持久性</h4><p>数据库使用redo log实现持久性。当数据修改时，除了修改Buffer Pool中的数据，还会在redo log记录这次操作。当事务提交时，会调用fsync接口对redo log进行刷盘。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复。redo log采用的是WAL（Write-ahead logging，预写式日志），所有修改先写入日志，再更新到Buffer Pool，保证了数据不会因MySQL宕机而丢失，从而满足了持久性要求。</p>
+<blockquote>
+<p>Buffer Pool</p>
+<p>当向数据库写入数据时，会首先写入Buffer Pool，Buffer Pool中修改的数据会定期刷新到磁盘中（这一过程称为刷脏）。</p>
+<p>而redo log写入磁盘比直接将Buffer Pool中修改的数据写入磁盘(即刷脏)要快</p>
+<ol>
+<li>刷脏是随机IO，因为每次修改的数据位置随机，但写redo log是追加操作，属于顺序IO。</li>
+<li>刷脏是以数据页（Page）为单位的，MySQL默认页大小是16KB，一个Page上一个小修改都要整页写入。而redo log中只包含真正需要写入的部分，无效IO大大减少。</li>
+</ol>
+</blockquote>
+<h4 id="实现隔离性"><a href="#实现隔离性" class="headerlink" title="实现隔离性"></a>实现隔离性</h4><ol>
+<li>锁机制保证写写操作的隔离性。事务在修改数据之前，需要先获得相应的锁。获得锁之后，事务便可以修改数据。该事务操作期间，这部分数据是锁定的，其他事务如果需要修改数据，需要等待当前事务提交或回滚后释放锁。</li>
+<li>MVCC保证写读操作的隔离性。读不加锁，因此读写不冲突，并发性能好。</li>
+</ol>
+<blockquote>
+<p>锁</p>
+<p>InnoDB存储引擎支持多粒度锁定，按照粒度，锁可以分为表锁、行锁以及其他位于二者之间的锁。</p>
+<ol>
+<li>表锁在操作数据时会锁定整张表，并发性能较差。</li>
+<li>行锁则只锁定需要操作的数据，并发性能好。但是由于加锁本身需要消耗资源，因此在锁定数据较多情况下使用表锁可以节省大量资源。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>MVCC（多版本的并发控制协议）</p>
+<ol>
+<li>隐藏列：InnoDB中每行数据都有隐藏列，隐藏列中包含了本行数据的事务id、指向undo log的指针等。</li>
+<li>基于undo log的版本链：每行数据的隐藏列中包含了指向undo log的指针，而每条undo log也会指向更早版本的undo log，从而形成一条版本链。</li>
+<li>ReadView：通过隐藏列和版本链，MySQL可以将数据恢复到指定版本。但是具体要恢复到哪个版本，则需要根据ReadView来确定。所谓ReadView，是指事务（记做事务A）在某一时刻给整个事务系统（trx_sys）打快照，之后再进行读操作时，会将读取到的数据中的事务id与trx_sys快照比较，从而判断数据对该ReadView是否可见，即对事务A是否可见。</li>
+</ol>
+</blockquote>
+<h4 id="实现一致性"><a href="#实现一致性" class="headerlink" title="实现一致性"></a>实现一致性</h4><ul>
+<li>保证原子性、持久性和隔离性，如果这些特性无法保证，事务的一致性也无法保证。</li>
+<li>数据库本身提供保障，例如不允许向整形列插入字符串值、字符串长度不能超过列的限制等。</li>
+<li>应用层面进行保障，例如如果转账操作只扣除转账者的余额，而没有增加接收者的余额，无论数据库实现的多么完美，也无法保证状态的一致。</li>
+</ul>
+<h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><table>
+<thead>
+<tr>
+<th align="center">隔离级别</th>
+<th align="left">脏读</th>
+<th align="left">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">READ UNCOMMITTED（读未提交）</td>
+<td align="left">可能</td>
+<td align="left">可能</td>
+<td align="center">可能</td>
+</tr>
+<tr>
+<td align="center">READ COMMITTED（读提交 ）</td>
+<td align="left">不可能</td>
+<td align="left">可能</td>
+<td align="center">可能</td>
+</tr>
+<tr>
+<td align="center">REPEATABLE READ（可重复读 ）</td>
+<td align="left">不可能</td>
+<td align="left">不可能</td>
+<td align="center">可能</td>
+</tr>
+<tr>
+<td align="center">SERIALIZABLE（串行化）</td>
+<td align="left">不可能</td>
+<td align="left">不可能</td>
+<td align="center">不可能</td>
+</tr>
+</tbody></table>
+<ul>
+<li>脏读：当前事务(A)中可以读到其他事务(B)未提交的数据（脏数据），这种现象是脏读。</li>
+<li>不可重复读：在事务A中先后两次读取同一个数据，两次读取的结果不一样，这种现象称为不可重复读。脏读与不可重复读的区别在于：前者读到的是其他事务未提交的数据，后者读到的是其他事务已提交的数据。</li>
+<li>幻读：在事务A中按照某个条件先后两次查询数据库，两次查询结果的条数不同，这种现象称为幻读。不可重复读与幻读的区别可以通俗的理解为：前者是数据变了，后者是数据的行数变了。</li>
+</ul>
+<h4 id="四种隔离级别的实现机制"><a href="#四种隔离级别的实现机制" class="headerlink" title="四种隔离级别的实现机制"></a>四种隔离级别的实现机制</h4><ol>
+<li>READ UNCOMMITTED &amp; READ COMMITTED：通过<strong>Record Lock算法</strong>实现了行锁，但READ UNCOMMITTED允许读取未提交数据，所以存在脏读问题。而READ COMMITTED允许读取提交数据，所以不存在脏读问题，但存在不可重复读问题。</li>
+<li>REPEATABLE READ：使用<strong>Next-Key Lock算法</strong>实现了行锁，并且不允许读取已提交的数据，所以解决了不可重复读的问题。另外，该算法包含了间隙锁，会锁定一个范围，因此也解决了幻读的问题。</li>
+<li>SERIALIZABLE：对每个SELECT语句后自动加上<code>LOCK IN SHARE MODE</code>，即为每个读取操作加一个<strong>共享锁</strong>。因此在这个事务隔离级别下，读占用了锁，对一致性的非锁定读不再予以支持。</li>
+</ol>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h4 id="锁（行级锁）的类型"><a href="#锁（行级锁）的类型" class="headerlink" title="锁（行级锁）的类型"></a>锁（行级锁）的类型</h4><ul>
+<li>共享锁（S Lock），允许事务读一行数据。</li>
+<li>排他锁（X Lock），允许事务删除或更新一行数据。</li>
+</ul>
+<p>如果一个事务T1已经获得了行r的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1、T2释放行r上的共享锁，这种情况称为锁不兼容。</p>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200553339.png" alt="image-20220316200553339"></p>
+<blockquote>
+<p>InnoDB行级锁是通过给索引上的索引项加锁来实现的。只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁。当表中锁定其中的某几行时，不同的事务可以使用不同的索引锁定不同的行。另外，不论使用主键索引、唯一索引还是普通索引，InnoDB都会使用行锁来对数据加锁。</p>
+</blockquote>
+<h4 id="意向锁（表级锁）"><a href="#意向锁（表级锁）" class="headerlink" title="意向锁（表级锁）"></a>意向锁（表级锁）</h4><ul>
+<li>意向共享锁（IS Lock），事务想要获得一张表中某几行的共享锁。</li>
+<li>意向排他锁（IX Lock），事务想要获得一张表中某几行的排他锁。</li>
+</ul>
+<p>由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。</p>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200714312.png" alt="image-20220316200714312"></p>
+<h4 id="锁的算法"><a href="#锁的算法" class="headerlink" title="锁的算法"></a>锁的算法</h4><ul>
+<li>Record Lock：单个行记录上的锁。</li>
+<li>Gap Lock：间隙锁，锁定一个范围，但不包含记录本身。它的作用是为了阻止多个事务将记录插入到同一范围内，而这会导致幻读问题的产生。</li>
+<li>Next-Key Lock∶Gap Lock+Record Lock，锁定一个范围，并且锁定记录本身。</li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="优化查询"><a href="#优化查询" class="headerlink" title="优化查询"></a>优化查询</h3><p>可以通过使用索引、使用连接代替子查询的方式来提高查询速度。</p>
+<ol>
+<li>需要注意索引失效的情况</li>
+<li>优化子查询：子查询可以一次性完成很多逻辑上需要多个步骤才能完成的SQL操作。但执行效率不高。执行子查询时，MySQL需要为内层查询语句的查询结果建立一个临时表。在MySQL中，可以使用连接（JOIN）查询来替代子查询。连接查询不需要建立临时表，其速度比子查询要快，如果查询中使用索引，性能会更好。</li>
+</ol>
+<h3 id="优化插入"><a href="#优化插入" class="headerlink" title="优化插入"></a>优化插入</h3><h4 id="MyISAM引擎"><a href="#MyISAM引擎" class="headerlink" title="MyISAM引擎"></a>MyISAM引擎</h4><ol>
+<li><p>禁用索引：对于非空表，插入记录时，MySQL会根据表的索引对插入的记录建立索引。如果插入大量数据，建立索引会降低插入记录的速度。为了解决这种情况，可以在插入记录之前禁用索引，数据插入完毕后再开启索引。对于空表批量导入数据，则不需要进行此操作，因为MyISAM引擎的表是在导入数据之后才建立索引的。</p>
+</li>
+<li><p>禁用唯一性检查：插入数据时，MySQL会对插入的记录进行唯一性校验。这种唯一性校验也会降低插入记录的速度。为了降低这种情况对查询速度的影响，可以在插入记录之前禁用唯一性检查，等到记录插入完毕后再开启。</p>
+</li>
+<li><p>使用批量插入：插入多条记录时，可以使用一条INSERT语句插入多条记录会比使用一条INSERT语句插入一条记录的插入速度更快</p>
+</li>
+<li><p>使用LOAD DATA INFILE批量导入：当需要批量导入数据时，<code>LOAD DATA INFILE</code>语句导入速度比INSERT语句快</p>
+</li>
+</ol>
+<h4 id="InnoDB引擎"><a href="#InnoDB引擎" class="headerlink" title="InnoDB引擎"></a>InnoDB引擎</h4><ol>
+<li>禁用外键检查：插入数据之前执行禁止对外键的检查，数据插入完成之后再恢复对外键的检查。</li>
+<li>禁用唯一性检查</li>
+<li>禁用自动提交：插入数据之前禁止事务的自动提交，数据导入完成之后，执行恢复自动提交操作。</li>
+</ol>
+<h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><h3 id="第一范式-1NF"><a href="#第一范式-1NF" class="headerlink" title="第一范式(1NF)"></a>第一范式(1NF)</h3><p>在关系模型中，对于添加的一个规范要求，所有的域都应该是<strong>原子性</strong>的.如果实体中的某个属性有多个值，必须拆分为不同的属性。</p>
+<h3 id="第二范式-2NF"><a href="#第二范式-2NF" class="headerlink" title="第二范式(2NF)"></a>第二范式(2NF)</h3><p>在1NF的基础上，非码属性必须完全依赖于<strong>候选码</strong>（在1NF基础上消除非主属性对主码的部分函数依赖）。第二范式要求数据库表中的每个实例或记录必须可以被唯一地区分。选取一个能区分每个实体的属性或属性组，作为实体的<strong>唯一标识</strong>。</p>
+<h3 id="第三范式-3NF"><a href="#第三范式-3NF" class="headerlink" title="第三范式(3NF)"></a>第三范式(3NF)</h3><p>在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）。第三范式要求一个关系中不包含已在其它关系已包含的非主关键字信息。</p>
+<blockquote>
+<p>第三范式可以减少数据库数据的冗余</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖果</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/vx.png" alt=" WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/aili.png" alt=" Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/03/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="next" title="操作系统">
+                <i class="fa fa-chevron-left"></i> 操作系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/nanaiii349" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:luotianyou7056@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL"><span class="nav-number">1.</span> <span class="nav-text">SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">操作符的计算顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">通配符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E4%B8%8E%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.2.1.</span> <span class="nav-text">通配符与正则表达式的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%AB%E5%90%8D"><span class="nav-number">1.3.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">日期和时间处理函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAVING%E5%92%8CWHERE%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.5.</span> <span class="nav-text">HAVING和WHERE的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.</span> <span class="nav-text">连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.1.</span> <span class="nav-text">自然连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5%E5%92%8C%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.6.2.</span> <span class="nav-text">内连接和自然连接的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.3.</span> <span class="nav-text">左外连接与右外连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5ON%E4%B8%8EUSING%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.6.4.</span> <span class="nav-text">条件语句ON与USING的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.7.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.1.</span> <span class="nav-text">解决方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9A%84Hash%E7%B4%A2%E5%BC%95%E5%92%8CB%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.</span> <span class="nav-text">MySQL的Hash索引和B树索引的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D%E5%8E%9F%E5%88%99"><span class="nav-number">2.4.</span> <span class="nav-text">最左匹配原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">2.5.</span> <span class="nav-text">索引失效的场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID%E7%89%B9%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">ACID特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">事务类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID%E7%89%B9%E6%80%A7%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.3.</span> <span class="nav-text">ACID特性的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="nav-number">3.3.1.</span> <span class="nav-text">实现原子性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-number">3.3.2.</span> <span class="nav-text">实现持久性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB%E6%80%A7"><span class="nav-number">3.3.3.</span> <span class="nav-text">实现隔离性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">3.3.4.</span> <span class="nav-text">实现一致性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">3.4.</span> <span class="nav-text">事务隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">3.4.1.</span> <span class="nav-text">四种隔离级别的实现机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81"><span class="nav-number">4.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%EF%BC%88%E8%A1%8C%E7%BA%A7%E9%94%81%EF%BC%89%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.0.1.</span> <span class="nav-text">锁（行级锁）的类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%8F%E5%90%91%E9%94%81%EF%BC%88%E8%A1%A8%E7%BA%A7%E9%94%81%EF%BC%89"><span class="nav-number">4.0.2.</span> <span class="nav-text">意向锁（表级锁）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">4.0.3.</span> <span class="nav-text">锁的算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%9F%A5%E8%AF%A2"><span class="nav-number">5.1.</span> <span class="nav-text">优化查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%8F%92%E5%85%A5"><span class="nav-number">5.2.</span> <span class="nav-text">优化插入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MyISAM%E5%BC%95%E6%93%8E"><span class="nav-number">5.2.1.</span> <span class="nav-text">MyISAM引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#InnoDB%E5%BC%95%E6%93%8E"><span class="nav-number">5.2.2.</span> <span class="nav-text">InnoDB引擎</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8C%83%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">范式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F-1NF"><span class="nav-number">6.1.</span> <span class="nav-text">第一范式(1NF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F-2NF"><span class="nav-number">6.2.</span> <span class="nav-text">第二范式(2NF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F-3NF"><span class="nav-number">6.3.</span> <span class="nav-text">第三范式(3NF)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nanaiii</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">82.6k</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  Sometimes your whole life boils down to one insame move.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("03/04/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

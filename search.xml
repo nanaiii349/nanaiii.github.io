@@ -2742,8 +2742,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>计算机组成原理</title>
     <url>/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<p><strong>冯诺依曼机的基本工作方式是控制流驱动方式</strong></p>
+    <content><![CDATA[<p><strong>计算机系统由两大部分组成：硬件和软件。软件又包括系统软件和应用软件。</strong></p>
 <span id="more"></span>
+
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="翻译、汇编、编译"><a href="#翻译、汇编、编译" class="headerlink" title="翻译、汇编、编译"></a>翻译、汇编、编译</h2><ul>
 <li><p>翻译程序：翻译一句执行一句</p>
 </li>
@@ -2769,6 +2770,8 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li><p>系统软件：操作系统OS、数据库管理系统DBMS、语言处理程序、分布式软件系统、网络软件系统、标准库程序、服务性程序等</p>
 </li>
 <li><p>完整的计算机系统应包括配套的硬件设备与软件设备</p>
+</li>
+<li><p>冯诺依曼机的基本工作方式是控制流驱动方式</p>
 </li>
 <li><p>❌软件功能不能被硬件取代</p>
 </li>
@@ -2809,7 +2812,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <ul>
 <li><p>兼容：指计算机软件与硬件的通用性，通常在同一系列不同型号的计算机间通用（❌软硬件间的通用性）</p>
 </li>
-<li><p>平均指令执行速度：MIPS；平均指令周期：<img src="/%5Cimages%5Cclip_image011.png" alt="img"></p>
+<li><p>平均指令执行速度：MIPS；平均指令周期：$\frac{1}{MIPS}$</p>
 </li>
 </ul>
 <h2 id="机器字长、指令字长、存储字长"><a href="#机器字长、指令字长、存储字长" class="headerlink" title="机器字长、指令字长、存储字长"></a>机器字长、指令字长、存储字长</h2><blockquote>
@@ -2857,9 +2860,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>定点数中的零是实在的零</p>
 </li>
-<li><p>“addw %bx,%ax”为AT&amp;T格式，目的寄存器为ax</p>
+<li><p><code>addw %bx,%ax</code>为AT&amp;T格式，目的寄存器为ax</p>
 </li>
-<li><p>“sub bx,ax”为Inter格式，目的寄存器为bx</p>
+<li><p><code>sub bx,ax</code>为Inter格式，目的寄存器为bx</p>
 </li>
 </ul>
 <h2 id="大小端"><a href="#大小端" class="headerlink" title="大小端"></a>大小端</h2><ul>
@@ -2899,7 +2902,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </tr>
 </tbody></table>
 <ul>
-<li><p>海明码可以发现两位错误并进行以为纠错（<img src="/%5Cimages%5Cclip_image014.png" alt="img">）</p>
+<li><p>海明码可以发现两位错误并进行以为纠错（$n+k+1\le2^k$）</p>
 </li>
 <li><p>被校验数据位的海明位号等于该数据位的各校验位海明位号之和（D1在H3（011），则由P1、P2进行校验）</p>
 </li>
@@ -2909,7 +2912,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>双符号位的最高符号位代表真正的符号，低位符号位用于参与位移操作以判断是否发出溢出（”01”正溢出，”10”负溢出）</p>
 </li>
-<li><p>原码一位乘法，符号位<img src="/%5Cimages%5Cclip_image016.png" alt="img">，数值位两数绝对值相乘，累加次数n次</p>
+<li><p>原码一位乘法，符号位$x_s\oplus y_s$，数值位两数绝对值相乘，累加次数n次</p>
 </li>
 <li><p>补码一位乘法，符号位参与运算，累加次数n+1次</p>
 </li>
@@ -2947,21 +2950,21 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>补码不恢复余数法中，异号相除时，够减商0，不够减商1</p>
 </li>
-<li><p>判断加减法溢出时，如果采用判断进位的方式（符号位进位<img src="/%5Cimages%5Cclip_image018.png" alt="img">，最高位进位<img src="/%5Cimages%5Cclip_image020.png" alt="img">），则产生溢出的条件为<img src="/%5Cimages%5Cclip_image022.png" alt="img"></p>
+<li><p>判断加减法溢出时，如果采用判断进位的方式（符号位进位$c_0$，最高位进位$c_1$），则产生溢出的条件为$c_0\oplus c_1&#x3D;1$</p>
 </li>
-<li><p>无符号数的加减计算与有符号计算相同（化为二进制按位运算）：<img src="/%5Cimages%5Cclip_image024.png" alt="img"></p>
+<li><p>无符号数的加减计算与有符号计算相同（化为二进制按位运算）：$a-b&#x3D;a+[-b]$</p>
 </li>
 </ul>
-<h2 id="标志位OF、SF、CF（新增考点）"><a href="#标志位OF、SF、CF（新增考点）" class="headerlink" title="标志位OF、SF、CF（新增考点）"></a>标志位OF、SF、CF（新增考点）</h2><ul>
+<h2 id="标志位OF、SF、CF"><a href="#标志位OF、SF、CF" class="headerlink" title="标志位OF、SF、CF"></a>标志位OF、SF、CF</h2><ul>
 <li><p>溢出标志位OF（Overflow Flag）（有符号数加减运算）：1表示溢出（寄存器中值不是真正结果）</p>
 </li>
-<li><p>OF&#x3D;最高位产生的进位<img src="/%5Cimages%5Cclip_image026.png" alt="img">次高位产生的进位</p>
+<li><p>OF&#x3D;最高位产生的进位$\oplus$次高位产生的进位</p>
 </li>
 <li><p>符号标志位SF（有符号数加减运算）：0表示结果为正数，1表示结果为负数</p>
 </li>
 <li><p>进位标志位CF（Carry Flag）（无符号数加减运算）：1表示最高位有进位，0表示最高位无进位（最高位是否进位与是否溢出无关）</p>
 </li>
-<li><p>无符号数运算时借位标志<img src="/%5Cimages%5Cclip_image028.png" alt="img">,(C为进位输出，减法运算：sub&#x3D;1，加法运算：sub&#x3D;0，加法运算时有进位则说明溢出)</p>
+<li><p>无符号数运算时借位标志$CF&#x3D;C\oplus sub$,(C为进位输出，减法运算：sub&#x3D;1，加法运算：sub&#x3D;0，加法运算时有进位则说明溢出)</p>
 </li>
 <li><p>乘法运算时，如果高33位不是全0或全1，OF&#x3D;1，表示溢出</p>
 </li>
@@ -2973,11 +2976,11 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>在IEEE 754标准下，尾数全部为隐藏最高位”1”的正数原码(临时浮点数无隐含位)</p>
 </li>
-<li><p>规格化浮点数就是让尾数<img src="/%5Cimages%5Cclip_image030.png" alt="img"></p>
+<li><p>规格化浮点数就是让尾数$\frac{1}{2}\le|M|\le1$</p>
 </li>
 <li><p>（基数为2时）原码规格化数的尾数最高位一定是1；补码规格化数的尾数最高位一定与尾数符号相反（0.11 1、1.011 1（最大负数形式））</p>
 </li>
-<li><p>基数为<img src="/%5Cimages%5Cclip_image032.png" alt="img">时，若浮点数为正数，数值位前n位不全为0；若浮点数为负数，数值位前n位不全为1</p>
+<li><p>基数为$2^n$时，若浮点数为正数，数值位前n位不全为0；若浮点数为负数，数值位前n位不全为1</p>
 </li>
 </ul>
 <blockquote>
@@ -3020,13 +3023,13 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </tr>
 </tbody></table>
 <ul>
-<li><p>float类型最小正数值：<img src="/%5Cimages%5Cclip_image034.png" alt="img">（阶码不能取到全0）</p>
+<li><p>float类型最小正数值：$1.0\times2^{1-127}(E&#x3D;1,M&#x3D;0)$（阶码不能取到全0）</p>
 </li>
-<li><p>float类型最大正数值:<img src="/%5Cimages%5Cclip_image036.png" alt="img"></p>
+<li><p>float类型最大正数值:$1.111..\times2^{254-127}&#x3D;2^{127}(2-2^{-23})\ (E&#x3D;254,M&#x3D;.111…)$</p>
 </li>
-<li><p>double类型最小正数值：<img src="/%5Cimages%5Cclip_image038.png" alt="img"></p>
+<li><p>double类型最小正数值：$1.0\times2^{1-1023}(E&#x3D;1,M&#x3D;0)$</p>
 </li>
-<li><p>double类型最大正数值：<img src="/%5Cimages%5Cclip_image040.png" alt="img"></p>
+<li><p>double类型最大正数值：$1.111..\times2^{2046-1023}&#x3D;2^{1023}(2-2^{-52})\ (E&#x3D;2046,M&#x3D;.111…)$</p>
 </li>
 <li><p>阶码全为1时表示无穷大，全为0时表示非规格化数</p>
 </li>
@@ -3036,9 +3039,12 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>最简单的截断方法为直接截断</p>
 </li>
-<li><p>加法器进位信号<img src="/%5Cimages%5Cclip_image042.png" alt="img"></p>
+</ul>
+<hr>
+<ul>
+<li><p>加法器进位信号$g&#x3D;X_i Y_i $</p>
 </li>
-<li><p>加法器进位传递信号<img src="/%5Cimages%5Cclip_image044.png" alt="img"></p>
+<li><p>加法器进位传递信号$p&#x3D;X_i\oplus Y_i$</p>
 </li>
 <li><p>相同字长下，定点数比浮点数精度更高（浮点数部分字段用作阶码表示）；浮点数表示范围更大</p>
 </li>
@@ -3047,26 +3053,15 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li><p>原码一位乘算法过程中，所有移位均是逻辑移位</p>
 </li>
 </ul>
-<h2 id="补码加减运算器"><a href="#补码加减运算器" class="headerlink" title="补码加减运算器"></a>补码加减运算器</h2><table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td><img src="/%5Cimages%5Cclip_image005.png" alt="图像"></td>
-</tr>
-</tbody></table>
+<h2 id="补码加减运算器"><a href="#补码加减运算器" class="headerlink" title="补码加减运算器"></a>补码加减运算器</h2><p> <img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220315100153529.png" alt="image-20220315100153529"></p>
 <p>加减运算器处理有符号数与无符号数的处理过程是相同的，但是判断是否溢出的方法不同</p>
 <p>加法器的低位进位信息，减法运算时为1（被减数取反加1），加法运算时为0</p>
 <h2 id="乘法电路和除法电路的基本结构"><a href="#乘法电路和除法电路的基本结构" class="headerlink" title="乘法电路和除法电路的基本结构"></a>乘法电路和除法电路的基本结构</h2><p>部分积和被乘数X做无符号数加法时，可能产生进位，因此需要一个专门的进位位C。乘积奇存器P初始时置0。计数器C，初值为 32，每循环一次减1。 ALU 是乘法核心部件，对乘积寄存器P和被乘数奇存器X的內容做“无符号加法” 运算，运算结果送回奇存器P，进位存放在C中。每次循环都对进位位C，乘积寄存器P和乘数奇存器Y 实现同步 “逻辑右移”，此时，进位位 C移入寄存器P的最高位，寄存器Y的最低位移出。每次寄存器Y的最低位都被送到控制逻辑，以决定被乘数是否“加”到部分积上。</p>
-<p><img src="/%5Cimages%5Cclip_image007.jpg" alt="图像画廊"></p>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220315100203719.png" alt="image-20220315100203719"></p>
 <p>无符号乘法溢出判断：前n比特有不是0，则发生了溢出</p>
 <p>有符号乘法溢出判断：高n+1位全1或全0说明没有溢出</p>
 <p>需要部件：支持加减法ALU、移位功能的寄存器（无符号乘法逻辑右移、有符号算术乘法右移、除法左移）、控制逻辑（加减法控制、左右移控制、写使能）、计数器</p>
-<h1 id="存储系统"><a href="#存储系统" class="headerlink" title="存储系统"></a>存储系统</h1><p><img src="/%5Cimages%5Cclip_image046.png" alt="图像"></p>
+<h1 id="存储系统"><a href="#存储系统" class="headerlink" title="存储系统"></a>存储系统</h1><p> <img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220315101255419.png" alt="image-20220315101255419"></p>
 <ul>
 <li><p>主存使用RAM和ROM实现，控制存储器使用ROM实现，主存主要使用DRAM，Cache主要使用SRAM</p>
 </li>
@@ -3076,17 +3071,21 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>编址方式属于计算机组成，与机器字长（计算机体系结构）没有关系</p>
 </li>
-<li><p>存取周期<img src="/%5Cimages%5Cclip_image048.png" alt="img">：存储芯片进行连续两次读、写操作所必须间隔的时间（存取时间+恢复时间）</p>
+</ul>
+<hr>
+<ul>
+<li><p>存取周期$t_RC$：存储芯片进行连续两次读、写操作所必须间隔的时间（存取时间+恢复时间）</p>
 </li>
-<li><p>存取时间<img src="/%5Cimages%5Cclip_image050.png" alt="img">：执行一次读操作或写操作的时间（分有读出时间、写入时间）</p>
+<li><p>存取时间$T_a$：执行一次读操作或写操作的时间（分有读出时间、写入时间）</p>
 </li>
 </ul>
 <ol>
-<li><p>读出时间<img src="/%5Cimages%5Cclip_image052.png" alt="img">：从主存接收到有效地址开始，到读出所选中单元的内容并在外部数据总线上稳定地出现所需的时间（还需要一个总线周期才能将数据传入CPU）</p>
+<li><p>读出时间$t_A$：从主存接收到有效地址开始，到读出所选中单元的内容并在外部数据总线上稳定地出现所需的时间（还需要一个总线周期才能将数据传入CPU）</p>
 </li>
 <li><p>写入时间：从主存接收到有效地址开始到数据写入被写入单元为止</p>
 </li>
 </ol>
+<hr>
 <ul>
 <li>采用DMA方式传递数据时，每传递一个数据就要占用一个存取周期</li>
 </ul>
@@ -3133,12 +3132,13 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ol>
 </blockquote>
+<hr>
 <ul>
 <li><p>低位交叉编址中低位地址表示该字节存储的芯片编号。若是连续占多位字节的数据字（如double）即从该芯片开始存储。</p>
 </li>
 <li><p>一个存储周期可以对所有芯片各读取一个字节</p>
 </li>
-<li><p>芯片引脚数目N&#x3D;数据线<img src="/%5Cimages%5Cclip_image054.png" alt="img"> + 地址线<img src="/%5Cimages%5Cclip_image056.png" alt="img">（DRAM采用地址复用技术，因此地址线是原来的1&#x2F;2）+片选线（1根）+读写控制线（2根）（读写控制线有时候也可以共用一根）</p>
+<li><p>芯片引脚数目N&#x3D;数据线$N_1$+ 地址线$N_2$（DRAM采用地址复用技术，因此地址线是原来的1&#x2F;2）+片选线（1根）+读写控制线（2根）（读写控制线有时候也可以共用一根)</p>
 </li>
 <li><p>地址的编码是由低位向高位编码，先将片内地址由最低位填入，再填入片选地址（最高位可以空闲）</p>
 </li>
@@ -3146,15 +3146,12 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ul>
 <h2 id="固态硬盘SSD"><a href="#固态硬盘SSD" class="headerlink" title="固态硬盘SSD"></a>固态硬盘SSD</h2><ol>
-<li><p>基于闪存Flash（芯片中的一块相当于磁盘中的一条磁道，磁道中还有若干页（最基本的读写单位））</p>
-</li>
-<li><p>可以随机存储、用and门实现</p>
-</li>
-<li><p>动态磨损：偏向使用较新的内存颗粒进行擦除写入（优化不够）</p>
-</li>
-<li><p>静态磨损：将长时间不用的数据写入较老的内存颗粒中，将新数据写入新的内存颗粒（磨损均衡、主控压力较大）<img src="/%5Cimages%5Cclip_image010.png" alt="图像"></p>
-</li>
+<li>基于闪存Flash（芯片中的一块相当于磁盘中的一条磁道，磁道中还有若干页（最基本的读写单位））</li>
+<li>可以随机存储、用and门实现</li>
+<li>动态磨损：偏向使用较新的内存颗粒进行擦除写入（优化不够）</li>
+<li>静态磨损：将长时间不用的数据写入较老的内存颗粒中，将新数据写入新的内存颗粒（磨损均衡、主控压力较大）</li>
 </ol>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220315100219089.png" alt="image-20220315100219089"></p>
 <h2 id="三级Cache"><a href="#三级Cache" class="headerlink" title="三级Cache"></a>三级Cache</h2><ul>
 <li><p>指令Cache与数据Cache分离位于L1级，通常使用写分配法与写回法</p>
 </li>
@@ -3178,14 +3175,14 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>LRU算法中替换算法位长度与Cache组大小有关，2路组相联使用1位LRU位，4路组相联使用2位LRU位</p>
 </li>
-<li><p>语句<img src="/%5Cimages%5Cclip_image058.png" alt="img">，需要访存两次。第一次读取a[k]的值；第二次将新值写回a[k]</p>
+<li><p>语句<code>a[k]=a[k]+32</code>，需要访存两次。第一次读取a[k]的值；第二次将新值写回a[k]</p>
 </li>
 <li><p>Cache的效率公式：Cache访问时间&#x2F;实际访存的平均访问时间</p>
 </li>
-<li><p><img src="/%5Cimages%5Cclip_image060.jpg" alt="图像画廊"></p>
-</li>
 </ul>
+<p>​                <img src="file:///C:/Users/18395/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png" alt="图像画廊">    </p>
 <h2 id="CPU使用虚拟内存过程"><a href="#CPU使用虚拟内存过程" class="headerlink" title="CPU使用虚拟内存过程"></a>CPU使用虚拟内存过程</h2><p>CPU使用的是虚拟地址，由辅助硬件（TLB、页表）找到虚地址与实地址间的对应关系，并判断该虚地址对应的存储单元是否已装入主存（有效位为1）。若已在主存中，通过地址变换，CPU可直接访问主存指示的存储单元（或直接访问Cache获得数据）；若不在主存，通过缺页中断，把包含该字的一页或是一段掉入主存后再由CPU访问。若主存已满，采用替换算法置换主存中的一页或一段</p>
+<hr>
 <ul>
 <li><p>TLB缺失则需要访存一次访问页表；页表缺失需要访问磁盘；Cache缺失需要访存一次获取数据</p>
 </li>
@@ -3214,30 +3211,28 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li><p>RISC只有Load\Store指令访存，其余指令的操作都在寄存器间进行</p>
 </li>
 </ul>
+<blockquote>
 <p>微程序控制中，确定一条指令的地址</p>
 <ol>
-<li><p>增量计数法：由<img src="/%5Cimages%5Cclip_image062.png" alt="img">确定下一条微指令地址</p>
+<li><p>增量计数法：由$\mu PC$确定下一条微指令地址</p>
 </li>
 <li><p>下地址法（断定法）：由微指令的下地址字段给出后续指令地址</p>
 </li>
 <li><p>硬件法：由专门硬件电路或外部直接向CMAR输入微指令地址</p>
 </li>
 </ol>
+</blockquote>
+<p> 基址寻址时，程序员操作偏移地址，基址寄存器内容由操作系统控制（如在中断向量表寻找中断向量，基地址为中断向量表起始地址）</p>
 <ul>
-<li><p>基址寻址时，程序员操作偏移地址，基址寄存器内容由操作系统控制（如在中断向量表寻找中断向量，基地址为中断向量表起始地址）</p>
-</li>
-<li><p>变址寻址时，程序员操作变址寄存器，偏移地址（数据结构首地址）不变</p>
-</li>
-<li><p>简化地址结构的基本方法是尽量使用隐含取值</p>
-</li>
-<li><p>如果一条指令由两字节组成，每取一字节PC值+1（每次PC自加的值由指令字长决定）<img src="/%5Cimages%5Cclip_image064.png" alt="图像"></p>
-</li>
-<li><p>对按字寻址的机器，程序计数器取决于存储器字数、指令寄存器取决于指令字长</p>
-</li>
-<li><p>内存地址都为无符号数，寻址时对补码操作数需要一定转换</p>
-</li>
-<li><p>执行<img src="/%5Cimages%5Cclip_image066.png" alt="img">指令时，通过<img src="/%5Cimages%5Cclip_image068.png" alt="img">实现对a与b的比较</p>
-</li>
+<li>变址寻址时，程序员操作变址寄存器，偏移地址（数据结构首地址）不变</li>
+<li>简化地址结构的基本方法是尽量使用隐含取值</li>
+<li>如果一条指令由两字节组成，每取一字节PC值+1（每次PC自加的值由指令字长决定）</li>
+</ul>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220315101701157.png" alt="image-20220315101701157"></p>
+<ul>
+<li>对按字寻址的机器，程序计数器取决于存储器字数、指令寄存器取决于指令字长</li>
+<li>内存地址都为无符号数，寻址时对补码操作数需要一定转换</li>
+<li>执行<code>cmp a,b</code>指令时，通过<code>a-b</code>实现对a与b的比较</li>
 </ul>
 <h1 id="中央处理器"><a href="#中央处理器" class="headerlink" title="中央处理器"></a>中央处理器</h1><ul>
 <li><p>控制器的全部功能：从主存中取出指令、分析指令、并产生有关的操作控制信号</p>
@@ -3268,14 +3263,13 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ul>
 <h2 id="机器周期、指令周期、时钟周期"><a href="#机器周期、指令周期、时钟周期" class="headerlink" title="机器周期、指令周期、时钟周期"></a>机器周期、指令周期、时钟周期</h2><ul>
-<li><p>指令周期：CPU每取出并执行一条指令所需的全部时间</p>
-</li>
-<li><p>机器周期是指令执行中每步操作（取值、存储器读、存储器写等）所需要的时间</p>
-</li>
-<li><p>每个机器周期的节拍数可以不等（同一个操作（取值、写回等）的节拍数必须相同）</p>
-</li>
-<li><p>各指令功能不同，所以各指令执行所需的机器周期数也是可变的</p>
-</li>
+<li>指令周期：CPU每取出并执行一条指令所需的全部时间</li>
+<li>机器周期是指令执行中每步操作（取值、存储器读、存储器写等）所需要的时间</li>
+<li>每个机器周期的节拍数可以不等（同一个操作（取值、写回等）的节拍数必须相同）</li>
+<li>各指令功能不同，所以各指令执行所需的机器周期数也是可变的</li>
+</ul>
+<hr>
+<ul>
 <li><p>指令的执行周期结束后进入中断周期，用来响应中断</p>
 </li>
 <li><p>CPU根据指令周期的不同阶段判断从存储器中取出的二进制代码是指令还是数据</p>
@@ -3301,9 +3295,8 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li><p>一个m段流水线稳定流出时CPU的吞吐能力，与m个并行部件的CPU吞吐能力相等</p>
 </li>
 </ul>
-<h1 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h1><p><img src="/%5Cimages%5Cclip_image070.png" alt="图像"></p>
-<ul>
-<li><p>猝发传送：一个总线周期内传输存储地址连续的n个数据字，<img src="/%5Cimages%5Cclip_image072.png" alt="img">(t_1传输地址，t_2传输一个数据字)</p>
+<h1 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h1><ul>
+<li><p>猝发传送：一个总线周期内传输存储地址连续的n个数据字，$t&#x3D;t_1+n\times t_2$(t_1传输地址，t_2传输一个数据字)</p>
 </li>
 <li><p>一个总线的时钟周期可以传输一个存储字（长度为总线位宽）</p>
 </li>
@@ -3317,7 +3310,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>靠近CPU的总线速度快（连接高速设备）</p>
 </li>
-<li><p><img src="/%5Cimages%5Cclip_image074.png" alt="img">采用并行传输方式</p>
+<li><p>PCI-Express×16采用并行传输方式</p>
 </li>
 <li><p>USB是连接外部设备的IO总线，用于设备与设备控制器（IO接口）间互连的接口标准</p>
 </li>
@@ -3343,6 +3336,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>IO统一编址执行速度慢；IO独立编址控制复杂</p>
 </li>
+</ul>
+<hr>
+<ul>
 <li><p>磁盘驱动器是由磁头、磁盘和读写电路等组成即磁盘本身</p>
 </li>
 <li><p>U盘本质上来说是一种只读存储器</p>
@@ -3365,7 +3361,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 <li><p>在字符显示的VRAM中存放ASCII码用以显示字符</p>
 </li>
-<li><p>总线仲裁中，计数器定时查询需要一根总线请求BR，和<img src="/%5Cimages%5Cclip_image076.png" alt="img">根设备地址线</p>
+<li><p>总线仲裁中，计数器定时查询需要一根总线请求BR，和$\lceil\log_2 n\rceil$根设备地址线</p>
 </li>
 <li><p>总线仲裁一般是IO设备争用总线的判优方式，而中断判优方式一般是IO设备争用CPU的判优方式</p>
 </li>
@@ -3424,8 +3420,109 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li><p>DMA请求不会导致被中断指令重新执行</p>
 </li>
 </ul>
-<p><img src="/%5Cimages%5Cclip_image079.jpg" alt="图像"></p>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220315102052316.png" alt="image-20220315102052316"></p>
 <h2 id="通道"><a href="#通道" class="headerlink" title="通道"></a>通道</h2><ul>
+<li><p>通道程序存放在主存中，由通道从主存中取出并执行（通道执行）</p>
+</li>
+<li><p>CPU通过执行IO指令负责开启关闭通道，以及处理来自通道的中断实现对通道的管理</p>
+</li>
+</ul>
+<h2 id="IO接口-1"><a href="#IO接口-1" class="headerlink" title="IO接口"></a>IO接口</h2><ul>
+<li><p>IO设备通过设备控制器与主板的系统总线相连接（控制IO设备的具体动作）</p>
+</li>
+<li><p>IO接口：外设与主机间传输数据时进行各种协调工作的逻辑部件（速度匹配、数据缓存、电平和格式转换、地址译码、传送控制信号和状态信息）</p>
+</li>
+<li><p>执行IO指令时，CPU通过地址总线选择所请求的IO端口、通过数据总线在通用寄存器与IO端口之间进行数据传送</p>
+</li>
+<li><p>IO接口的控制线与地址线都是从CPU到IO接口的单向传送。IO接口中的命令字、状态字、中断类型号都是通过IO总线的数据线由IO接口传送到CPU</p>
+</li>
+<li><p>若干端口加相应的控制逻辑组成接口</p>
+</li>
+<li><p>IO统一编址执行速度慢；IO独立编址控制复杂</p>
+</li>
+<li><p>磁盘驱动器是由磁头、磁盘和读写电路等组成即磁盘本身</p>
+</li>
+<li><p>U盘本质上来说是一种只读存储器</p>
+</li>
+<li><p>RAID技术将多个独立的物理磁盘组成一个独立的逻辑磁盘，提升存储性能、系统的可靠性</p>
+</li>
+<li><p>RAID0把连续多个数据块交替存放在不同的物理磁盘扇区中，几个磁盘交叉并行读写，不仅扩大了存储容量，而且提高了磁盘数据存取速度</p>
+</li>
+<li><p>RAID1使两个磁盘同时进行读写，互为备份</p>
+</li>
+<li><p>磁盘非格式化容量：磁盘可利用磁化单元数</p>
+</li>
+<li><p>磁盘格式化容量：按照某种特定的记录格式所能存储信息的总量（格式化后要比非格式化小）</p>
+</li>
+<li><p>采用定长数据块记录格式，直接寻址的最小单元为扇区</p>
+</li>
+<li><p>一个磁盘的读写操作是串行的，不可能同一时刻即读又写，也不可能同一时刻读或写两组数据</p>
+</li>
+<li><p>VRAM（显示存储器）：将一帧图像信息存储其中，存储容量由图像分辨率、灰度级决定</p>
+</li>
+<li><p>在字符显示的VRAM中存放ASCII码用以显示字符</p>
+</li>
+<li><p>总线仲裁中，计数器定时查询需要一根总线请求BR，和<img src="/%5Cimages%5Cclip_image076.png" alt="img">根设备地址线</p>
+</li>
+<li><p>总线仲裁一般是IO设备争用总线的判优方式，而中断判优方式一般是IO设备争用CPU的判优方式</p>
+</li>
+<li><p>通道和中断是软硬件相结合实现方式</p>
+</li>
+</ul>
+<h2 id="中断-1"><a href="#中断-1" class="headerlink" title="中断"></a>中断</h2><ul>
+<li><p>中断处理方式：在IO设备输入每个数据的过程中，无须CPU干预。仅当传输完一个数据时，才需要CPU进行中断处理。</p>
+</li>
+<li><p>中断数据传送是在软件控制下完成的</p>
+</li>
+<li><p>指令执行结构出现异常而引起的中断（运算溢出等）为程序性中断</p>
+</li>
+<li><p>IO中断为外部中断</p>
+</li>
+<li><p>机器校验中断为终止类中断</p>
+</li>
+<li><p>对于故障类异常，其断电是发生故障时的指令地址，要重新计算PC值</p>
+</li>
+<li><p>中断的断点为下条指令地址，无需重新计算</p>
+</li>
+<li><p>中断响应由高到低的优先级宜用访管-程序性-重新启动</p>
+</li>
+<li><p>主存故障引起的中断是机器校验中断，属于内中断（只能由CPU自身完成）；外中断一般指主存和CPU外的中断，如外设引起的中断。此时需要CPU从总线获取中断源的标志信息，进行下一步处理</p>
+</li>
+<li><p>缺页、溢出等异常事件是特定指令执行过程中产生的，中断不和任何指令相关联，不阻止任何指令的完成（在指令周期的中断周期有效）</p>
+</li>
+<li><p>配有通道的计算机系统中，用户程序需要输入&#x2F;输出时，引起的中断时访管中断，系统由用户态转为核心态</p>
+</li>
+<li><p>访管指令即为Trap指令</p>
+</li>
+<li><p>中断优先级包含响应优先级与处理优先级，处理优先级由屏蔽字实现（0为该中断开放、1为该中断被屏蔽）</p>
+</li>
+<li><p>CPU收到多个中断请求时，根据响应优先级响应中断</p>
+</li>
+<li><p>响应优先级为CPU响应中断的优先级，当存在中断屏蔽字情况下。可能出现的是，处理机响应D1，D1再被D2打断</p>
+</li>
+<li><p>中断屏蔽是在打断中断时使用，谁先得到响应要看响应优先级</p>
+</li>
+<li><p>中断服务程序的最后指令通常是中断返回指令（RETI），该指令在中断恢复后，此时CPU所有寄存器已经恢复到中断前的状态。因此该指令不需要进行无条件转移，只需要通知CPU开始从PC中取值，进入取值周期即可。</p>
+</li>
+<li><p>在多重中断中，CPU只有在检测到中断请求信号后（中断优先级更低的中断请求信号检测不到）才会进入中断响应周期</p>
+</li>
+</ul>
+<h2 id="DMA方式-1"><a href="#DMA方式-1" class="headerlink" title="DMA方式"></a>DMA方式</h2><ul>
+<li><p>DMA传送过程中，DMAC将接管CPU的地址总线、数据总线、控制总线，CPU主存控制信号被禁止使用</p>
+</li>
+<li><p>DMA传输的是数据块</p>
+</li>
+<li><p>DMA请求，请求的是总线使用权。</p>
+</li>
+<li><p>DMA数据传输在控制器的控制下完成的</p>
+</li>
+<li><p>对DMA请求的响应可以发生在每个机器周期结束时，只要CPU不占总嫌就可被响应（即DMA响应发生在一个总线事务完成后）</p>
+</li>
+<li><p>DMA请求不会导致被中断指令重新执行</p>
+</li>
+</ul>
+<p><img src="/%5Cimages%5Cclip_image079.jpg" alt="图像"></p>
+<h2 id="通道-1"><a href="#通道-1" class="headerlink" title="通道"></a>通道</h2><ul>
 <li><p>通道程序存放在主存中，由通道从主存中取出并执行（通道执行）</p>
 </li>
 <li><p>CPU通过执行IO指令负责开启关闭通道，以及处理来自通道的中断实现对通道的管理</p>
@@ -3437,14 +3534,11 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
       </tags>
   </entry>
   <entry>
-    <title>面向对象技术</title>
-    <url>/2022/03/14/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>计算机网络</title>
     <url>/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><p><strong>计算机网络是利用<a href="https://baike.baidu.com/item/%E9%80%9A%E4%BF%A1%E7%BA%BF%E8%B7%AF">通信线路</a>将地理上分散的、具有独立功能的<a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F">计算机系统</a>和通信设备按不同的形式连接起来，以功能完善的网络软件及协议实现资源共享和信息传递的系统</strong></p>
+    <content><![CDATA[<p><strong>计算机网络是利用<a href="https://baike.baidu.com/item/%E9%80%9A%E4%BF%A1%E7%BA%BF%E8%B7%AF">通信线路</a>将地理上分散的、具有独立功能的<a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F">计算机系统</a>和通信设备按不同的形式连接起来，以功能完善的网络软件及协议实现资源共享和信息传递的系统</strong></p>
+<span id="more"></span>
+
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
 <li><p>计算机网络资源：计算机硬件、软件、数据</p>
 </li>
@@ -3783,17 +3877,21 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ul>
 <h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><ul>
-<li><p>TCP拥塞控制的慢启动算法中，发送端每收到一个确认段就将拥塞窗口加一；这样在经过一个RTT后拥塞窗口的大小会加倍（cwnd大小指数式增长）</p>
-</li>
-<li><p>TCP拥塞控制的拥塞避免算法中，每经过一轮RTT只增加一个cwnd（线性增加）</p>
-</li>
-<li><p>排序工作由传输层实现；重组工作由网络层实现</p>
-</li>
+<li>TCP拥塞控制的慢启动算法中，发送端每收到一个确认段就将拥塞窗口加一；这样在经过一个RTT后拥塞窗口的大小会加倍（cwnd大小指数式增长）</li>
+<li>TCP拥塞控制的拥塞避免算法中，每经过一轮RTT只增加一个cwnd（线性增加）</li>
+<li>排序工作由传输层实现；重组工作由网络层实现</li>
+<li>TCP socket 建立的过程</li>
 </ul>
+<p><img src="https://user-images.githubusercontent.com/13389461/68817970-5e11d000-06be-11ea-85ee-5d2496d14c63.png" alt="TCP socket 建立的过程"></p>
+<ul>
+<li>UDP socket 建立的过程</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/13389461/72334798-e3365700-36f8-11ea-9bd8-1bfd59118c01.png" alt="UDP socket 建立的过程"></p>
 <h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><p>网络数据进入主机后，首先到达网卡，然后进入内核，由网络协议栈处理（使用socket）</p>
 <p>每个进程在内核中都有一个表，保存该进程申请并占用的所有soket描述符。</p>
 <p>socket：源IP+port，目的IP+port，建立起进程与端口间的联系。内核根据传输层数据报中的端口找到相应的进程实现进程间的通信</p>
 <p>SOcket本质上是一种资源，理论上能够通过sendmsg将socket描述符传递到其他进程。同时，父子进程间，线程间也会进行socket共享。</p>
+<hr>
 <ul>
 <li><p>TCP，UDP分别拥有自己的端口号，它们互不干扰，可以共存于同一台主机</p>
 </li>
@@ -3829,6 +3927,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li>保证client发送的最后一个ACK报文能够达到server。如果最后一个ACK丢失，server端会在第一个MSL时间内进行超时重传，client就能在2MSL时间内收到重传的连接释放报文，并重新启动TIME-WAIT状态，确保server能够正确收到ACK报文，进入CLOSED状态</li>
 <li>防止已失效的连接请求报文段出现在本次链接中。client发送最后一个ACK报文段后，如果正确达到server。再经过2MSL，本次连接产生的所有报文段（因为网络拥塞等问题在网络中留存的报文）都会从网络中消失。</li>
 </ol>
+<h2 id="TCP-keepalive"><a href="#TCP-keepalive" class="headerlink" title="TCP keepalive"></a>TCP keepalive</h2><p>定义一个时间段，在这个时间段内，如果没有任何连接相关的活动，TCP 保活机制会开始作用，每隔一个时间间隔，发送一个探测报文，该探测报文包含的数据非常少，如果连续几个探测报文都没有得到响应，则认为当前的 TCP 连接已经死亡，系统内核将错误信息通知给上层应用程序。在 Linux 系统中，2 小时内如果没有任何连接相关的活动，则会启动保活机制。而每次的检测间隔为75秒，检测 9 次无响应，认为对方是不可达的，从而中断本次的连接。也就是说最少需要经过 2 小时 11 分 15 秒才可以发现一个「死亡」连接。一般的，web 服务软件一般都会提供 <code>keepalive_timeout</code> 参数，用来指定 HTTP 长连接的超时时间</p>
 <h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><table>
 <thead>
 <tr>
@@ -3864,12 +3963,16 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </tr>
 </tbody></table>
 <ul>
-<li><p>客户机是面向用户的，服务器是面向任务的</p>
-</li>
-<li><p>多个不同的域名可以共用一个IP地址，访问一台服务器</p>
-</li>
+<li>客户机是面向用户的，服务器是面向任务的</li>
+<li>多个不同的域名可以共用一个IP地址，访问一台服务器</li>
+<li>CNAME记录用于将一个<a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D">域名</a>（同名）映射到另一个域名（真实名称），<a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E6%9C%8D%E5%8A%A1%E5%99%A8">域名解析服务器</a>遇到CNAME记录会以映射到的目标重新开始查询</li>
 </ul>
-<h2 id="FTP工作"><a href="#FTP工作" class="headerlink" title="FTP工作"></a>FTP工作</h2><ul>
+<h2 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h2><p>通过VPN访问内网时，实际是在访问VPN服务器，再由VPN服务器访问内网。同时通过数据加密技术封装一条虚拟数据通信隧道，保障了网络通讯是安全私密的。也就是正向代理</p>
+<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>client使用server提供的公钥对信息进行加密，发送给server。server使用自己独有的私钥对加密信息进行解密，获取信息。</p>
+<h3 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h3><p>攻击者中途拦截client请求公钥的信息，并发送自己的公钥。client使用攻击者的公钥加密，攻击者使用自己的私钥解密，即可得到client的信息</p>
+<h3 id="基于口令的认证"><a href="#基于口令的认证" class="headerlink" title="基于口令的认证"></a>基于口令的认证</h3><p>为了防止中间人攻击，需要对获得的公钥进行认证。在https中可以通过CA来进行公证。而在SSH中公钥私钥都是自己生成的，只能通过client端自己对公钥进行确认。host被确认后，被追加到known_host中。此时再进行登录操作</p>
+<h3 id="基于公钥的认证"><a href="#基于公钥的认证" class="headerlink" title="基于公钥的认证"></a>基于公钥的认证</h3><p>Client端的public key需要Client手动Copy到Server端。Server端在authorized_keys中匹配到Client的公钥后，会生成随机数R，并用<strong>Client的公钥对该随机数进行加密</strong>，然后将加密后信息发送给Client，Client端通过私钥进行解密得到随机数R，然后对随机数R和本次会话的SessionKey利用MD5生成摘要Digest1，发送给Server端。Server端会也会对R和SessionKey利用同样摘要算法生成Digest2，最后比较Digest1和Digest2是否相同，完成认证过程。</p>
+<h2 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h2><ul>
 <li>匿名FTP访问通常使用anonymous作为用户名，该用户ID的密码可以是任何字符串</li>
 </ul>
 <blockquote>
@@ -3934,5 +4037,214 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
       <tags>
         <tag>408</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>数据库</title>
+    <url>/2022/03/18/%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><span id="more"></span>
+<h3 id="操作符的计算顺序"><a href="#操作符的计算顺序" class="headerlink" title="操作符的计算顺序"></a>操作符的计算顺序</h3><p>AND在计算次序中优先级比OR更高，因此下列命令会返回不符合我们预期的结果</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col1<span class="operator">=</span><span class="number">1</span> <span class="keyword">OR</span> col2<span class="operator">=</span><span class="number">2</span> <span class="keyword">AND</span> col3<span class="operator">=</span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时的计算顺序并不是从左至右，而是先计算<code>col2=2 AND col3=3</code>，如果想按由左至右的顺序计算，则应该按照如下写法</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> (col1<span class="operator">=</span><span class="number">1</span> <span class="keyword">OR</span> col2<span class="operator">=</span><span class="number">2</span>) <span class="keyword">AND</span> col3<span class="operator">=</span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>因为圆括号具有比AND与OR更高的计算顺序</p>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>在where子句中使用LIKE谓词使用搜索模式利用通配符匹配而不是直接相等进行比较</p>
+<p>%（百分号）：表示<strong>任何字符</strong>出现任何次数（可以是0次）</p>
+<p>_（下划线）：表示匹配任何<strong>一个字符</strong></p>
+<blockquote>
+<p>需要注意的是通配符搜索处理需要花费较多的时间，因此不要过度使用通配符。</p>
+</blockquote>
+<h4 id="通配符与正则表达式的区别"><a href="#通配符与正则表达式的区别" class="headerlink" title="通配符与正则表达式的区别"></a>通配符与正则表达式的区别</h4><p>LIKE谓词是对整个列进行匹配（利用通配符%val%的形式可以实现对列值的匹配），REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP就会找到它。同时正则如果使用^和￥定位符也可以做到匹配整个列值。</p>
+<p>更详细的正则语法可以参考：<a href="https://www.runoob.com/regexp/regexp-tutorial.html">正则表达式 – 教程 | 菜鸟教程 (runoob.com)</a></p>
+<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>在SELECT子句中，我们常会使用聚集函数或是Conct拼接来输出想要的结果。需要注意的是，使用Concat拼接后的列是没有名字的，它只是一个值。而一个未命名的列不能用于客户机的应用中，为了之后更好的引用SQL支持使用AS来对一个字段或值进行替换名。同时AS还可以在实际表列中出现不符合规定的字符（空格）或是原有名字存在混淆容易误解的情况下重新命名。</p>
+<h3 id="日期和时间处理函数"><a href="#日期和时间处理函数" class="headerlink" title="日期和时间处理函数"></a>日期和时间处理函数</h3><p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220306115702702.png" alt="image-20220306115702702"></p>
+<h3 id="HAVING和WHERE的区别"><a href="#HAVING和WHERE的区别" class="headerlink" title="HAVING和WHERE的区别"></a>HAVING和WHERE的区别</h3><p>WHERE子句是在数据分组前进行约束，是约束声明，不能使用聚合函数。HAVING是在分组后进行过滤，不能使用聚合函数。也就是说HAVING是对已经经过WHERE过滤后的分组数据进行处理的。因此尽可能在where子句中对查询结果进行约束。</p>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><h4 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h4><p>自然连接首先形成它的两个参数的笛卡尔积，然后基于两个关系模式中都出现的属性上的相等性进行选择，最后去除重复属性。</p>
+<blockquote>
+<p>我们很有可能不会使用到不是自然连接的内部连接</p>
+</blockquote>
+<h4 id="内连接和自然连接的区别"><a href="#内连接和自然连接的区别" class="headerlink" title="内连接和自然连接的区别"></a>内连接和自然连接的区别</h4><p>内连接提供连接的列，而自然连接自动连接所有同名列</p>
+<h4 id="左外连接与右外连接"><a href="#左外连接与右外连接" class="headerlink" title="左外连接与右外连接"></a>左外连接与右外连接</h4><p>左外连接：取出左侧关系中所有与右侧关系的任一元组都不匹配的元组。用空值填充所有来自右侧关系的属性，再把产生的元组加入自然连接结果中。即最后得到的结果是左表中的所有行＋右表中对应的行（不匹配的行填充空值）</p>
+<h4 id="条件语句ON与USING的区别"><a href="#条件语句ON与USING的区别" class="headerlink" title="条件语句ON与USING的区别"></a>条件语句ON与USING的区别</h4><p>USING：只需要在指定属性上进行取值匹配</p>
+<p>ON：需要接一个predicate，是在参与连接的关系上设置通用的谓词</p>
+<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>SQL注入的原理是将SQL代码伪装到输入参数中，传递到服务器解析并执行的一种攻击手法。也就是说，在一些对SERVER端发起的请求参数中植入一些SQL代码，SERVER端在执行SQL操作时，会拼接对应参数，同时也将一些SQL注入攻击的“SQL”拼接起来，导致会执行一些预期之外的操作。</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><ol>
+<li>严格的参数校验：不符合参数类型要求的请求即认为是非法的</li>
+<li>SQL预编译：在服务器启动时，MySQL Client把SQL语句的模板（变量采用<strong>占位符</strong>进行占位）发送给MySQL服务器，MySQL服务器对SQL语句的模板进行编译，编译之后根据语句的优化分析对相应的索引进行优化，在最终绑定参数时把相应的参数传送给MySQL服务器，直接进行执行，节省了SQL查询时间，以及MySQL服务器的资源，达到一次编译、多次执行的目的，除此之外，还可以防止SQL注入。</li>
+</ol>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>通过创建唯一索引，可以保证数据库表中每一行数据的<strong>唯一性</strong>。</li>
+<li>可以大大加快数据的<strong>查询速度</strong>，这也是创建索引的主要原因。</li>
+<li>在实现数据的参考完整性方面，可以加速表和表之间的<strong>连接</strong>。</li>
+<li>在使用<strong>分组和排序子句</strong>进行数据查询时，也可以显著减少查询中分组和排序的时间。（可以在频繁进行排序或分组（即进行group by或order by操作）的列上建立索引，如果待排序的列有多个，可以在这些列上建立组合索引。）</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>创建索引和维护索引要<strong>耗费时间</strong>，并且随着数据量的增加所耗费的时间也会增加。</li>
+<li>索引需要占<strong>磁盘空间</strong>，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果有大量的索引，索引文件可能比数据文件更快达到最大文件尺寸。</li>
+<li>当对表中的数据进行增加、删除和修改的时候，索引也要动态地<strong>维护</strong>，这样就降低了数据的维护速度。</li>
+</ol>
+<h3 id="MySQL的Hash索引和B树索引的区别"><a href="#MySQL的Hash索引和B树索引的区别" class="headerlink" title="MySQL的Hash索引和B树索引的区别"></a>MySQL的Hash索引和B树索引的区别</h3><ol>
+<li>hash索引进行等值查询更快(一般情况下)，但是却无法进行范围查询。因为在hash索引中经过hash函数建立索引之后，索引的顺序与原顺序<strong>无法保持一致</strong>，不能支持范围查询。而B+树的的所有节点皆遵循(左节点小于父节点，右节点大于父节点，多叉树也类似)，天然支持范围。</li>
+<li>hash索引不支持使用索引进行<strong>排序</strong>，原理同上。</li>
+<li>hash索引不支持<strong>模糊查询</strong>以及多列索引的<strong>最左前缀匹配</strong>，原理也是因为hash函数的不可预测。</li>
+<li>hash索引任何时候都避免不了<strong>回表查询数据</strong>，而B+树在符合某些条件(聚簇索引，覆盖索引等)的时候可以只通过索引完成查询。</li>
+<li>hash索引虽然在<strong>等值查询上较快</strong>，但是不稳定，性能不可预测，当某个键值存在大量重复的时候，发生<strong>hash碰撞</strong>，此时效率可能极差。而B+树的查询效率比较稳定，对于所有的查询都是从根节点到叶子节点，且树的高度较低。</li>
+</ol>
+<h3 id="最左匹配原则"><a href="#最左匹配原则" class="headerlink" title="最左匹配原则"></a>最左匹配原则</h3><p>在联合索引中，如果 SQL 语句中用到了<strong>联合索引</strong>中的最左边的索引，那么这条 SQL 语句就可以利用这个联合索引去进行匹配。</p>
+<p>数据库的索引是使用B+树来实现的，联合索引也是一颗B+树。而B+树只能根据一个列值来构建，也就是联合索引的最左字段。一个形如(a,b,c)联合索引的 b+ 树，其中的<strong>非叶子节点</strong>存储的是第一个关键字的索引 a，而<strong>叶子节点</strong>存储的是三个关键字的数据。这里可以看出 a 是有序的，而 b，c 都是无序的。但是当在 a 相同的时候，b 是有序的，b 相同的时候，c 又是有序的。</p>
+<p>这也就是大部分索引失效的原因所在，<code>select * from t where a=5 and b&gt;0 and c =1;</code>为例，使用范围查询查找到b后，c就是无序的状态，因此无法使用联合索引确定c的位置</p>
+<h3 id="索引失效的场景"><a href="#索引失效的场景" class="headerlink" title="索引失效的场景"></a>索引失效的场景</h3><ol>
+<li>不满足最左匹配原则：在where子句中，最左谓词中含有索引项才会使用索引；<strong>当遇到范围查询(&gt;、&lt;、between、like)也会停止匹配</strong></li>
+<li>使用<code>select *</code>：使用*查询所有列的数据，大概率会非索引的数据，这样会使用全表扫描。而如果查询的都是索引列，被称为覆盖索引，会提升查询效率</li>
+<li>索引列上有计算</li>
+<li>索引列使用函数：3、4索引失效的原因相同。索引列如果进行计算或是函数计算，mysql在B+树上的索引搜索就会失效</li>
+<li>字段类型不同：mysql会将字符串类型自动转换为int类型，而int无法转换为varchar</li>
+<li>like左边包含%</li>
+<li>列对比：如果把两个单独建了索引的列，用来做列对比时，索引会失效。</li>
+<li>使用or关键字：如果使用了<code>or</code>关键字，那么它<strong>前面和后面</strong>的字段都要加索引，不然所有的索引都会失效</li>
+<li>not in和not exists：主键字段中使用not in关键字查询数据范围，仍然可以走索引。而普通索引字段使用了<code>not in</code>关键字查询数据范围，索引会失效。如果sql语句中使用<code>not exists</code>时，索引也会失效</li>
+<li>order by：<code>order by</code>后面的条件，也要遵循联合索引的最左匹配原则。同时还需要添加limit关键字,或是使用where子句；<code>order by</code>后面如果包含了联合索引的多个排序字段，只要它们的排序规律是相同的（要么同时升序，要么同时降序），也可以走索引。</li>
+</ol>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="ACID特性"><a href="#ACID特性" class="headerlink" title="ACID特性"></a>ACID特性</h3><ul>
+<li>A（atomicity），原子性。原子性指整个数据库事务是不可分割的工作单位。只有使事务中所有的数据库操作都执行成功，整个事务的执行才算成功。事务中任何一个SQL语句执行失败，那么已经执行成功的SQL语句也必须撤销，数据库状态应该退回到执行事务前的状态。</li>
+<li>C（consistency），一致性。一致性指事务将数据库从一种状态转变为另一种一致的状态。在事务开始之前和事务结束以后，数据库的完整性约束没有被破坏。</li>
+<li>I（isolation），隔离性。事务的隔离性要求每个读写事务的对象与其他事务的操作对象能相互分离，即该事务提交前对其他事务都不可见，这通常使用锁来实现。</li>
+<li>D（durability） ，持久性。事务一旦提交，其结果就是永久性的，即使发生宕机等故障，数据库也能将数据恢复。持久性保证的是事务系统的高可靠性，而不是高可用性。</li>
+</ul>
+<h3 id="事务类型"><a href="#事务类型" class="headerlink" title="事务类型"></a>事务类型</h3><ul>
+<li>扁平事务：是事务类型中最简单的一种，而在实际生产环境中，这可能是使用最为频繁的事务。在扁平事务中，所有操作都处于同一层次，其由BEGIN WORK开始，由COMMIT WORK或ROLLBACK WORK结束。处于之间的操作是原子的，要么都执行，要么都回滚。</li>
+<li>带有<strong>保存点</strong>的扁平事务：除了支持扁平事务支持的操作外，允许在事务执行过程中回滚到同一事务中较早的一个状态，这是因为可能某些事务在执行过程中出现的错误并不会对所有的操作都无效，放弃整个事务不合乎要求，开销也太大。保存点（savepoint）用来通知系统应该记住事务当前的状态，以便以后发生错误时，事务能回到该状态。</li>
+<li>链事务：可视为保存点模式的一个变种。链事务的思想是：在提交一个事务时，释放不需要的数据对象，将必要的处理上下文隐式地传给下一个要开始的事务。注意，提交事务操作和开始下一个事务操作将合并为一个原子操作。这意味着下一个事务将看到上一个事务的结果，就好像在一个事务中进行的。</li>
+<li>嵌套事务：是一个层次结构框架。有一个顶层事务（top-level transaction）控制着各个层次的事务。顶层事务之下嵌套的事务被称为子事务（subtransaction），其控制每一个局部的变换。</li>
+<li>分布式事务：通常是一个在分布式环境下运行的扁平事务，因此需要根据数据所在位置访问网络中的不同节点。对于分布式事务，同样需要满足ACID特性，要么都发生，要么都失效。</li>
+</ul>
+<h3 id="ACID特性的实现"><a href="#ACID特性的实现" class="headerlink" title="ACID特性的实现"></a>ACID特性的实现</h3><h4 id="实现原子性"><a href="#实现原子性" class="headerlink" title="实现原子性"></a>实现原子性</h4><p>原子性实现的关键，是当事务回滚时能够撤销所有已经成功执行的sql语句。InnoDB实现回滚靠的是undo log，当事务对数据库进行修改时，InnoDB会生成对应的undo log。如果事务执行失败或调用了rollback，导致事务需要回滚，便可以利用undo log中的信息将数据回滚到修改之前的样子。</p>
+<h4 id="实现持久性"><a href="#实现持久性" class="headerlink" title="实现持久性"></a>实现持久性</h4><p>数据库使用redo log实现持久性。当数据修改时，除了修改Buffer Pool中的数据，还会在redo log记录这次操作。当事务提交时，会调用fsync接口对redo log进行刷盘。如果MySQL宕机，重启时可以读取redo log中的数据，对数据库进行恢复。redo log采用的是WAL（Write-ahead logging，预写式日志），所有修改先写入日志，再更新到Buffer Pool，保证了数据不会因MySQL宕机而丢失，从而满足了持久性要求。</p>
+<blockquote>
+<p>Buffer Pool</p>
+<p>当向数据库写入数据时，会首先写入Buffer Pool，Buffer Pool中修改的数据会定期刷新到磁盘中（这一过程称为刷脏）。</p>
+<p>而redo log写入磁盘比直接将Buffer Pool中修改的数据写入磁盘(即刷脏)要快</p>
+<ol>
+<li>刷脏是随机IO，因为每次修改的数据位置随机，但写redo log是追加操作，属于顺序IO。</li>
+<li>刷脏是以数据页（Page）为单位的，MySQL默认页大小是16KB，一个Page上一个小修改都要整页写入。而redo log中只包含真正需要写入的部分，无效IO大大减少。</li>
+</ol>
+</blockquote>
+<h4 id="实现隔离性"><a href="#实现隔离性" class="headerlink" title="实现隔离性"></a>实现隔离性</h4><ol>
+<li>锁机制保证写写操作的隔离性。事务在修改数据之前，需要先获得相应的锁。获得锁之后，事务便可以修改数据。该事务操作期间，这部分数据是锁定的，其他事务如果需要修改数据，需要等待当前事务提交或回滚后释放锁。</li>
+<li>MVCC保证写读操作的隔离性。读不加锁，因此读写不冲突，并发性能好。</li>
+</ol>
+<blockquote>
+<p>锁</p>
+<p>InnoDB存储引擎支持多粒度锁定，按照粒度，锁可以分为表锁、行锁以及其他位于二者之间的锁。</p>
+<ol>
+<li>表锁在操作数据时会锁定整张表，并发性能较差。</li>
+<li>行锁则只锁定需要操作的数据，并发性能好。但是由于加锁本身需要消耗资源，因此在锁定数据较多情况下使用表锁可以节省大量资源。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>MVCC（多版本的并发控制协议）</p>
+<ol>
+<li>隐藏列：InnoDB中每行数据都有隐藏列，隐藏列中包含了本行数据的事务id、指向undo log的指针等。</li>
+<li>基于undo log的版本链：每行数据的隐藏列中包含了指向undo log的指针，而每条undo log也会指向更早版本的undo log，从而形成一条版本链。</li>
+<li>ReadView：通过隐藏列和版本链，MySQL可以将数据恢复到指定版本。但是具体要恢复到哪个版本，则需要根据ReadView来确定。所谓ReadView，是指事务（记做事务A）在某一时刻给整个事务系统（trx_sys）打快照，之后再进行读操作时，会将读取到的数据中的事务id与trx_sys快照比较，从而判断数据对该ReadView是否可见，即对事务A是否可见。</li>
+</ol>
+</blockquote>
+<h4 id="实现一致性"><a href="#实现一致性" class="headerlink" title="实现一致性"></a>实现一致性</h4><ul>
+<li>保证原子性、持久性和隔离性，如果这些特性无法保证，事务的一致性也无法保证。</li>
+<li>数据库本身提供保障，例如不允许向整形列插入字符串值、字符串长度不能超过列的限制等。</li>
+<li>应用层面进行保障，例如如果转账操作只扣除转账者的余额，而没有增加接收者的余额，无论数据库实现的多么完美，也无法保证状态的一致。</li>
+</ul>
+<h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><table>
+<thead>
+<tr>
+<th align="center">隔离级别</th>
+<th align="left">脏读</th>
+<th align="left">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">READ UNCOMMITTED（读未提交）</td>
+<td align="left">可能</td>
+<td align="left">可能</td>
+<td align="center">可能</td>
+</tr>
+<tr>
+<td align="center">READ COMMITTED（读提交 ）</td>
+<td align="left">不可能</td>
+<td align="left">可能</td>
+<td align="center">可能</td>
+</tr>
+<tr>
+<td align="center">REPEATABLE READ（可重复读 ）</td>
+<td align="left">不可能</td>
+<td align="left">不可能</td>
+<td align="center">可能</td>
+</tr>
+<tr>
+<td align="center">SERIALIZABLE（串行化）</td>
+<td align="left">不可能</td>
+<td align="left">不可能</td>
+<td align="center">不可能</td>
+</tr>
+</tbody></table>
+<ul>
+<li>脏读：当前事务(A)中可以读到其他事务(B)未提交的数据（脏数据），这种现象是脏读。</li>
+<li>不可重复读：在事务A中先后两次读取同一个数据，两次读取的结果不一样，这种现象称为不可重复读。脏读与不可重复读的区别在于：前者读到的是其他事务未提交的数据，后者读到的是其他事务已提交的数据。</li>
+<li>幻读：在事务A中按照某个条件先后两次查询数据库，两次查询结果的条数不同，这种现象称为幻读。不可重复读与幻读的区别可以通俗的理解为：前者是数据变了，后者是数据的行数变了。</li>
+</ul>
+<h4 id="四种隔离级别的实现机制"><a href="#四种隔离级别的实现机制" class="headerlink" title="四种隔离级别的实现机制"></a>四种隔离级别的实现机制</h4><ol>
+<li>READ UNCOMMITTED &amp; READ COMMITTED：通过<strong>Record Lock算法</strong>实现了行锁，但READ UNCOMMITTED允许读取未提交数据，所以存在脏读问题。而READ COMMITTED允许读取提交数据，所以不存在脏读问题，但存在不可重复读问题。</li>
+<li>REPEATABLE READ：使用<strong>Next-Key Lock算法</strong>实现了行锁，并且不允许读取已提交的数据，所以解决了不可重复读的问题。另外，该算法包含了间隙锁，会锁定一个范围，因此也解决了幻读的问题。</li>
+<li>SERIALIZABLE：对每个SELECT语句后自动加上<code>LOCK IN SHARE MODE</code>，即为每个读取操作加一个<strong>共享锁</strong>。因此在这个事务隔离级别下，读占用了锁，对一致性的非锁定读不再予以支持。</li>
+</ol>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h4 id="锁（行级锁）的类型"><a href="#锁（行级锁）的类型" class="headerlink" title="锁（行级锁）的类型"></a>锁（行级锁）的类型</h4><ul>
+<li>共享锁（S Lock），允许事务读一行数据。</li>
+<li>排他锁（X Lock），允许事务删除或更新一行数据。</li>
+</ul>
+<p>如果一个事务T1已经获得了行r的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1、T2释放行r上的共享锁，这种情况称为锁不兼容。</p>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200553339.png" alt="image-20220316200553339"></p>
+<blockquote>
+<p>InnoDB行级锁是通过给索引上的索引项加锁来实现的。只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁。当表中锁定其中的某几行时，不同的事务可以使用不同的索引锁定不同的行。另外，不论使用主键索引、唯一索引还是普通索引，InnoDB都会使用行锁来对数据加锁。</p>
+</blockquote>
+<h4 id="意向锁（表级锁）"><a href="#意向锁（表级锁）" class="headerlink" title="意向锁（表级锁）"></a>意向锁（表级锁）</h4><ul>
+<li>意向共享锁（IS Lock），事务想要获得一张表中某几行的共享锁。</li>
+<li>意向排他锁（IX Lock），事务想要获得一张表中某几行的排他锁。</li>
+</ul>
+<p>由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。</p>
+<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200714312.png" alt="image-20220316200714312"></p>
+<h4 id="锁的算法"><a href="#锁的算法" class="headerlink" title="锁的算法"></a>锁的算法</h4><ul>
+<li>Record Lock：单个行记录上的锁。</li>
+<li>Gap Lock：间隙锁，锁定一个范围，但不包含记录本身。它的作用是为了阻止多个事务将记录插入到同一范围内，而这会导致幻读问题的产生。</li>
+<li>Next-Key Lock∶Gap Lock+Record Lock，锁定一个范围，并且锁定记录本身。</li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="优化查询"><a href="#优化查询" class="headerlink" title="优化查询"></a>优化查询</h3><p>可以通过使用索引、使用连接代替子查询的方式来提高查询速度。</p>
+<ol>
+<li>需要注意索引失效的情况</li>
+<li>优化子查询：子查询可以一次性完成很多逻辑上需要多个步骤才能完成的SQL操作。但执行效率不高。执行子查询时，MySQL需要为内层查询语句的查询结果建立一个临时表。在MySQL中，可以使用连接（JOIN）查询来替代子查询。连接查询不需要建立临时表，其速度比子查询要快，如果查询中使用索引，性能会更好。</li>
+</ol>
+<h3 id="优化插入"><a href="#优化插入" class="headerlink" title="优化插入"></a>优化插入</h3><h4 id="MyISAM引擎"><a href="#MyISAM引擎" class="headerlink" title="MyISAM引擎"></a>MyISAM引擎</h4><ol>
+<li><p>禁用索引：对于非空表，插入记录时，MySQL会根据表的索引对插入的记录建立索引。如果插入大量数据，建立索引会降低插入记录的速度。为了解决这种情况，可以在插入记录之前禁用索引，数据插入完毕后再开启索引。对于空表批量导入数据，则不需要进行此操作，因为MyISAM引擎的表是在导入数据之后才建立索引的。</p>
+</li>
+<li><p>禁用唯一性检查：插入数据时，MySQL会对插入的记录进行唯一性校验。这种唯一性校验也会降低插入记录的速度。为了降低这种情况对查询速度的影响，可以在插入记录之前禁用唯一性检查，等到记录插入完毕后再开启。</p>
+</li>
+<li><p>使用批量插入：插入多条记录时，可以使用一条INSERT语句插入多条记录会比使用一条INSERT语句插入一条记录的插入速度更快</p>
+</li>
+<li><p>使用LOAD DATA INFILE批量导入：当需要批量导入数据时，<code>LOAD DATA INFILE</code>语句导入速度比INSERT语句快</p>
+</li>
+</ol>
+<h4 id="InnoDB引擎"><a href="#InnoDB引擎" class="headerlink" title="InnoDB引擎"></a>InnoDB引擎</h4><ol>
+<li>禁用外键检查：插入数据之前执行禁止对外键的检查，数据插入完成之后再恢复对外键的检查。</li>
+<li>禁用唯一性检查</li>
+<li>禁用自动提交：插入数据之前禁止事务的自动提交，数据导入完成之后，执行恢复自动提交操作。</li>
+</ol>
+<h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><h3 id="第一范式-1NF"><a href="#第一范式-1NF" class="headerlink" title="第一范式(1NF)"></a>第一范式(1NF)</h3><p>在关系模型中，对于添加的一个规范要求，所有的域都应该是<strong>原子性</strong>的.如果实体中的某个属性有多个值，必须拆分为不同的属性。</p>
+<h3 id="第二范式-2NF"><a href="#第二范式-2NF" class="headerlink" title="第二范式(2NF)"></a>第二范式(2NF)</h3><p>在1NF的基础上，非码属性必须完全依赖于<strong>候选码</strong>（在1NF基础上消除非主属性对主码的部分函数依赖）。第二范式要求数据库表中的每个实例或记录必须可以被唯一地区分。选取一个能区分每个实体的属性或属性组，作为实体的<strong>唯一标识</strong>。</p>
+<h3 id="第三范式-3NF"><a href="#第三范式-3NF" class="headerlink" title="第三范式(3NF)"></a>第三范式(3NF)</h3><p>在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）。第三范式要求一个关系中不包含已在其它关系已包含的非主关键字信息。</p>
+<blockquote>
+<p>第三范式可以减少数据库数据的冗余</p>
+</blockquote>
+]]></content>
   </entry>
 </search>
