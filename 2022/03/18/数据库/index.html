@@ -86,14 +86,15 @@
 <meta property="og:site_name" content="Next">
 <meta property="og:description" content="SQL">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220306115702702.png">
-<meta property="og:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220316200553339.png">
-<meta property="og:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220316200714312.png">
+<meta property="og:image" content="http://example.com/images/image-20220306115702702.png">
+<meta property="og:image" content="http://example.com/">
+<meta property="og:image" content="http://example.com/images/image-20220316200553339.png">
+<meta property="og:image" content="http://example.com/images/image-20220316200714312.png">
 <meta property="article:published_time" content="2022-03-18T01:47:06.000Z">
-<meta property="article:modified_time" content="2022-03-18T01:48:30.608Z">
+<meta property="article:modified_time" content="2022-03-22T13:47:16.303Z">
 <meta property="article:author" content="nanaiii">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/18395/AppData/Roaming/Typora/typora-user-images/image-20220306115702702.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220306115702702.png">
 
 
 
@@ -356,7 +357,7 @@
 <h4 id="通配符与正则表达式的区别"><a href="#通配符与正则表达式的区别" class="headerlink" title="通配符与正则表达式的区别"></a>通配符与正则表达式的区别</h4><p>LIKE谓词是对整个列进行匹配（利用通配符%val%的形式可以实现对列值的匹配），REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP就会找到它。同时正则如果使用^和￥定位符也可以做到匹配整个列值。</p>
 <p>更详细的正则语法可以参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-tutorial.html">正则表达式 – 教程 | 菜鸟教程 (runoob.com)</a></p>
 <h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>在SELECT子句中，我们常会使用聚集函数或是Conct拼接来输出想要的结果。需要注意的是，使用Concat拼接后的列是没有名字的，它只是一个值。而一个未命名的列不能用于客户机的应用中，为了之后更好的引用SQL支持使用AS来对一个字段或值进行替换名。同时AS还可以在实际表列中出现不符合规定的字符（空格）或是原有名字存在混淆容易误解的情况下重新命名。</p>
-<h3 id="日期和时间处理函数"><a href="#日期和时间处理函数" class="headerlink" title="日期和时间处理函数"></a>日期和时间处理函数</h3><p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220306115702702.png" alt="image-20220306115702702"></p>
+<h3 id="日期和时间处理函数"><a href="#日期和时间处理函数" class="headerlink" title="日期和时间处理函数"></a>日期和时间处理函数</h3><p><img src="\images\image-20220306115702702.png" alt="哎呀，图片不见了" style="zoom:100%;" /><img src="/" alt="image-20220306115702702"></p>
 <h3 id="HAVING和WHERE的区别"><a href="#HAVING和WHERE的区别" class="headerlink" title="HAVING和WHERE的区别"></a>HAVING和WHERE的区别</h3><p>WHERE子句是在数据分组前进行约束，是约束声明，不能使用聚合函数。HAVING是在分组后进行过滤，不能使用聚合函数。也就是说HAVING是对已经经过WHERE过滤后的分组数据进行处理的。因此尽可能在where子句中对查询结果进行约束。</p>
 <h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><h4 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h4><p>自然连接首先形成它的两个参数的笛卡尔积，然后基于两个关系模式中都出现的属性上的相等性进行选择，最后去除重复属性。</p>
 <blockquote>
@@ -501,8 +502,7 @@
 <li>共享锁（S Lock），允许事务读一行数据。</li>
 <li>排他锁（X Lock），允许事务删除或更新一行数据。</li>
 </ul>
-<p>如果一个事务T1已经获得了行r的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1、T2释放行r上的共享锁，这种情况称为锁不兼容。</p>
-<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200553339.png" alt="image-20220316200553339"></p>
+<p>如果一个事务T1已经获得了行r的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1、T2释放行r上的共享锁，这种情况称为锁不兼容。<br><img src="\images\image-20220316200553339.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
 <blockquote>
 <p>InnoDB行级锁是通过给索引上的索引项加锁来实现的。只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁。当表中锁定其中的某几行时，不同的事务可以使用不同的索引锁定不同的行。另外，不论使用主键索引、唯一索引还是普通索引，InnoDB都会使用行锁来对数据加锁。</p>
 </blockquote>
@@ -510,8 +510,7 @@
 <li>意向共享锁（IS Lock），事务想要获得一张表中某几行的共享锁。</li>
 <li>意向排他锁（IX Lock），事务想要获得一张表中某几行的排他锁。</li>
 </ul>
-<p>由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。</p>
-<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200714312.png" alt="image-20220316200714312"></p>
+<p>由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。<br><img src="\images\image-20220316200714312.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
 <h4 id="锁的算法"><a href="#锁的算法" class="headerlink" title="锁的算法"></a>锁的算法</h4><ul>
 <li>Record Lock：单个行记录上的锁。</li>
 <li>Gap Lock：间隙锁，锁定一个范围，但不包含记录本身。它的作用是为了阻止多个事务将记录插入到同一范围内，而这会导致幻读问题的产生。</li>
@@ -800,7 +799,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.8k</span>
+    <span title="Site words total count">89.9k</span>
   
 </div>
 

@@ -2662,7 +2662,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <h4 id="通配符与正则表达式的区别"><a href="#通配符与正则表达式的区别" class="headerlink" title="通配符与正则表达式的区别"></a>通配符与正则表达式的区别</h4><p>LIKE谓词是对整个列进行匹配（利用通配符%val%的形式可以实现对列值的匹配），REGEXP在列值内进行匹配，如果被匹配的文本在列值中出现，REGEXP就会找到它。同时正则如果使用^和￥定位符也可以做到匹配整个列值。</p>
 <p>更详细的正则语法可以参考：<a href="https://www.runoob.com/regexp/regexp-tutorial.html">正则表达式 – 教程 | 菜鸟教程 (runoob.com)</a></p>
 <h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>在SELECT子句中，我们常会使用聚集函数或是Conct拼接来输出想要的结果。需要注意的是，使用Concat拼接后的列是没有名字的，它只是一个值。而一个未命名的列不能用于客户机的应用中，为了之后更好的引用SQL支持使用AS来对一个字段或值进行替换名。同时AS还可以在实际表列中出现不符合规定的字符（空格）或是原有名字存在混淆容易误解的情况下重新命名。</p>
-<h3 id="日期和时间处理函数"><a href="#日期和时间处理函数" class="headerlink" title="日期和时间处理函数"></a>日期和时间处理函数</h3><p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220306115702702.png" alt="image-20220306115702702"></p>
+<h3 id="日期和时间处理函数"><a href="#日期和时间处理函数" class="headerlink" title="日期和时间处理函数"></a>日期和时间处理函数</h3><p><img src="\images\image-20220306115702702.png" alt="哎呀，图片不见了" style="zoom:100%;" /><img src="/" alt="image-20220306115702702"></p>
 <h3 id="HAVING和WHERE的区别"><a href="#HAVING和WHERE的区别" class="headerlink" title="HAVING和WHERE的区别"></a>HAVING和WHERE的区别</h3><p>WHERE子句是在数据分组前进行约束，是约束声明，不能使用聚合函数。HAVING是在分组后进行过滤，不能使用聚合函数。也就是说HAVING是对已经经过WHERE过滤后的分组数据进行处理的。因此尽可能在where子句中对查询结果进行约束。</p>
 <h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><h4 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h4><p>自然连接首先形成它的两个参数的笛卡尔积，然后基于两个关系模式中都出现的属性上的相等性进行选择，最后去除重复属性。</p>
 <blockquote>
@@ -2807,8 +2807,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li>共享锁（S Lock），允许事务读一行数据。</li>
 <li>排他锁（X Lock），允许事务删除或更新一行数据。</li>
 </ul>
-<p>如果一个事务T1已经获得了行r的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1、T2释放行r上的共享锁，这种情况称为锁不兼容。</p>
-<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200553339.png" alt="image-20220316200553339"></p>
+<p>如果一个事务T1已经获得了行r的共享锁，那么另外的事务T2可以立即获得行r的共享锁，因为读取并没有改变行r的数据，称这种情况为锁兼容。但若有其他的事务T3想获得行r的排他锁，则其必须等待事务T1、T2释放行r上的共享锁，这种情况称为锁不兼容。<br><img src="\images\image-20220316200553339.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
 <blockquote>
 <p>InnoDB行级锁是通过给索引上的索引项加锁来实现的。只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁。当表中锁定其中的某几行时，不同的事务可以使用不同的索引锁定不同的行。另外，不论使用主键索引、唯一索引还是普通索引，InnoDB都会使用行锁来对数据加锁。</p>
 </blockquote>
@@ -2816,8 +2815,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li>意向共享锁（IS Lock），事务想要获得一张表中某几行的共享锁。</li>
 <li>意向排他锁（IX Lock），事务想要获得一张表中某几行的排他锁。</li>
 </ul>
-<p>由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。</p>
-<p><img src="C:\Users\18395\AppData\Roaming\Typora\typora-user-images\image-20220316200714312.png" alt="image-20220316200714312"></p>
+<p>由于InnoDB存储引擎支持的是行级别的锁，因此意向锁其实不会阻塞除全表扫以外的任何请求。<br><img src="\images\image-20220316200714312.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
 <h4 id="锁的算法"><a href="#锁的算法" class="headerlink" title="锁的算法"></a>锁的算法</h4><ul>
 <li>Record Lock：单个行记录上的锁。</li>
 <li>Gap Lock：间隙锁，锁定一个范围，但不包含记录本身。它的作用是为了阻止多个事务将记录插入到同一范围内，而这会导致幻读问题的产生。</li>
@@ -2866,30 +2864,22 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ul>
 <h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><ul>
-<li><p>出现树的题要考虑树是一颗空树</p>
-</li>
-<li><p>树中结点数等于所有结点的度数之和加1</p>
-</li>
-<li><p>高度为n个结点的m叉树至多有<img src="/%5Cimages%5Cclip_image006.gif" alt="img">个结点</p>
-</li>
-<li><p>具有n个结点的m叉树最小高度为<img src="/%5Cimages%5Cclip_image008.gif" alt="img">（向上取整）</p>
-</li>
-<li><p>非空二叉树上的叶子结点数等于度为2的结点数加1（<img src="/%5Cimages%5Cclip_image010.gif" alt="img">）</p>
-</li>
-<li><p>具有n个结点的完全二叉树的高度为<img src="/%5Cimages%5Cclip_image012.gif" alt="img">或<img src="/%5Cimages%5Cclip_image014.gif" alt="img"></p>
-</li>
-<li><p>非空二叉树上第k层至多有<img src="/%5Cimages%5Cclip_image016.gif" alt="img">个结点</p>
-</li>
-<li><p>高度为h的二叉树至多有<img src="/%5Cimages%5Cclip_image018.gif" alt="img">个结点</p>
-</li>
-<li><p>完全二叉树中按层次编号，则结点i的双亲为<img src="/%5Cimages%5Cclip_image020.gif" alt="img">，左孩子为2i，右孩子为2i+1，所在层次（深度）为<img src="/%5Cimages%5Cclip_image022.gif" alt="img"></p>
-</li>
-<li><p>红黑树黑高为h时，内部结点数最少的情况<img src="/%5Cimages%5Cclip_image018.gif" alt="img">，内部结点数最多的情况<img src="/%5Cimages%5Cclip_image024.gif" alt="img"><img src="/%5Cimages%5Cclip_image026.gif" alt="图像画廊"></p>
-</li>
-<li><p>红黑树上任一查找路径的红结点数量不可能超过一半，但整棵树的红结点总数有可能过半</p>
-</li>
-<li><p>哈夫曼树的WPL计算过程中：路径长度比结点在树中的高度少1</p>
-</li>
+<li>出现树的题要考虑树是一颗空树</li>
+<li>树中结点数等于所有结点的度数之和加1</li>
+<li>高度为n个结点的m叉树至多有$\frac{(m^k-1)}{m-1}$个结点</li>
+<li>具有n个结点的m叉树最小高度为$\lceil\log_m(n(m-1)+1)\rceil$（向上取整）</li>
+<li>非空二叉树上的叶子结点数等于度为2的结点数加1（$n_0&#x3D;n_2+1$）</li>
+<li>具有n个结点的完全二叉树的高度为$\lceil\log_2(n+1)\rceil$或$\lfloor\log_2n\rfloor+1$</li>
+<li>非空二叉树上第k层至多有$2^{k-1}$个结点</li>
+<li>高度为h的二叉树至多有$2^k-1$个结点</li>
+<li>完全二叉树中按层次编号，则结点i的双亲为$\lfloor\frac{i}{2}\rfloor$，左孩子为$2i$，右孩子为$2i+1$，所在层次（深度）为$\lfloor\log_2i\rfloor+1$</li>
+<li>红黑树黑高为h时，内部结点数最少的情况$2^k-1$，内部结点数最多的情况$2^{2k}-1$</li>
+</ul>
+ <img src="\images\/clip_image004.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+<ul>
+<li>红黑树上任一查找路径的红结点数量不可能超过一半，但整棵树的红结点总数有可能过半</li>
+<li>哈夫曼树的WPL计算过程中：路径长度比结点在树中的高度少1</li>
 </ul>
 <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><ul>
 <li><p>当带权连通图的任意一个环中包含的边的权值均不同时，其MST是唯一的</p>
@@ -2918,47 +2908,34 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ul>
 <h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><ul>
-<li><p>折半查找判定树即在根据折半查找的过程构造的二叉树，其中mid的选择可以是向上取整、或是向下取整。但是需要在整个查找过程中保持一个取整方向</p>
-</li>
-<li><p>B+树适用于关系数据库系统的索引</p>
-</li>
-<li><p>折半查找的平均查找长度为<img src="/%5Cimages%5Cclip_image028.gif" alt="img">。对折半查找进一步优化，可以使用索引顺序查找（将查找元素分块，为每块建立一个索引项，对索引项和块使用折半查找）</p>
-</li>
-<li><p>索引块的最佳大小是<img src="/%5Cimages%5Cclip_image030.gif" alt="img"></p>
-</li>
-<li><p>折半查找的判定树高度为<img src="/%5Cimages%5Cclip_image032.gif" alt="img">（查找不存在的元素进行的关键字比较次数、查找存在元素的最多比较次数）</p>
-</li>
+<li>折半查找判定树即在根据折半查找的过程构造的二叉树，其中mid的选择可以是向上取整、或是向下取整。但是需要在整个查找过程中保持一个取整方向</li>
+<li>B+树适用于关系数据库系统的索引</li>
+<li>折半查找的平均查找长度为$\log_2(n+1)+1$。对折半查找进一步优化，可以使用索引顺序查找（将查找元素分块，为每块建立一个索引项，对索引项和块使用折半查找）</li>
+<li>索引块的最佳大小是$\sqrt{n}$</li>
+<li>折半查找的判定树高度为$h&#x3D;\lceil\log_2(n+1)\rceil$（查找不存在的元素进行的关键字比较次数、查找存在元素的最多比较次数）</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td><img src="/%5Cimages%5Cclip_image034.gif" alt="图像画廊"></td>
-</tr>
-</tbody></table>
+<img src="\images\image-20220315103315000.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
 <ul>
-<li><p>B树与B+树内部结点的子树个数<img src="/%5Cimages%5Cclip_image036.gif" alt="img">只是结点所含关键字不同（B树中结点的关键字要比子树少1）</p>
+<li><p>B树与B+树内部结点的子树个数$[\lceil m&#x2F;2\rceil,m]$只是结点所含关键字不同（B树中结点的关键字要比子树少1）</p>
 </li>
-<li><p>装填因子<img src="/%5Cimages%5Cclip_image038.gif" alt="img">（n：表中记录数，m：散列表长度）</p>
+<li><p>装填因子$\alpha&#x3D;\frac{n}{m}$（n：表中记录数，m：散列表长度）</p>
 </li>
 <li><p>选择排序和归并排序时间性能与初始状态无关</p>
 </li>
-<li><p><img src="/%5Cimages%5Cclip_image040.gif" alt="img">不表示可以避免碰撞（与散列函数有关）</p>
+<li><p>$\alpha&lt;1$不表示可以避免碰撞（与散列函数有关）</p>
 </li>
 <li><p>求散列表的平均查找失败次数时，可能的取值是散列函数的取值范围（mod 7，表示散列只能取0-6，因此分母就是7，与散列表长度无关）</p>
 </li>
 </ul>
-<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><ul>
-<li><p>向具有n个关键字的堆中插入一个新元素的时间复杂度为<img src="/%5Cimages%5Cclip_image042.gif" alt="img">，删除一个元素的时间复杂度为<img src="/%5Cimages%5Cclip_image042.gif" alt="img"></p>
+<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><img src="\images\image-20220315103520025.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+<ul>
+<li><p>向具有n个关键字的堆中插入一个新元素的时间复杂度为$O(\log_2n)$，删除一个元素的时间复杂度为$O(\log_2n)$</p>
 </li>
-<li><p>堆排序适用于关键字较多的情况，建一个大小为n的小（大）根堆，遍历一遍 数据，即可得到最大（小）的n个数（建立小根堆，，而后依次读入余下的数，小于堆顶则舍弃，否则用该数取代堆顶并重新调整堆）<img src="/%5Cimages%5Cclip_image044.jpg" alt="图像"></p>
+<li><p>堆排序适用于关键字较多的情况，建一个大小为n的小（大）根堆，遍历一遍 数据，即可得到最大（小）的n个数（建立小根堆，，而后依次读入余下的数，小于堆顶则舍弃，否则用该数取代堆顶并重新调整堆）</p>
 </li>
-<li><p>小根堆堆最大关键字一定在叶子结点上，二叉树最后一个非叶子结点存储在<img src="/%5Cimages%5Cclip_image046.gif" alt="img">，最大关键字存储范围<img src="/%5Cimages%5Cclip_image048.gif" alt="img">～<img src="/%5Cimages%5Cclip_image050.gif" alt="img"></p>
+<li><p>小根堆堆最大关键字一定在叶子结点上，二叉树最后一个非叶子结点存储在$\lceil n&#x2F;2\rceil$，最大关键字存储范围$\lceil n&#x2F;2\rceil+1$～$n$</p>
 </li>
 <li><p>构建堆从n&#x2F;2出开始调整，递减处理其他子堆（n&#x2F;2为最后一个非叶子结点）</p>
 </li>
@@ -3398,7 +3375,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li>动态磨损：偏向使用较新的内存颗粒进行擦除写入（优化不够）</li>
 <li>静态磨损：将长时间不用的数据写入较老的内存颗粒中，将新数据写入新的内存颗粒（磨损均衡、主控压力较大）</li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220315100219089.png" alt="image-20220315100219089"></p>
+<p><img src="\images\image-20220315100219089.png" alt="哎呀，图片不见了" style="zoom:100%;" /><img src="/" alt="image-20220315100219089"></p>
 <h2 id="三级Cache"><a href="#三级Cache" class="headerlink" title="三级Cache"></a>三级Cache</h2><ul>
 <li><p>指令Cache与数据Cache分离位于L1级，通常使用写分配法与写回法</p>
 </li>
