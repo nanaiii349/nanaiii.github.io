@@ -87,13 +87,13 @@
 <meta property="og:description" content="论文：ICCV 2015 Open Access Repository (thecvf.com)">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/image-20220105165859553.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220105171915109.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106111519294.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106100757776.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106112058344.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220205113749198.png">
+<meta property="og:image" content="http://example.com/images/image-20220105171915109.png">
+<meta property="og:image" content="http://example.com/images/image-20220106111519294.png">
+<meta property="og:image" content="http://example.com/images/image-20220106100757776.png">
+<meta property="og:image" content="http://example.com/images/image-20220106112058344.png">
+<meta property="og:image" content="http://example.com/images/image-20220205113749198.png">
 <meta property="article:published_time" content="2022-02-25T13:54:30.000Z">
-<meta property="article:modified_time" content="2022-03-14T12:03:05.945Z">
+<meta property="article:modified_time" content="2022-03-22T12:32:34.222Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
@@ -353,7 +353,9 @@
 
 
 <h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>Fast-RCNN是将RCNN与SPPNet相融合提出的一种新的网络。</p>
-<h2 id="RoI层"><a href="#RoI层" class="headerlink" title="RoI层"></a>RoI层</h2><p><img src="/%5Cimages%5Cimage-20220105171915109.png" alt="image-20220105171915109"></p>
+<h2 id="RoI层"><a href="#RoI层" class="headerlink" title="RoI层"></a>RoI层</h2><img src="\images\image-20220105171915109.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>Fast-RCNN设计了一个RoI层用来对<strong>整张图像</strong>进行特征提取，再根据候选区域在原图中的位置挑选特征。</p>
 <p>SPPNet提出了Spatial pyramid pooling技术可以将一张图像中卷积所得<strong>的不同尺寸的ROI映射为固定范围</strong>（H×W）的特征图，其中H、W是超参数。每个RoI都是由一个矩形窗口转化为一个卷积特征图。RoI有一个四元组（r,c,h,w）定义（r，c指定左上角坐标；h、w定义其高度和宽度）。</p>
 <p><em>RoI max pooling工作原理：将h×w的RoI窗口分割为一个H×W网格，每个网格窗口大小为(h&#x2F;H)×(w&#x2F;W),每个子窗口值最大池化到相应的输出网格单元中。</em></p>
@@ -375,19 +377,23 @@
 <li>暴力计算：在训练和测试中，每幅图像都按照预先定义的像素大小进行处理</li>
 <li>图像金字塔：在测试过程中，使用图像金字塔对每个目标建议进行近似尺度归一化，作为数据增强的一种。</li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220106111519294.png" alt="image-20220106111519294"></p>
+<img src="\images\image-20220106111519294.png" alt="image-20220105165859553" style="zoom:100%;" />
+
 <p>作者通过实验发现，卷积网络擅长直接学习尺度不变，并且多尺度方法耗费了大量的时间成本只将mAP提升了很小一部分</p>
 <h2 id="目标检测过程"><a href="#目标检测过程" class="headerlink" title="目标检测过程"></a>目标检测过程</h2><p>Fast-RCNN网络一旦完成微调，检测过程相当于运行一个前向传递（假设proposal已经提提前算好）。网络将一个图像和一个R对象列表（通常为2k左右）作为输入进行评分。当使用图像金字塔后，每个RoI接近224×224个像素</p>
 <p>对于每个RoI r，前向传递输出一个类别的后验概率分布p与一组相对于r 的预测边界框位置偏移。然后使用RCNN算法对每个类单独执行非极大值抑制。</p>
 <h2 id="截断SVD"><a href="#截断SVD" class="headerlink" title="截断SVD"></a><strong>截断SVD</strong></h2><p>对于整张图像的分类，全连接层的计算时间要比卷积层处理的时间更少。但是，对于检测来说，由于需要处理的RoI数量很大，几乎一半的前向传递时间都花费在计算全连接层上。因此，作者使用truncated SVD技术来加速全连接层的计算。truncated SVD可以减少30%的探测时间，而只减少0.3%的mAP，并且无需在模型压缩后执行额外的微调。在深层的网络中，对RoI池化层的训练是非常有必要的。</p>
 <p>同时，作者提到在深度较浅的网络中，conv1是处理一般性的与任务独立的。因此对conv1训练的意义不大。对卷积层的更新会增加训练时间，并且导致GPU内存溢出的问题，而带来的mAP提升很少。</p>
-<p><img src="/%5Cimages%5Cimage-20220106100757776.png" alt="image-20220106100757776"></p>
+<img src="\images\image-20220106100757776.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
 <p>SVD原理可参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/6251584.html">奇异值分解(SVD)原理与在降维中的应用 - 刘建平Pinard - 博客园 (cnblogs.com)</a></p>
 <h2 id="更多的训练数据有利于提升mAP"><a href="#更多的训练数据有利于提升mAP" class="headerlink" title="更多的训练数据有利于提升mAP"></a>更多的训练数据有利于提升mAP</h2><p>作者将VOC07加入VOC12后，mAP由66.9%提升到70.0%。</p>
 <p>作者构建了有VOC07的训练集与测试集与VOC12的训练集组成的图像数据集，发现mAP也得到了提升。</p>
-<h2 id="softmax相比于SVM的优势"><a href="#softmax相比于SVM的优势" class="headerlink" title="softmax相比于SVM的优势"></a><strong>softmax相比于SVM的优势</strong></h2><p><img src="/%5Cimages%5Cimage-20220106112058344.png" alt="image-20220106112058344"></p>
+<h2 id="softmax相比于SVM的优势"><a href="#softmax相比于SVM的优势" class="headerlink" title="softmax相比于SVM的优势"></a><strong>softmax相比于SVM的优势</strong></h2><img src="\images\image-20220106112058344.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
 <p>实验表明softmax在S、L、M三种网络中性能均优于SVM。尽管性能提升不大，但是“one-shot”微调已经足够了。不同于一对一的SVM，softmax在评估RoI时还引入了类别间的竞争。</p>
-<h2 id="proposals数量对结果的影响"><a href="#proposals数量对结果的影响" class="headerlink" title="proposals数量对结果的影响"></a><strong>proposals数量对结果的影响</strong></h2><p><img src="/%5Cimages%5Cimage-20220205113749198.png" alt="image-20220205113749198"></p>
+<h2 id="proposals数量对结果的影响"><a href="#proposals数量对结果的影响" class="headerlink" title="proposals数量对结果的影响"></a><strong>proposals数量对结果的影响</strong></h2><img src="\images\image-20220205113749198.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
 <p>作者使用了两种目标检测方法。一是稀疏集proposal（如selective search ）；二是稠密集proposal（如DPM）。</p>
 <p>对稀疏peoposal进行分类是一种级联，会先拒绝大量候选区域，只留一小部分给分类器评估。而应用DPM检测时，级联提高了检测精度。</p>
 <p>实验表明，随着proposal数量增加，mAP会先上升再下降。所以过多的proposal对分类器并没有帮助。</p>

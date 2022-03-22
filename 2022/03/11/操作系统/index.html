@@ -86,25 +86,20 @@
 <meta property="og:site_name" content="Next">
 <meta property="og:description" content="操作系统是对计算机资源进行管理的软件">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220315094703729.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220321110802767.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image018.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image018.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image018.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image020.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image020.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image024.png">
+<meta property="og:image" content="http://example.com/images/image-20220315094703729.png">
+<meta property="og:image" content="http://example.com/images/image-20220321110802767.png">
+<meta property="og:image" content="http://example.com/images/image-20220315095345442.png">
 <meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image010.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image026.jpg">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image028.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image030.jpg">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cclip_image012.png">
+<meta property="og:image" content="http://example.com/images/clip_image026.jpg">
+<meta property="og:image" content="http://example.com/images/clip_image028.png">
+<meta property="og:image" content="http://example.com/images/clip_image030.jpg">
+<meta property="og:image" content="http://example.com/images/clip_image012.png">
 <meta property="article:published_time" content="2022-03-11T02:16:48.000Z">
-<meta property="article:modified_time" content="2022-03-22T12:23:27.653Z">
+<meta property="article:modified_time" content="2022-03-22T13:10:29.514Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="408">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220315094703729.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220315094703729.png">
 
 
 
@@ -463,7 +458,9 @@
 <li><p>计算机启动过程：CPU加电；跳转到BIOS；登记BIOS中断例程入口地址；硬件自检；进行操作系统引导</p>
 </li>
 </ul>
-<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p> <img src="/%5Cimages%5Cimage-20220315094703729.png" alt="image-20220315094703729"></p>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><img src="\images\image-20220315094703729.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
 <p>单个计算机的硬件抽象为几个不同的执行部件，通过CPU调度与虚拟内存技术，使进程认为自己拥有独立的处理器与内存</p>
 <p>实现方法：提供虚拟磁盘，为用户提供与底层机器完全一样的副本。用户在自己的虚拟机中运行机器上拥有的任何操作系统ISO或软件</p>
 <p>虚拟机只能运行在用户态，虚拟机内部也有用户态与内核态</p>
@@ -699,7 +696,9 @@
 <h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><p>共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。同时需要使用信号量来控制多个进程对共享内存空间的访问</p>
 <h3 id="信号量-1"><a href="#信号量-1" class="headerlink" title="信号量"></a>信号量</h3><p>信号量主要用来解决进程和线程间并发执行时的同步问题。信号量是一个计数器，可以用来控制多个进程对<strong>共享资源</strong>的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。</p>
 <h3 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h3><p>套接字：IP+PORT。可以实现不同主机间的通信</p>
-<p><img src="/%5Cimages%5Cimage-20220321110802767.png" alt="image-20220321110802767"></p>
+<img src="\images\image-20220321110802767.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
 <h2 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h2><h3 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h3><p>包括互斥锁、条件变量、读写锁互斥锁提供了以排他方式防止数据结构被并发修改的方法。读写锁允许多个线程同时读共享数据，而对写操作是互斥的。条件变量可以以原子的方式阻塞进程，直到某个特定条件为真为止。对条件的测试是在互斥锁的保护下进行的。条件变量始终与互斥锁一起使用。</p>
 <h3 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h3><p>包括无名线程信号量和命名线程信号量</p>
 <h3 id="信号机制"><a href="#信号机制" class="headerlink" title="信号机制"></a>信号机制</h3><p>类似进程间的信号处理线程间的通信目的主要是用于线程同步，所以线程没有像进程通信中的用于数据交换的通信机制。</p>
@@ -752,13 +751,13 @@
 </li>
 <li><p>多级页表可以减少页表所占连续内存空间，但增加页表项所占字节数，减慢地址变换速度（多次访存）</p>
 </li>
-<li><p>在分段存储管理系统中，用共享段表描述所有被共享的段。若进程<img src="/%5Cimages%5Cclip_image018.png" alt="img">共享段S，则在物理内存中仅保留一份段S的内容；段S在<img src="/%5Cimages%5Cclip_image018.png" alt="img">中具有相同的段号；<img src="/%5Cimages%5Cclip_image018.png" alt="img">都不使用段S时才回收段S段内存空间。</p>
+<li><p>在分段存储管理系统中，用共享段表描述所有被共享的段。若进程$P_1,P_2$共享段S，则在物理内存中仅保留一份段S的内容；段S在$P_1,P_2$中具有相同的段号；$P_1,P_2$都不使用段S时才回收段S段内存空间。</p>
 </li>
 <li><p>虚拟存储只能基于非连续分配技术</p>
 </li>
-<li><p>虚拟存储的容量<img src="/%5Cimages%5Cclip_image020.png" alt="img">内存容量+外存容量</p>
+<li><p>虚拟存储的容量≤内存容量+外存容量</p>
 </li>
-<li><p>虚拟存储的容量<img src="/%5Cimages%5Cclip_image020.png" alt="img">计算机的地址位数能容纳的最大容量（虚拟存储容量受上式两个条件的制约）</p>
+<li><p>虚拟存储的容量≤计算机的地址位数能容纳的最大容量（虚拟存储容量受上式两个条件的制约）</p>
 </li>
 <li><p>处理缺页错误时，操作系统执行置换页、分配内容等。但❌不会处理越界错误（地址变换前期由硬件检测）</p>
 </li>
@@ -785,7 +784,9 @@
 <li><p>可变分配局部置换：发生缺页时，只能从该进程已分配的页帧中选择调出，若进程频繁缺页，系统会增加若干物理块；若进程缺页率低，系统适当减少分配的物理块</p>
 </li>
 </ul>
-<h3 id="CLOCK算法"><a href="#CLOCK算法" class="headerlink" title="CLOCK算法"></a>CLOCK算法</h3><p><img src="/%5Cimages%5Cclip_image024.png" alt="图像"></p>
+<h3 id="CLOCK算法"><a href="#CLOCK算法" class="headerlink" title="CLOCK算法"></a>CLOCK算法</h3><img src="\images\image-20220315095345442.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
 <p>调入一页则将指针向后移动一块，若命中则不移动指针</p>
 <p>注意：若循环链表存在当前访问页时（访问页在某物理块中），直接将其访问位改为1，指针p不移动（命中后指针不移动）；</p>
 <p>否则，若当前p指针指向页面的访问位为0，则淘汰该页，调入新页，将其访问位改为 1，指针p移到下一个物理块：若当前p指针指向页面的访问位为1，则将其访问位改为 0，并移动口指针到下一个物理块。</p>
@@ -801,34 +802,20 @@
 <p>内存映射文件</p>
 <p>将文件页映射到进程页表，进程按内存访问方式读写文件；还可以实现文件共享<img src="/%5Cimages%5Cclip_image010.png" alt="图像"></p>
 <h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><ul>
-<li><p>操作系统采用两级内部表记录文件信息，即：每个进程表和整个系统表。</p>
-</li>
-<li><p>每个进程表跟踪它打开的所有文件，保存进程对文件的使用记录。如：当前文件指针，文件访问权限</p>
-</li>
-<li><p>单个进程表的每个条目相应的指向整个系统的打开表。</p>
-</li>
-<li><p>系统表包含与进程无关的信息，包括每个打开文件的FCB的副本及其它信息</p>
-</li>
-<li><p>文件控制块（FCB）由逻辑文件系统操作，维护文件的相关信息（一个FCB就是一个文件目录项）</p>
-</li>
-<li><p>文件目录即为文件控制块的有序集合</p>
-</li>
-<li><p><img src="/%5Cimages%5Cclip_image026.jpg" alt="图像"></p>
-</li>
-<li><p>创建一个新文件后，系统将分配一个FCB并存放在文件的目录中</p>
-</li>
-<li><p>FCB必须连续存放</p>
-</li>
-<li><p>索引节点存放在磁盘中，由文件目录项中的指针指向</p>
-</li>
-<li><p>索引节点是一块存储文件原信息的磁盘空间为了，为inode。</p>
-</li>
-<li><p>普通文件由目录块里的一个FCB加上多个数据块组成</p>
-</li>
-<li><p>目录文件由目录块里的一个FCB加上多个其他多个目录块组成</p>
-</li>
-<li><p>一个索引节点只能被一个文件（无论是目录文件，还是普通文件）所用，不能同时被其他文件所用。</p>
-</li>
+<li>操作系统采用两级内部表记录文件信息，即：每个进程表和整个系统表。</li>
+<li>每个进程表跟踪它打开的所有文件，保存进程对文件的使用记录。如：当前文件指针，文件访问权限</li>
+<li>单个进程表的每个条目相应的指向整个系统的打开表。</li>
+<li>系统表包含与进程无关的信息，包括每个打开文件的FCB的副本及其它信息</li>
+<li>文件控制块（FCB）由逻辑文件系统操作，维护文件的相关信息（一个FCB就是一个文件目录项）</li>
+<li>文件目录即为文件控制块的有序集合</li>
+<li><img src="\images\clip_image026.jpg" alt="哎呀，图片不见了" style="zoom:100%;" /></li>
+<li>创建一个新文件后，系统将分配一个FCB并存放在文件的目录中</li>
+<li>FCB必须连续存放</li>
+<li>索引节点存放在磁盘中，由文件目录项中的指针指向</li>
+<li>索引节点是一块存储文件原信息的磁盘空间为了，为inode。</li>
+<li>普通文件由目录块里的一个FCB加上多个数据块组成</li>
+<li>目录文件由目录块里的一个FCB加上多个其他多个目录块组成</li>
+<li>一个索引节点只能被一个文件（无论是目录文件，还是普通文件）所用，不能同时被其他文件所用。</li>
 </ul>
 <blockquote>
 <p>执行一条open指令的工作过程:</p>
@@ -846,8 +833,12 @@
 <li><p>索引节点的总数表示系统中可拥有文件的最大数量</p>
 </li>
 </ul>
-<h2 id="软链接、硬链接"><a href="#软链接、硬链接" class="headerlink" title="软链接、硬链接"></a>软链接、硬链接</h2><p><img src="/%5Cimages%5Cclip_image028.png" alt="成组"></p>
-<p><img src="/%5Cimages%5Cclip_image030.jpg" alt="图像"></p>
+<h2 id="软链接、硬链接"><a href="#软链接、硬链接" class="headerlink" title="软链接、硬链接"></a>软链接、硬链接</h2><img src="\images\clip_image028.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<img src="\images\clip_image030.jpg" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
 <ul>
 <li><p>linux下创建目录后，文件链接数2.因为目录中有上一级目录与当前目录，在该目录中每新加一个文件就会增加目录的链接数</p>
 </li>
@@ -884,7 +875,8 @@
 <li><p>索引顺序文件既可以顺序访问又可以随机访问</p>
 </li>
 </ul>
-<h2 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h2><p><img src="/%5Cimages%5Cclip_image012.png" alt="图像"></p>
+<h2 id="虚拟文件系统"><a href="#虚拟文件系统" class="headerlink" title="虚拟文件系统"></a>虚拟文件系统</h2><img src="\images\clip_image012.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
 <p>采用面向对象技术（多态技术）同时支持多种类型的文件系统</p>
 <ol>
 <li><p>提供清晰的VFS接口，将文件系统的通用操作与实现分开，屏蔽底层具体文件系统的实现差异</p>
