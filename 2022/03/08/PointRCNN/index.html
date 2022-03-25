@@ -86,17 +86,17 @@
 <meta property="og:site_name" content="Next">
 <meta property="og:description" content="论文：CVPR 2019 Open Access Repository (thecvf.com)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220218103739679.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220218183400653.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220220120505467.png">
+<meta property="og:image" content="http://example.com/images/image-20220218103739679.png">
+<meta property="og:image" content="http://example.com/images/image-20220218183400653.png">
+<meta property="og:image" content="http://example.com/images/image-20220220120505467.png">
 <meta property="article:published_time" content="2022-03-08T12:56:57.000Z">
-<meta property="article:modified_time" content="2022-03-14T12:03:05.944Z">
+<meta property="article:modified_time" content="2022-03-25T04:33:14.522Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220218103739679.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220218103739679.png">
 
 
 
@@ -344,14 +344,15 @@
       
         <p>论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Shi_PointRCNN_3D_Object_Proposal_Generation_and_Detection_From_Point_Cloud_CVPR_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220218103739679.png" alt="image-20220218103739679"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220218103739679.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>本篇论文使用两阶段的三维目标检测框架，并且直接应用于三维点云，实现了强大和准确的三位检测性能。</p>
 <h2 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h2><p>第一阶段是生成自底向上的三维包围盒方案，分割前景，同时从分割点生成数量较少的box proposal，节省大量的计算量。具体来说，通过学习逐点特征来分割原始点云，并同时从分割的前景点生成3D提案。</p>
 <p>对于训练集中的每个3D点云场景，我们从每个场景中抽取16,384个点作为输入。对于点数小于16,384的场景，我们随机重复这些点数，得到16,384点。对于stage-1子网络，我们遵循[28]的网络结构，其中使用四个具有多尺度分组的集抽象层，将点分组为大小为4096、1024、256、64的组。然后使用四个特征传播层来获取点特征向量，用于分割和生成建议。</p>
 <p>鉴于骨干点云网络编码的逐点特征，通过附加一个分割头用于估计前景掩模和一个框回归头用于生成3D提案。对于点分割，ground-truth分割蒙版自然是由3D  ground-truth box提供的。对于大型户外场景，前景点的数量一般要比背景点的数量少得多。因此，我们使用焦点损失[19]来处理类不平衡问题<br>$$<br>L_{focal}(p_t)&#x3D;-\alpha_t(1-p_t)^\gamma\log(p_t),\<br>p_t&#x3D;\begin{cases} p \qquad for forground point \1-p \qquad otherwise\end{cases}<br>$$</p>
 <h2 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h2><p>第二阶段进行规范的三维box框细化，生成proposal后，采用点云池化，将第一阶段学习到的点进行池化。</p>
-<p>在LiDAR坐标系中，三维包围框表示为(x, y, z, h, w, l， θ)，其中(x, y, z)为目标中心位置，(h, w,  l)为目标大小，θ为从鸟瞰目标方向。为了约束生成的3D框建议，提出了基于bin的回归损失来估计对象的3D边界框。</p>
-<p><img src="/%5Cimages%5Cimage-20220218183400653.png" alt="image-20220218183400653"></p>
+<p>在LiDAR坐标系中，三维包围框表示为(x, y, z, h, w, l， θ)，其中(x, y, z)为目标中心位置，(h, w,  l)为目标大小，θ为从鸟瞰目标方向。为了约束生成的3D框建议，提出了基于bin的回归损失来估计对象的3D边界框。<br><img src="\images\image-20220218183400653.png" alt="image-20220105165859553" style="zoom:100%;" /></p>
 <p>Fcls为交叉分类损失；Freg为平滑L1损失</p>
 <p>同时为了消除冗余提案，通过基于鸟瞰图进行非最大抑制(non - maximum suppression,  NMS)，生成少量高质量提案。在训练方面，使用0.85作为IoU阈值，在NMS之后，保留stage-2子网培训建议的top  300的proposals。推理过程中，采用NMS，IoU阈值为0.8，只保留前100个建议对阶段2子网进行细化</p>
 <p>对于框提案细化子网络，网络从每个提案的集合区域随机抽取512个点作为细化子网络的输入。使用三个单尺度分组集合抽象层(分组大小分别为128、32、1)生成单个特征向量，用于对象置信度分类和建议位置优化。</p>
@@ -362,9 +363,8 @@
 <ol>
 <li>原点位于方框的中心</li>
 <li>局部的X‘和Z’轴近似平行于地平面，X‘指向提案的头部方向，另一个Z‘轴垂直于X’</li>
-<li>Y ’轴与激光雷达坐标系保持一致。</li>
+<li>Y ’轴与激光雷达坐标系保持一致。<img src="\images\image-20220220120505467.png" alt="image-20220105165859553" style="zoom:100%;" /></li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220220120505467.png" alt="image-20220220120505467"></p>
 <h3 id="改进box-proposal的特征学习"><a href="#改进box-proposal的特征学习" class="headerlink" title="改进box proposal的特征学习"></a>改进box proposal的特征学习</h3><p>细化子网络结合了变换后的局部空间点(特征)以及从阶段1进行进一步的盒和置信度细化得到的全局语义特征。</p>
 <p>虽然正则变换能够实现鲁棒的局部空间特征学习，但它不可避免地会丢失每个对象的深度信息。为了补偿丢失的深度信息，将点到传感器的距离特征加入特征点p中。</p>
 <p>对于每个提议，其关联点的局部空间特征和额外的特征首先连接并馈送给几个全连接层，将其局部特征编码为相同维的全局特征。然后将局部特征和全局特征串联并馈送到一个pointNet++结构的网络中，得到一个判别特征向量，用于后续的置信度分类和盒体细化。</p>
@@ -551,7 +551,7 @@ L_{refine}=\frac{1}{\vert\vert B\vert\vert}\sum_{i\in B}F_{cls}(prob_i,label_i)+
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -564,7 +564,7 @@ L_{refine}=\frac{1}{\vert\vert B\vert\vert}\sum_{i\in B}F_{cls}(prob_i,label_i)+
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -647,7 +647,7 @@ L_{refine}=\frac{1}{\vert\vert B\vert\vert}\sum_{i\in B}F_{cls}(prob_i,label_i)+
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.9k</span>
+    <span title="Site words total count">93.7k</span>
   
 </div>
 

@@ -86,16 +86,16 @@
 <meta property="og:site_name" content="Next">
 <meta property="og:description" content="论文：[2010.04159] Deformable DETR: Deformable Transformers for End-to-End Object Detection (arxiv.org)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220119220603117.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220120132237764.png">
+<meta property="og:image" content="http://example.com/images/image-20220119220603117.png">
+<meta property="og:image" content="http://example.com/images/image-20220120132237764.png">
 <meta property="article:published_time" content="2022-03-04T00:44:59.000Z">
-<meta property="article:modified_time" content="2022-03-14T12:03:06.066Z">
+<meta property="article:modified_time" content="2022-03-25T04:35:32.293Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220119220603117.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220119220603117.png">
 
 
 
@@ -368,7 +368,9 @@
 <li>对于DETR的编码器，查询和关键元素都是特征图中的像素。编码器输入是ReaNet特征图，自注意的计算复杂度为O(h^2w^2c)，随空间大小呈二次型增长。</li>
 <li>对于DETR解码器，输入包括编码器中的特征图和N个由可学习位置嵌入表示的对象查询。解码器中存在两类注意模块，即<strong>交叉注意模块</strong>和<strong>自我注意模块</strong>。在交叉注意模块中，对象查询从特征映射中提取特征。查询元素是对象查询的元素，关键元素是编码器的输出特征映射的元素。复杂度随特征映射的空间大小呈线性增长。在自注意模块中，对象查询相互交互，以捕获它们之间的关系。查询和关键元素都是对象查询。因此，对于适度数量的对象查询，复杂性是可以接受的。</li>
 </ol>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220119220603117.png" alt="image-20220119220603117"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220119220603117.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <h2 id="端到端适用于目标检测的可变性transformers模型"><a href="#端到端适用于目标检测的可变性transformers模型" class="headerlink" title="端到端适用于目标检测的可变性transformers模型"></a>端到端适用于目标检测的可变性transformers模型</h2><p>模型使用ResNet-50作预训练</p>
 <h2 id="可变性注意力模块"><a href="#可变性注意力模块" class="headerlink" title="可变性注意力模块"></a>可变性注意力模块</h2><p>不同于传统注意力模块注意图像中的所有位置，可变性注意力模块只关注参考点周围一小组关键采样点，无需考虑特征图的空间大小，即为每个查询只分配少量固定数量的关键点。<br>$$<br>DeformAttn(z_q,p_q,x)&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^K_{k&#x3D;1}A_{mqk}\times W^{‘}<em>mx(p_q+\Delta p</em>{mqk})],<br>$$<br>输入特征是C×H×W维的；q表示具有Zq个上下文特征、二维参考点Pq的查询元素；m表示注意力头；k表示采样的关键点的索引，K为采样关键点的总数，Δp和A分别为检测头的采样偏移量和权重</p>
 <h2 id="多尺度可变性注意力模块"><a href="#多尺度可变性注意力模块" class="headerlink" title="多尺度可变性注意力模块"></a>多尺度可变性注意力模块</h2><p>$$<br>MSDeformAttn(z_q,\hat{p_q},{x^l}^L_{l&#x3D;1})&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^L_{l&#x3D;1}\sum^K_{k&#x3D;1}A_{mlqk}\times W^{‘}<em>m x^l (\phi_l(\hat{p_q})+\Delta p</em>{mlqk})],<br>$$</p>
@@ -381,8 +383,7 @@
 <h2 id="迭代边界框优化"><a href="#迭代边界框优化" class="headerlink" title="迭代边界框优化"></a>迭代边界框优化</h2><p>为了提高检测性能，作者建立了一种简单有效的迭代边界盒优化机制。这里，每个解码器层都根据前一层的预测来细化边界框。</p>
 <h2 id="两阶段可变性DETR"><a href="#两阶段可变性DETR" class="headerlink" title="两阶段可变性DETR"></a>两阶段可变性DETR</h2><p>在原始DETR中，解码器中的对象查询与当前图像无关。作者使用两阶段目标检测思想，第一阶段使用可变性DETR生成区域建议，生成的区域建议将作为对象查询提供给解码器以进一步细化，形成一个两阶段的可变形DETR。</p>
 <p>在第一阶段，为了实现高召回建议，多尺度特征图中的每个像素都将作为对象查询。然而，直接将对象查询设置为像素会给解码器中的自注意模块带来不可接受的计算和内存开销。为了避免这个问题，去掉了解码器，并形成了一个只有编码器的可变形DETR来生成区域建议。即每个像素被赋值为一个对象查询，直接预测一个边界框。得分最高的边界框被选为区域建议。在将区域建议提交到第二阶段之前，不应用NMS。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220120132237764.png" alt="image-20220120132237764"></p>
-
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220120132237764.png" alt="image-20220105165859553" style="zoom:100%;" />
       
     </div>
     
@@ -553,7 +554,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -566,7 +567,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -649,7 +650,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.9k</span>
+    <span title="Site words total count">93.7k</span>
   
 </div>
 

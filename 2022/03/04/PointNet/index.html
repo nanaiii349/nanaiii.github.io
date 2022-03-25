@@ -86,17 +86,17 @@
 <meta property="og:site_name" content="Next">
 <meta property="og:description" content="论文：CVPR 2017 Open Access Repository (thecvf.com)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116120541325.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116233004972.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220116234754228.png">
+<meta property="og:image" content="http://example.com/images/image-20220116120541325.png">
+<meta property="og:image" content="http://example.com/images/image-20220116233004972.png">
+<meta property="og:image" content="http://example.com/images/image-20220116234754228.png">
 <meta property="article:published_time" content="2022-03-04T00:52:48.000Z">
-<meta property="article:modified_time" content="2022-03-14T12:03:05.945Z">
+<meta property="article:modified_time" content="2022-03-25T04:32:38.045Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220116120541325.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220116120541325.png">
 
 
 
@@ -355,7 +355,9 @@
 <li>点之间相互作用：点云中的点不是独立存在的，模型需要提取局部信息</li>
 <li>转换不变性：作为一个几何物体，对物体进行变换不应该改变物体的某些特征</li>
 </ol>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220116120541325.png" alt="image-20220116120541325"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220116120541325.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>PointNet主要用于点云数据分类问题，即在点云数据中找到属于一个物体的所有点云。</p>
 <p>该分类网络以n个点作为输入，进行输入和特征转换，然后通过最大池法对点特征进行聚合。输出是k个类别的分类分数。分割网络是分类网络的延伸。它连接全局和局部特征，并输出每个分数。” mlp  “表示多层感知器，括号中的数字表示层大小。Batchnorm用于所有带有ReLU的层。在分类网的最后一个mlp中使用了Dropout层。</p>
 <p>PointNet更多的是为CV领域提供了一种新的研究方向，拓展了对于原始数据处理的思路，后续的Frustum PoinNet等是对于PointNet在目标检测方面的特定研究，以及其他网络会将其作为网络设计的一部分充分的发挥其网络结构简单，计算简单的特点。</p>
@@ -370,11 +372,11 @@
 <p>作者通过一个微型网络T-Net预测一个仿射变换矩阵并且直接将这种变换应用到输入点的坐标上。</p>
 <p>这种思想同时适用于特征空间的对齐，通过在点特征上插入另一个对齐网络，并预测一个特征转换矩阵来对齐来自不同输入点云的特征。但是特征空间中的变换矩阵比空间变换矩阵的维数高很多，这会增加优化难度。因此在softmax训练损失中增加一个<strong>正则化项</strong>，将特征变换矩阵约束为接近<strong>正交矩阵</strong>，以获得了较好的效果。<br>$$<br>L_{reg}&#x3D;    \Vert I-AA^T    \Vert^2_F(A是由T-Net预测的特征对齐矩阵)<br>$$</p>
 <h2 id="理论研究"><a href="#理论研究" class="headerlink" title="理论研究"></a>理论研究</h2><ol>
-<li>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</li>
-</ol>
-<p><img src="/%5Cimages%5Cimage-20220116233004972.png" alt="image-20220116233004972"></p>
-<ol start="2">
-<li>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</li>
+<li><p>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</p>
+<img src="\images\image-20220116233004972.png" alt="image-20220105165859553" style="zoom:100%;" />
+</li>
+<li><p>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</p>
+</li>
 </ol>
 <p>因此，该网络通过稀疏的关键点集合来总结一个形状。</p>
 <h2 id="关键流程"><a href="#关键流程" class="headerlink" title="关键流程"></a>关键流程</h2><ol>
@@ -384,7 +386,9 @@
 <li>在特征的各个维度上执行maxpooling操作来得到最终的全局特征。</li>
 <li>对分类任务，将全局特征通过mlp来预测最后的分类分数；对分割任务，将全局特征和之前学习到的各点云的局部特征进行串联，再通过mlp得到每个数据点的分类结果。</li>
 </ol>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220116234754228.png" alt="image-20220116234754228"></p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220116234754228.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
 <li>设计一种新的深度网络结构，适用于三维空间中的无序点集</li>
 <li>展示这样的网络如何执行三维形状分类、形状部分分割和场景语义解析任务</li>
@@ -562,7 +566,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -575,7 +579,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -658,7 +662,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.9k</span>
+    <span title="Site words total count">93.7k</span>
   
 </div>
 

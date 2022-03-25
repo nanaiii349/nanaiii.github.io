@@ -6,7 +6,9 @@
     <content><![CDATA[<p>论文：<a href="https://openaccess.thecvf.com/content_cvpr_2018/html/Qi_Frustum_PointNets_for_CVPR_2018_paper.html">CVPR 2018 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
 
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220117100417479.png" alt="image-20220117100417479"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220117100417479.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>每个对象都由一个类（k个预定义类）和一个模态三维box表示。即使对象的一部分被遮挡或是截断，模态框也会得到完整的对象。</p>
 <h2 id="关键流程"><a href="#关键流程" class="headerlink" title="关键流程"></a>关键流程</h2><ol>
 <li>利用一个二维CNN对象检测器提取二维区域并对内容进行分类</li>
@@ -15,7 +17,8 @@
 <li>基于分割后的点云（m×c），使用T-Net平移对齐点，使得质心接近模态盒中心</li>
 <li>使用框估计网络估计得出模态三维box</li>
 </ol>
-<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><h3 id="截锥建议"><a href="#截锥建议" class="headerlink" title="截锥建议"></a>截锥建议</h3><p><img src="/%5Cimages%5Cimage-20220117115726571.png" alt="image-20220117115726571"></p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><h3 id="截锥建议"><a href="#截锥建议" class="headerlink" title="截锥建议"></a>截锥建议</h3><img src="\images\image-20220117115726571.png" alt="image-20220105165859553" style="zoom:100%;" />
+
 <p>由于现有的实时深度探测器得到的分辨率要低于RGB图像，因此先使用RGB图像通过二维目标检测框出目标物体的box，再通过投影矩阵，将二维box提升为三维搜索空间的截锥。接着收集截锥内部的所有点云，形成<strong>锥形体点云</strong>。还需要通过将圆台旋转到中心视图来对圆台进行<strong>归一化</strong>，使得圆台的中轴与图像平面正交（上图b）。这种归一化有利于提高算法发旋转不变性。</p>
 <p>二维的目标检测网络使用在ImageNet分类数据集和COCO对象检测数据集上预先训练的模型权重，并且在KITTI二维对象检测数据集上进一步调整模型权重，以对二维box进行分类和预测。</p>
 <h3 id="三维实例分割"><a href="#三维实例分割" class="headerlink" title="三维实例分割"></a>三维实例分割</h3><p>获得二维box和对应的三维截锥后，有几种可以获取对象三维坐标的方法</p>
@@ -28,13 +31,17 @@
 <p>三维实例分割出来后，提取出来被分类为感兴趣的对象的点。对这些点再进一步归一化（上图c），以提高坐标的平移不变性。需要注意的是，此处没有进行点云的缩放，因为对象的大小对于框的估计也有重要的作用，</p>
 <h3 id="模态三维盒估计"><a href="#模态三维盒估计" class="headerlink" title="模态三维盒估计"></a>模态三维盒估计</h3><p>尽管使用了特征对齐，该网路仍存在坐标系的原点仍然离模态盒中心很远。在使用一个轻量化的PointNet（T-Net）来重新估计完整对象的真实中心，然后转换坐标，使预测中心成为原点。这里的T-Net可以看作为新的一种空间transformer网络，并且明确的监督平移网络来预测mask坐标原点到真实物体中心的<strong>中心残差</strong>。该网路结构与PointNet和PointNet++相似，不过输出的是三维box的参数。</p>
 <p>估计box中心时使用残差方法，将box估计网络预测的中心和T-Net以及遮挡点形心得到的预测中心相结合获得绝对中心<br>$$<br>C_{pred}&#x3D;C_{mask}+\Delta C_{T-Net}+\Delta C_{box-net}<br>$$<br>对于box的尺寸和朝向，使用Faster r-cnn的预测朝向方法来进行预测。即预定义了NS个模板和NH个等分割角度的box。网络将这些分类到预定义的类别中，并预测每个类别的参差数</p>
-<h2 id="多任务训练损失"><a href="#多任务训练损失" class="headerlink" title="多任务训练损失"></a>多任务训练损失</h2><p><img src="/%5Cimages%5Cimage-20220118222715021.png" alt="image-20220118222715021"></p>
+<h2 id="多任务训练损失"><a href="#多任务训练损失" class="headerlink" title="多任务训练损失"></a>多任务训练损失</h2><img src="\images\image-20220118222715021.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p><strong>角损</strong>对于网络结果的影响还是很大的，本质上，角损时预测框和ground truth box八个角的距离之和。由于角点位置由中心、大小和方向共同决定，因此角点损失能够对这些参数的多任务训练进行正则化。<br>$$</p>
 
 L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel p_k^{ij}-p^{*}_k \parallel,\sum^8_{k=1}\parallel p_k^{ij}-p^{**}_k \parallel\} }
 
 <p>$$<br>构造NS×NH个包含所有尺寸和朝向的anchors,取值时使用原始和翻转情况最小的值，避免由于翻转航向造成较大损失。δ是ground truth的大小&#x2F;朝向类，是一个二维掩码用来选择距离项。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220117114100396.png" alt="image-20220117114100396"></p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220117114100396.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>该网络的优势：</p>
 <ol>
 <li>对于合理距离内的非遮挡物体的情况，可以得出非常精确的三维box</li>
@@ -65,8 +72,7 @@ L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel
     <url>/2022/03/08/CenterPoint/</url>
     <content><![CDATA[<p>论文：<a href="https://arxiv.org/pdf/2006.11275.pdf">2006.11275.pdf (arxiv.org)</a></p>
 <span id="more"></span>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>centerpoint是通过关键点检测来查询物体的中间位置和其特征，用<strong>两阶段</strong>的目标检测，第一阶段使用经典基于雷达激光的骨干网络如：VoxelNet、PointPillars来对输入点云进行处理，然后将表示转换为<strong>鸟瞰图</strong>，并使用标准的<strong>基于图像</strong>的关键点检测器来查找<strong>对象中心</strong>。这样对于每个检测中心可以通过中心位置的点特征来回归物体诸如三维大小、速度等特征。在第二阶段是轻量级的来<strong>细化对象位置</strong>。第二阶段提取估计对象三维box的每个面的三维中心点特征（具体来说只有四个向外的面）。该算法可以恢复由于步长和受限制的视野域带来的局部几何信息的丢失，以较小的成本带来了较好的性能提升。</p>
-<p><img src="/%5Cimages%5Cimage-20220121125306002.png" alt="image-20220121125306002"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>centerpoint是通过关键点检测来查询物体的中间位置和其特征，用<strong>两阶段</strong>的目标检测，第一阶段使用经典基于雷达激光的骨干网络如：VoxelNet、PointPillars来对输入点云进行处理，然后将表示转换为<strong>鸟瞰图</strong>，并使用标准的<strong>基于图像</strong>的关键点检测器来查找<strong>对象中心</strong>。这样对于每个检测中心可以通过中心位置的点特征来回归物体诸如三维大小、速度等特征。在第二阶段是轻量级的来<strong>细化对象位置</strong>。第二阶段提取估计对象三维box的每个面的三维中心点特征（具体来说只有四个向外的面）。该算法可以恢复由于步长和受限制的视野域带来的局部几何信息的丢失，以较小的成本带来了较好的性能提升。<br><img src="\images\image-20220121125306002.png" alt="image-20220105165859553" style="zoom:100%;" /></p>
 <p>对于<strong>每一个点</strong>，使用<strong>双线性插值</strong>从地图视角的主干网输出中提取一个特征。接着，将提取的点特征连接起来，并将他们通过一个<strong>MLP</strong>传递。第二阶段在第一阶段的预测结果上预测一个与类无关的<strong>信心分数</strong>和对于box进一步细化。</p>
 <p>可信得分：<br>$$<br>I&#x3D;\min(1,\max{(0,2\times IoU_t-0.5}))<br>$$<br>IoUt是第t个proposal box与ground-truth间的IoU</p>
 <p>二元交叉熵损失：<br>$$<br>L_{socre}&#x3D;-I_t\log(\hat{I_t})-(1-I_t)\log(1-\hat{I_t})<br>$$<br>It即为可信得分</p>
@@ -75,7 +81,7 @@ L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel
 <h2 id="Regression-heads"><a href="#Regression-heads" class="headerlink" title="Regression heads"></a>Regression heads</h2><p>对象的中心有如下几个特征：子体素o、高度h、三维大小s以及一个偏向旋转角度。子体素位置减少了骨干网的体素化和步长带来的误差。高度h帮助在三维中定位对象，并添加被地图视角删除的高度信息。方向预测使用sin、cos作为一个连续的回归目标。结合框的大小，这些Regression heads可以提供完整的物体状态信息。每个输出使用他自己的head，作者使用L1损失训练。在推理时，通过在每个对象的峰值位置对索引密集回归头输出来提取所有属性。</p>
 <h2 id="Velocity-head-and-tracking"><a href="#Velocity-head-and-tracking" class="headerlink" title="Velocity head and tracking"></a>Velocity head and tracking</h2><p>为了通过时间来跟踪物体，作者使用二维速度进行估计，并作为一个额外的回归输出。同时将前一帧中的点转换并归并到当前参考帧中，并通过时间差(速度)来预测当前和过去参考帧中物体位置的差异，来构建时间点云序列。作者对于速度回归也使用L1损失进行训练。</p>
 <p>在推理时，使用贪心策略通过偏移量将当前检测与过去检测关联起来。即通过应用负速度估计将当前帧中目标中心投影回前一帧，然后通过最近距离匹配将其与跟踪目标进行匹配。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220121125338945.png" alt="image-20220121125338945"></p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220121125338945.png" alt="image-20220105165859553" style="zoom:100%;" />
 ]]></content>
       <tags>
         <tag>论文阅读</tag>
@@ -113,7 +119,9 @@ L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel
 <li>对于DETR的编码器，查询和关键元素都是特征图中的像素。编码器输入是ReaNet特征图，自注意的计算复杂度为O(h^2w^2c)，随空间大小呈二次型增长。</li>
 <li>对于DETR解码器，输入包括编码器中的特征图和N个由可学习位置嵌入表示的对象查询。解码器中存在两类注意模块，即<strong>交叉注意模块</strong>和<strong>自我注意模块</strong>。在交叉注意模块中，对象查询从特征映射中提取特征。查询元素是对象查询的元素，关键元素是编码器的输出特征映射的元素。复杂度随特征映射的空间大小呈线性增长。在自注意模块中，对象查询相互交互，以捕获它们之间的关系。查询和关键元素都是对象查询。因此，对于适度数量的对象查询，复杂性是可以接受的。</li>
 </ol>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220119220603117.png" alt="image-20220119220603117"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220119220603117.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <h2 id="端到端适用于目标检测的可变性transformers模型"><a href="#端到端适用于目标检测的可变性transformers模型" class="headerlink" title="端到端适用于目标检测的可变性transformers模型"></a>端到端适用于目标检测的可变性transformers模型</h2><p>模型使用ResNet-50作预训练</p>
 <h2 id="可变性注意力模块"><a href="#可变性注意力模块" class="headerlink" title="可变性注意力模块"></a>可变性注意力模块</h2><p>不同于传统注意力模块注意图像中的所有位置，可变性注意力模块只关注参考点周围一小组关键采样点，无需考虑特征图的空间大小，即为每个查询只分配少量固定数量的关键点。<br>$$<br>DeformAttn(z_q,p_q,x)&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^K_{k&#x3D;1}A_{mqk}\times W^{‘}<em>mx(p_q+\Delta p</em>{mqk})],<br>$$<br>输入特征是C×H×W维的；q表示具有Zq个上下文特征、二维参考点Pq的查询元素；m表示注意力头；k表示采样的关键点的索引，K为采样关键点的总数，Δp和A分别为检测头的采样偏移量和权重</p>
 <h2 id="多尺度可变性注意力模块"><a href="#多尺度可变性注意力模块" class="headerlink" title="多尺度可变性注意力模块"></a>多尺度可变性注意力模块</h2><p>$$<br>MSDeformAttn(z_q,\hat{p_q},{x^l}^L_{l&#x3D;1})&#x3D;\sum^M_{m&#x3D;1}W_m[\sum^L_{l&#x3D;1}\sum^K_{k&#x3D;1}A_{mlqk}\times W^{‘}<em>m x^l (\phi_l(\hat{p_q})+\Delta p</em>{mlqk})],<br>$$</p>
@@ -126,8 +134,7 @@ L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel
 <h2 id="迭代边界框优化"><a href="#迭代边界框优化" class="headerlink" title="迭代边界框优化"></a>迭代边界框优化</h2><p>为了提高检测性能，作者建立了一种简单有效的迭代边界盒优化机制。这里，每个解码器层都根据前一层的预测来细化边界框。</p>
 <h2 id="两阶段可变性DETR"><a href="#两阶段可变性DETR" class="headerlink" title="两阶段可变性DETR"></a>两阶段可变性DETR</h2><p>在原始DETR中，解码器中的对象查询与当前图像无关。作者使用两阶段目标检测思想，第一阶段使用可变性DETR生成区域建议，生成的区域建议将作为对象查询提供给解码器以进一步细化，形成一个两阶段的可变形DETR。</p>
 <p>在第一阶段，为了实现高召回建议，多尺度特征图中的每个像素都将作为对象查询。然而，直接将对象查询设置为像素会给解码器中的自注意模块带来不可接受的计算和内存开销。为了避免这个问题，去掉了解码器，并形成了一个只有编码器的可变形DETR来生成区域建议。即每个像素被赋值为一个对象查询，直接预测一个边界框。得分最高的边界框被选为区域建议。在将区域建议提交到第二阶段之前，不应用NMS。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220120132237764.png" alt="image-20220120132237764"></p>
-]]></content>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220120132237764.png" alt="image-20220105165859553" style="zoom:100%;" />]]></content>
       <tags>
         <tag>论文阅读</tag>
         <tag>deep learning</tag>
@@ -239,7 +246,8 @@ L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel
 <h2 id="区域生成网络RPN"><a href="#区域生成网络RPN" class="headerlink" title="区域生成网络RPN"></a>区域生成网络RPN</h2><p>RPN网络代替了Fast-RCNN模型中的selective search（SS）。它先通过对应关系把特征图的点映射回原图，在每个对应的原图设计不同的固定尺度窗口bbox，根据该窗口的ground truth的IoU给它标记正负标签，让它学习里面是否有目标。通过一个简单的交替优化，RPN和Fast-RCNN可以共享卷积特征。为了使RPN与Fast-RCNN相统一，作者提出了一个训练方案，该方案在区域建议任务和目标检测任务间交替进行微调，同时保证proposal的稳定。这种方案收敛很快，并且使两个网络可以共享数据。而SS是使用CPU计算，因而计算时间较慢，也没法共享计算。</p>
 <p>在RPN中只需要找出物体的大致地方，因此作者对bbox做了三个固定：固定尺度变化（三种尺度）、固定scale ratio变化（三种ratio），固定采样方式（只在特征图的每个点在原图中的对应RoI上采样）</p>
 <p>作者在Fast-RCNN的基础上增加了两个卷积层来构建RPN：一个将每个conv map编码到一个短的特征向量上，另一个卷积层在每个conv map上输出客观性的评分以及关于k个涉及到不同的尺度和纵横比的区域建议的回归边界（通常取k为9）</p>
-<h2 id="RPN工作原理"><a href="#RPN工作原理" class="headerlink" title="RPN工作原理"></a>RPN工作原理</h2><p><img src="/%5Cimages%5Cimage-20220106213651479.png" alt="image-20220106213651479"></p>
+<h2 id="RPN工作原理"><a href="#RPN工作原理" class="headerlink" title="RPN工作原理"></a>RPN工作原理</h2><img src="\images\image-20220106213651479.png" alt="image-20220206101136285" style="zoom:100%;" />
+
 <p>RPN以一副图像（任意大小）作为输入并输出一组矩形对象建议并给出得分。为了生成区域建议，一个小network滑过最后一个共享的卷积层输出的特征图。该网络最后全连接到输入的卷积特征图的一个n×n的空间窗口中。每个滑动窗口都映射到一个低维向量上。这个向量被提供给两个同级的全连接层（边界框回归层reg、分类层cls）。</p>
 <p>该体系结构由一个n×n的卷积层、和两个兄弟级的1×1层（reg、cls）并将ReLUs应用于n×n转换层的输出。</p>
 <p>RPN最终输出的proposals会出现部分重叠。为了减少冗余，作者根据proposal的cls分数对proposal进行非极大抑制NMS（IoU阈值为0.7）。这使得每幅图像最终有大约2k个proposal。NMS之后，再对前n个proposal进行检测。实验证明，NMS在大幅减少proposal数量的情况下，不会损害最终的检测精度。</p>
@@ -253,8 +261,7 @@ L_{corner}=\sum^{NS}_{i=1}\sum^{NH}_{j=1}\delta_{ij}\min{\{\sum^8_{k=1}\parallel
 L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{N_{reg} }\sum{p_i^{*}L_{reg}(t_i,t_i^{*})}
 
 <p>$$<br>此处的i为该batch中anchor的索引，pi是anchor为对象的概率，如果anchor为正pi*&#x3D;1，如果anchor为负pi*&#x3D;0；ti为预测边界框四个参数化坐标，ti*是与一个正anchor相关的ground-truth box。</p>
-<p>Lcls（分类损失）：使用log loss；Lreg（回归损失）：使用smooth L1(R)，而只有anchor为正时，Lreg才会被激活。<br>$$<br>L_{reg}(t_i,t_i^{<em>})&#x3D;R(t_i,t_i^{</em>})<br>$$<br>作者使用Ncls、Nreg两项进行归一化，并使用lambda作为平衡因子。</p>
-<p><img src="/%5Cimages%5Cimage-20220108211045368.png" alt="image-20220108211045368"></p>
+<p>Lcls（分类损失）：使用log loss；Lreg（回归损失）：使用smooth L1(R)，而只有anchor为正时，Lreg才会被激活。<br>$$<br>L_{reg}(t_i,t_i^{<em>})&#x3D;R(t_i,t_i^{</em>})<br>$$<br>作者使用Ncls、Nreg两项进行归一化，并使用lambda作为平衡因子。<br><img src="\images\image-20220108211045368.png" alt="image-20220206101136285" style="zoom:100%;" /></p>
 <p>在回归时，要对4个坐标参数化。其中x,y,w,h为边界框box的中心位置、宽与高。x，xa，x*是预测box、anchor box、ground-truth box的参数。</p>
 <p>不同于其他对任意大小区域进行特征池化（回归权值由所有区域大小共享）的边界回归，作者的回归特征在特征图上具有相同的大小。为了适用于不同的大小，作者设置了一组k边界回归器。每个回归器负责一个尺度和一个纵横比，并且这k个回归器不共享权重。</p>
 <h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>RPN网络是以图像为中心的。每个batch中都含有正负样本，对所有参数的优化会使得结果偏向负样本。因此作者随机对256个anchor进行采样，尽量使得正负样本的比例达到一比一（如果正样本小于128再用负样本填充）。</p>
@@ -1618,7 +1625,9 @@ all_model_checkpoint_paths: &quot;model.ckpt-60&quot;
 <li>点之间相互作用：点云中的点不是独立存在的，模型需要提取局部信息</li>
 <li>转换不变性：作为一个几何物体，对物体进行变换不应该改变物体的某些特征</li>
 </ol>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220116120541325.png" alt="image-20220116120541325"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220116120541325.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>PointNet主要用于点云数据分类问题，即在点云数据中找到属于一个物体的所有点云。</p>
 <p>该分类网络以n个点作为输入，进行输入和特征转换，然后通过最大池法对点特征进行聚合。输出是k个类别的分类分数。分割网络是分类网络的延伸。它连接全局和局部特征，并输出每个分数。” mlp  “表示多层感知器，括号中的数字表示层大小。Batchnorm用于所有带有ReLU的层。在分类网的最后一个mlp中使用了Dropout层。</p>
 <p>PointNet更多的是为CV领域提供了一种新的研究方向，拓展了对于原始数据处理的思路，后续的Frustum PoinNet等是对于PointNet在目标检测方面的特定研究，以及其他网络会将其作为网络设计的一部分充分的发挥其网络结构简单，计算简单的特点。</p>
@@ -1633,11 +1642,11 @@ all_model_checkpoint_paths: &quot;model.ckpt-60&quot;
 <p>作者通过一个微型网络T-Net预测一个仿射变换矩阵并且直接将这种变换应用到输入点的坐标上。</p>
 <p>这种思想同时适用于特征空间的对齐，通过在点特征上插入另一个对齐网络，并预测一个特征转换矩阵来对齐来自不同输入点云的特征。但是特征空间中的变换矩阵比空间变换矩阵的维数高很多，这会增加优化难度。因此在softmax训练损失中增加一个<strong>正则化项</strong>，将特征变换矩阵约束为接近<strong>正交矩阵</strong>，以获得了较好的效果。<br>$$<br>L_{reg}&#x3D;    \Vert I-AA^T    \Vert^2_F(A是由T-Net预测的特征对齐矩阵)<br>$$</p>
 <h2 id="理论研究"><a href="#理论研究" class="headerlink" title="理论研究"></a>理论研究</h2><ol>
-<li>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</li>
-</ol>
-<p><img src="/%5Cimages%5Cimage-20220116233004972.png" alt="image-20220116233004972"></p>
-<ol start="2">
-<li>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</li>
+<li><p>PointNet神经网络对于连续集函数具有很好的逼近能力。即输入点集的小扰动不会对函数数值造成很大的改变。所以即使在最坏的情况下，网络也可以通过将空间划分为等大小的voxel来探索空间。</p>
+<img src="\images\image-20220116233004972.png" alt="image-20220105165859553" style="zoom:100%;" />
+</li>
+<li><p>即使输入有数据被损坏或是带有噪声，模型都具有鲁棒性；关键集的数据多少由maxpooling操作输出数据的维度K给出上界</p>
+</li>
 </ol>
 <p>因此，该网络通过稀疏的关键点集合来总结一个形状。</p>
 <h2 id="关键流程"><a href="#关键流程" class="headerlink" title="关键流程"></a>关键流程</h2><ol>
@@ -1647,7 +1656,9 @@ all_model_checkpoint_paths: &quot;model.ckpt-60&quot;
 <li>在特征的各个维度上执行maxpooling操作来得到最终的全局特征。</li>
 <li>对分类任务，将全局特征通过mlp来预测最后的分类分数；对分割任务，将全局特征和之前学习到的各点云的局部特征进行串联，再通过mlp得到每个数据点的分类结果。</li>
 </ol>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220116234754228.png" alt="image-20220116234754228"></p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220116234754228.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
 <li>设计一种新的深度网络结构，适用于三维空间中的无序点集</li>
 <li>展示这样的网络如何执行三维形状分类、形状部分分割和场景语义解析任务</li>
@@ -1666,7 +1677,9 @@ all_model_checkpoint_paths: &quot;model.ckpt-60&quot;
     <url>/2022/03/08/PointPillars/</url>
     <content><![CDATA[<p>论文：<a href="https://openaccess.thecvf.com/content_CVPR_2019/html/Lang_PointPillars_Fast_Encoders_for_Object_Detection_From_Point_Clouds_CVPR_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
-<p><img src="/%5Cimages%5Cimage-20220114222458551.png" alt="image-20220114222458551"></p>
+<img src="\images\image-20220114222458551.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>本篇文献主要解决将点云编码为适合更适合目标检测的格式的问题。作者没有预训练网络，所有权值随机使用均匀分布。</p>
 <h2 id="特征解码网络"><a href="#特征解码网络" class="headerlink" title="特征解码网络"></a>特征解码网络</h2><p>将点云转换为稀疏的伪图像。</p>
 <p>不同于voxelNet将整个点云分割为许多的voxel，PointPillar只在xOy面进行划分，整个点云空间被分割为若干个高度为点云图高度（在z方向上近似是无限的，因此不需要超参数控制z维度）的柱体。</p>
@@ -1732,7 +1745,9 @@ L=\frac{1}{N_{pos} }(\beta_{loc}L_{loc}+\beta_{cls}L_{cls}+\beta_{dir}L_{dir}),
 <li>对所有 <strong>ground truth boxes独立的旋转、转换</strong>，进一步丰富训练集。</li>
 <li>执行两个全局增强集合：随机沿x轴翻转并执行<strong>全局旋转和放缩</strong>、使用N(0,0,2)<strong>模拟噪声</strong>对x、y、z坐标转换</li>
 </ol>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><img src="/%5Cimages%5Cimage-20220115183322884.png" alt="image-20220115183322884"></p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220115183322884.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>实验发现该网络对于行人的检测仍有一些不足，行人与自行车会被误认为彼此。行人也容易被混淆为狭窄的带有垂直特性的物体，如树干、电线杆。</p>
 <p>推理速度快也是该网络的一大优势，总的运行时间：16.2ms。主要推理过程如下：（ Intel i7 CPU and a 1080ti GPU）</p>
 <ol>
@@ -1769,14 +1784,15 @@ L=\frac{1}{N_{pos} }(\beta_{loc}L_{loc}+\beta_{cls}L_{cls}+\beta_{dir}L_{dir}),
     <url>/2022/03/08/PointRCNN/</url>
     <content><![CDATA[<p>论文：<a href="https://openaccess.thecvf.com/content_CVPR_2019/html/Shi_PointRCNN_3D_Object_Proposal_Generation_and_Detection_From_Point_Cloud_CVPR_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a></p>
 <span id="more"></span>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p><img src="/%5Cimages%5Cimage-20220218103739679.png" alt="image-20220218103739679"></p>
+<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><img src="\images\image-20220218103739679.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>本篇论文使用两阶段的三维目标检测框架，并且直接应用于三维点云，实现了强大和准确的三位检测性能。</p>
 <h2 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h2><p>第一阶段是生成自底向上的三维包围盒方案，分割前景，同时从分割点生成数量较少的box proposal，节省大量的计算量。具体来说，通过学习逐点特征来分割原始点云，并同时从分割的前景点生成3D提案。</p>
 <p>对于训练集中的每个3D点云场景，我们从每个场景中抽取16,384个点作为输入。对于点数小于16,384的场景，我们随机重复这些点数，得到16,384点。对于stage-1子网络，我们遵循[28]的网络结构，其中使用四个具有多尺度分组的集抽象层，将点分组为大小为4096、1024、256、64的组。然后使用四个特征传播层来获取点特征向量，用于分割和生成建议。</p>
 <p>鉴于骨干点云网络编码的逐点特征，通过附加一个分割头用于估计前景掩模和一个框回归头用于生成3D提案。对于点分割，ground-truth分割蒙版自然是由3D  ground-truth box提供的。对于大型户外场景，前景点的数量一般要比背景点的数量少得多。因此，我们使用焦点损失[19]来处理类不平衡问题<br>$$<br>L_{focal}(p_t)&#x3D;-\alpha_t(1-p_t)^\gamma\log(p_t),\<br>p_t&#x3D;\begin{cases} p \qquad for forground point \1-p \qquad otherwise\end{cases}<br>$$</p>
 <h2 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h2><p>第二阶段进行规范的三维box框细化，生成proposal后，采用点云池化，将第一阶段学习到的点进行池化。</p>
-<p>在LiDAR坐标系中，三维包围框表示为(x, y, z, h, w, l， θ)，其中(x, y, z)为目标中心位置，(h, w,  l)为目标大小，θ为从鸟瞰目标方向。为了约束生成的3D框建议，提出了基于bin的回归损失来估计对象的3D边界框。</p>
-<p><img src="/%5Cimages%5Cimage-20220218183400653.png" alt="image-20220218183400653"></p>
+<p>在LiDAR坐标系中，三维包围框表示为(x, y, z, h, w, l， θ)，其中(x, y, z)为目标中心位置，(h, w,  l)为目标大小，θ为从鸟瞰目标方向。为了约束生成的3D框建议，提出了基于bin的回归损失来估计对象的3D边界框。<br><img src="\images\image-20220218183400653.png" alt="image-20220105165859553" style="zoom:100%;" /></p>
 <p>Fcls为交叉分类损失；Freg为平滑L1损失</p>
 <p>同时为了消除冗余提案，通过基于鸟瞰图进行非最大抑制(non - maximum suppression,  NMS)，生成少量高质量提案。在训练方面，使用0.85作为IoU阈值，在NMS之后，保留stage-2子网培训建议的top  300的proposals。推理过程中，采用NMS，IoU阈值为0.8，只保留前100个建议对阶段2子网进行细化</p>
 <p>对于框提案细化子网络，网络从每个提案的集合区域随机抽取512个点作为细化子网络的输入。使用三个单尺度分组集合抽象层(分组大小分别为128、32、1)生成单个特征向量，用于对象置信度分类和建议位置优化。</p>
@@ -1787,9 +1803,8 @@ L=\frac{1}{N_{pos} }(\beta_{loc}L_{loc}+\beta_{cls}L_{cls}+\beta_{dir}L_{dir}),
 <ol>
 <li>原点位于方框的中心</li>
 <li>局部的X‘和Z’轴近似平行于地平面，X‘指向提案的头部方向，另一个Z‘轴垂直于X’</li>
-<li>Y ’轴与激光雷达坐标系保持一致。</li>
+<li>Y ’轴与激光雷达坐标系保持一致。<img src="\images\image-20220220120505467.png" alt="image-20220105165859553" style="zoom:100%;" /></li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220220120505467.png" alt="image-20220220120505467"></p>
 <h3 id="改进box-proposal的特征学习"><a href="#改进box-proposal的特征学习" class="headerlink" title="改进box proposal的特征学习"></a>改进box proposal的特征学习</h3><p>细化子网络结合了变换后的局部空间点(特征)以及从阶段1进行进一步的盒和置信度细化得到的全局语义特征。</p>
 <p>虽然正则变换能够实现鲁棒的局部空间特征学习，但它不可避免地会丢失每个对象的深度信息。为了补偿丢失的深度信息，将点到传感器的距离特征加入特征点p中。</p>
 <p>对于每个提议，其关联点的局部空间特征和额外的特征首先连接并馈送给几个全连接层，将其局部特征编码为相同维的全局特征。然后将局部特征和全局特征串联并馈送到一个pointNet++结构的网络中，得到一个判别特征向量，用于后续的置信度分类和盒体细化。</p>
@@ -1912,7 +1927,9 @@ L_{refine}=\frac{1}{\vert\vert B\vert\vert}\sum_{i\in B}F_{cls}(prob_i,label_i)+
 <p>这些方法需要处理大量的数据，因此基于融合的方法运行缓慢。并且它对激光雷达的时间同步和校准摄像机的额外要求限制这种方法的使用环境，降低了鲁棒性。</p>
 <p>代表论文：<a href="https://openaccess.thecvf.com/content_cvpr_2017/html/Chen_Multi-View_3D_Object_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a></p>
 <h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><h2 id="SECOND-Detector"><a href="#SECOND-Detector" class="headerlink" title="SECOND Detector"></a>SECOND Detector</h2><p>SECOND Detector以原始点云作为输入，将其转换为voxel特征和坐标，并应用两个VFE层和一个线性层。然后使用稀疏CNN。最后应用RPN生成检测结果。</p>
-<p><img src="/%5Cimages%5Cimage-20220111213034747.png" alt="image-20220111213034747"></p>
+<img src="\images\image-20220111213034747.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p> 作者的Point Cloud Grouping、Voxel-wise Feature Extractor与VoxelNet的处理相同此处便不再赘述。</p>
 <h3 id="稀疏卷积网络"><a href="#稀疏卷积网络" class="headerlink" title="稀疏卷积网络"></a>稀疏卷积网络</h3><p>作者的主要改进体现在引入了<strong>稀疏卷积网络</strong>，替代voxelNet中的三维卷积提取特征图。常规的稀疏卷积是如果没有相关的输入点，则不计算输出点。子簇卷积（常规卷积网络的替代）限制当且仅当相应的输入位置处于活动状态是，输出位置才处于活动状态，这可以避免生成过多的活动点，提升卷积速度。</p>
 <h3 id="稀疏卷积算法"><a href="#稀疏卷积算法" class="headerlink" title="稀疏卷积算法"></a>稀疏卷积算法</h3><ol>
@@ -1923,7 +1940,9 @@ L_{refine}=\frac{1}{\vert\vert B\vert\vert}\sum_{i\in B}F_{cls}(prob_i,label_i)+
 <li><p>通过预先构建的<strong>输入-输出索引规则矩阵</strong>，将<strong>密集的输出特征</strong>映射到<strong>稀疏的输出特征</strong>。</p>
 </li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220112105038074.png" alt="image-20220112105038074"></p>
+<img src="\images\image-20220112105038074.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>二维密集卷积算法中，W表示过滤元素，D表示图像元素。函数P(x,y)需要根据输出位置来计算输入位置。因此，卷积输出Y计算如下：<br>$$</p>
 
 Y_{x,y,m}=\sum_{u,v\in P(x,y)}{\sum_{l}{W_{u-u_0,v-v_0,l,m}D_{u,v,l} } }\quad(1)
@@ -1955,7 +1974,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </ol>
 <p><img src="https://pic2.zhimg.com/80/v2-40a7e08f7a00a6e25ac4ff33a25fb849_1440w.jpg" alt="img"></p>
 <h3 id="稀疏卷积中间提取器"><a href="#稀疏卷积中间提取器" class="headerlink" title="稀疏卷积中间提取器"></a>稀疏卷积中间提取器</h3><p>中间提取器用于学习z轴信息，并将稀疏的三维数据转换为二维BEV图像。它包含了稀疏卷积的两个阶段。每个阶段都有几个子流形卷积层和一个正常的稀疏卷积，用于在z轴进行下采样。在 z 维被下采样到一维或二维后，稀疏数据被转换为密集特征图。 然后，将数据简单地重新整形为类似图像的 2D 数据。</p>
-<p><img src="/%5Cimages%5Cimage-20220112212134401.png" alt="image-20220112212134401"></p>
+<img src="\images\image-20220112212134401.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <blockquote>
 <p>黄色表示稀疏卷积，白色表示子流形卷积，红色表示稀疏到密集层，图的上半部分是稀疏数据的空间维数。</p>
 </blockquote>
@@ -1974,10 +1995,14 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <h3 id="全局旋转和放缩"><a href="#全局旋转和放缩" class="headerlink" title="全局旋转和放缩"></a>全局旋转和放缩</h3><p>作者对全部点云以及所有ground truth box进行全局放缩和旋转。从[0.95,1.05]的均匀分布提取局部噪音，从[-Π&#x2F;4,Π&#x2F;4]提取全局噪音</p>
 <h2 id="网络细节"><a href="#网络细节" class="headerlink" title="网络细节"></a>网络细节</h2><p>作者使用一大一小两个网络，在摄像机视野外的点被舍弃。</p>
 <h3 id="汽车检测任务"><a href="#汽车检测任务" class="headerlink" title="汽车检测任务"></a>汽车检测任务</h3><p>在SECOND中使用两个VFE层，即大型网络的VFE(32)和VFE(128)，较小的网络的VFE(32)和VFE(64)，在线性(128)层之后。因此，输出稀疏张量的维数对于大型网络为128  × 10 × 400 × 352，对于小型网络为128 × 10 × 320 ×  264。然后，我们使用两阶段稀疏CNN进行特征提取和降维。每个卷积层遵循一个BatchNorm层和一个ReLU层。所有稀疏卷积层都有一个64-output  feature map，核大小为(3,1,1)核大小，stride为(2,1,1)。对于大型网络，中间块的输出维数为64 × 2 × 400 ×  352。一旦输出被重塑为128 × 400 × 352，就可以应用RPN网络。我们使用Conv2D(cout, k,  s)来表示con2d - batchnorm - relu层，使用DeConv2D(cout, k, s)来表示DeConv2D- batchnorm -  relu层，其中cout为输出通道数，k为内核大小，s为stride。因为所有层在所有维度上都有相同的大小，所以我们对k和s使用标量值。所有Conv2D层都有相同的填充，所有DeConv2D层都有零填充。在我们的RPN的第一阶段，应用了三个Conv2D(128,  3,1(2))层。然后，在第二阶段和第三阶段分别应用5个Conv2D(128, 3, 1(2))层和5个Conv2D(256, 3,  1(2))层。在每一阶段中，只有第一卷积层的s &#x3D; 2;否则，s &#x3D; 1。我们对每个阶段的最后一次卷积应用一个单一的DeConv2D(128, 3,  s)层，三个阶段的s依次为1、2和4。</p>
-<p><img src="/%5Cimages%5Cimage-20220112220946220.png" alt="image-20220112220946220"></p>
+<img src="\images\image-20220112220946220.png" alt="image-20220105165859553" style="zoom:150%;" />
+
+
 <h3 id="行人和骑自行车者检测任务"><a href="#行人和骑自行车者检测任务" class="headerlink" title="行人和骑自行车者检测任务"></a>行人和骑自行车者检测任务</h3><p>与汽车检测方面唯一的区别是RPN中第一个卷积层的步幅为1而不是2。</p>
 <h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>在KITTI的验证集上，该网络无论大小网络都具有极高的平均准确度，以及极快的处理速度。同时该网络的角度编码速度、收敛速度也是非常快的。</p>
-<p><img src="/%5Cimages%5Cimage-20220112222654032.png" alt="image-20220112222654032"></p>
+<img src="\images\image-20220112222654032.png" alt="image-20220105165859553" style="zoom:150%;" />
+
+
 <h3 id="汽车检测任务-1"><a href="#汽车检测任务-1" class="headerlink" title="汽车检测任务"></a>汽车检测任务</h3><p>该网络在检测汽车时展示出了极强的性能，尤其是该网络可以有效的检测被遮挡的汽车。但是对于获得数据量较少的汽车任然无法做到准确检测，尤其是对于<strong>点数小于10的车辆</strong></p>
 <h3 id="行人和骑自行车者检测任务-1"><a href="#行人和骑自行车者检测任务-1" class="headerlink" title="行人和骑自行车者检测任务"></a>行人和骑自行车者检测任务</h3><p>对行人和自行车的检测出现了更多的<strong>假阳性与假阴性</strong>，一些预测甚至出现在不合理的位置。这些问题可能归因于行人和自行车的实例包含的点更少，<strong>容易与其他点或是噪音混淆</strong>。此外，行人和自行车数量相对较少，导致包含他们的voxel数量较少，训练效果也就较差。过滤不相关信息并基于二维检测结果确定目标位置，应该会解决这个问题。</p>
 <h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
@@ -2844,9 +2869,12 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2><h3 id="第一范式-1NF"><a href="#第一范式-1NF" class="headerlink" title="第一范式(1NF)"></a>第一范式(1NF)</h3><p>在关系模型中，对于添加的一个规范要求，所有的域都应该是<strong>原子性</strong>的.如果实体中的某个属性有多个值，必须拆分为不同的属性。</p>
 <h3 id="第二范式-2NF"><a href="#第二范式-2NF" class="headerlink" title="第二范式(2NF)"></a>第二范式(2NF)</h3><p>在1NF的基础上，非码属性必须完全依赖于<strong>候选码</strong>（在1NF基础上消除非主属性对主码的部分函数依赖）。第二范式要求数据库表中的每个实例或记录必须可以被唯一地区分。选取一个能区分每个实体的属性或属性组，作为实体的<strong>唯一标识</strong>。</p>
 <h3 id="第三范式-3NF"><a href="#第三范式-3NF" class="headerlink" title="第三范式(3NF)"></a>第三范式(3NF)</h3><p>在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）。第三范式要求一个关系中不包含已在其它关系已包含的非主关键字信息。</p>
+<p>解决方法：将非主属性与其依赖的码拿出来单独成表，并设置被依赖的属性为主键，在原表中用外键表示</p>
 <blockquote>
-<p>第三范式可以减少数据库数据的冗余</p>
+<p>第三范式可以减少数据库数据的冗余<br>如：订单表(订单号, 订购日期, 顾客编号, 顾客名)并不符合第三范式，（订单号、顾客编号、顾客名形成了依赖传递）<br>可以修改为：<br>订单表(订单号，订购日期，顾客编号)<br>顾客表(顾客编号，顾客名)</p>
 </blockquote>
+<h3 id="BC范式"><a href="#BC范式" class="headerlink" title="BC范式"></a>BC范式</h3><p>消除主属性对于码的部分函数依赖与传递函数依赖，即每个表中只有一个候选键。</p>
+<p>解决方法：将多余的候选码提取出来单独成表，将原表中的主键放入该表</p>
 ]]></content>
   </entry>
   <entry>
@@ -4905,5 +4933,87 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Cooper</title>
+    <url>/2022/03/25/Cooper/</url>
+    <content><![CDATA[<p>论文：<a href="https://ieeexplore.ieee.org/abstract/document/8885377/">https://ieeexplore.ieee.org/abstract/document/8885377/</a></p>
+<span id="more"></span>
+<h4 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h4><p>数据融合可以分为数据级融合、特征级融合、对象级融合。数据级融合就是你将没有经过任何处理的原始数据进行融合，特征融合是先将原始数据的特征提取出来再进行融合，对象级融合将每辆车的检测结果进行融合。对象级融合只依赖于单一车辆的传感器，只有当两辆车共享一个参考对象时才会起作用。因此这并不能解决发现之前未被检测到的物体。</p>
+<h4 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h4><p>本篇文献是使用数据级融合技术。这首先要解决两个问题，车辆间共享数据的格式、用于融合的数据总量。同时由于接收到的数据是在不同的位置和角度拍摄的，因此车辆需要对接受到的数据进行<strong>选择与重构</strong>。</p>
+<h5 id="数据选择"><a href="#数据选择" class="headerlink" title="数据选择"></a>数据选择</h5><p>首先，需要了解哪种类型的感知数据适合于合作感知，接着使用SPOD方法克服点云过于稀疏而无法检测到目标的缺点，将两个传感器的数据优先用于协同传感。由于激光点云带有位置信息，所以优先选择激光点云数据。而由于在感知系统中，图像和点云数据是对齐的，所以在某些情况下，还需要在协同感知的过程中提取图像数据。</p>
+<h5 id="数据重构"><a href="#数据重构" class="headerlink" title="数据重构"></a>数据重构</h5><p>通过对点云数据的合并，可以直观的重建局部环境。重建局部环境过程中，车辆交换信息的包由激光雷达传感器安装信息和其GPS读取信息组成，确定每一帧点云的中心点位置。车辆的IMU（惯性测量单元）也是必要的，用来表示车辆的朝向α、倾角β、翻滚角γ度等。旋转矩阵R表示为<br>$$<br>R&#x3D;R_z(\alpha)R_y(\beta)R_x(\gamma)\<br>R_z(\alpha)&#x3D;\begin{bmatrix} \cos \alpha &amp; -\sin\alpha &amp; 0 \ \sin\alpha &amp; \cos\alpha &amp; 0\0&amp;0&amp;1 \end{bmatrix}\quad R_y(\beta)&#x3D;\begin{bmatrix} \cos \beta &amp; 0&amp; \sin\beta  \0&amp;1&amp;0 \ -\sin\beta  &amp; 0&amp; \cos\beta\end{bmatrix}\quad R_x(\gamma)&#x3D;\begin{bmatrix} 1&amp;0&amp;0\ 0 &amp;\cos\gamma &amp; -\sin\gamma \0&amp; \sin \gamma &amp; \cos\gamma\end{bmatrix}<br>$$<br>当连通车辆交换信息时，协同感知系统根据下式生成新的一帧(此前需要对传来的数据进行一定的转换，转换到同一坐标系下)<br>$$<br>\begin{bmatrix} X\Y\Z \end{bmatrix}&#x3D;\begin{bmatrix} X_R\Y_R\Z_R \end{bmatrix}\bigcup\begin{bmatrix} X_R’\Y_R’\Z_R’\end{bmatrix}<br>$$</p>
+<h5 id="SPOD"><a href="#SPOD" class="headerlink" title="SPOD"></a>SPOD</h5> <img src="\images\image-20220127125511528.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+<p>作者选择16束激光雷达，既可以输出稀疏数据，并且与32束64束相比具有价格优势。借助SECOND网络思想，作者提出SPOD网络，一个适用于低密度点云数据的目标检测算法。</p>
+<p>点数据参数化表示为x,y,z与反射率r。</p>
+<ol>
+<li>在预处理模块，为了得到更紧凑的表示，使用<a href="https://ieeexplore.ieee.org/abstract/document/8462926/%E6%96%B9%E6%B3%95%E5%B0%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E7%90%83%E4%BD%93%E4%B8%8A%EF%BC%8C%E7%94%9F%E6%88%90%E5%AF%86%E9%9B%86%E8%A1%A8%E7%A4%BA%E3%80%82">https://ieeexplore.ieee.org/abstract/document/8462926/方法将点云投影到球体上，生成密集表示。</a></li>
+<li>voxel特征提取模块，以点云数据作为输入，将提取的voxel-wise特征输入到voxel特征编码层。然后使用稀疏卷积中间层，大大减少卷积过程的计算开销。</li>
+<li>RPN模块使用SSD结构，将卷积层输出的特征图作为输入，并连接成一个特征映射进行预测。</li>
+</ol>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4> <img src="\images\image-20220128203821445.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<h5 id="T-amp-J数据集"><a href="#T-amp-J数据集" class="headerlink" title="T&amp;J数据集"></a>T&amp;J数据集</h5><p>T&amp;J数据集是作者构建的适合于车辆协作的数据集。车辆传感器有：两个前景摄像头、四个四周鱼眼摄像头、一个惯性GPS传感器、一个前景120°雷达、一个V elodyne VLP-16 360°激光雷达、一个英伟达PX2.</p>
+<p>在测试中，使用GeForce GTX 1080 Ti GPU[1]在计算机上执行用于3D汽车检测的SPOD模型。融合数据使用5毫米，一个很小检测时间增加就可以带来检测数量和准确率上很大提升。</p>
+<h5 id="融合的鲁棒性"><a href="#融合的鲁棒性" class="headerlink" title="融合的鲁棒性"></a>融合的鲁棒性</h5><p>为了解决位置偏移对于检测结果的影响，作者对GPS读数进行了程序性的人工倾斜。</p>
+<ul>
+<li>将x和y坐标倾斜到已知GPS位置偏移的最大范围</li>
+<li>只倾斜一个轴到GPS偏移的极限</li>
+<li>通过将GPS最大偏移量加倍来模拟异常情况</li>
+</ul>
+<p>这种倾斜会使得一部分结果提升分数，但是也会使得两个实例检测失败。</p>
+<h5 id="网络要求"><a href="#网络要求" class="headerlink" title="网络要求"></a>网络要求</h5><p>作者使用一种策略提取ROI来减少传输时的数据量，诸如建筑、树木等背景数据都被减去，因为这些信息可以在每辆车自己构建出来。并且传输率为每秒1帧。<br> <img src="\images\image-20220128212610332.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
+<ul>
+<li>情况1下，两辆车已经非常接近。此时，车辆需要尽可能多的信息，因此会传输激光雷达下所有数据，每车每帧1.8Mb。</li>
+<li>情况2下，车辆横向靠近彼此，就像在路口一样。这种情况下，ROI通常是司机视角，120°是最小要求，并且两辆车都需要交换这些信息。</li>
+<li>情况3下，后车需要知道前车的视野，这种情况需要交换的信息量最少</li>
+</ul>
+<h4 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h4><ol>
+<li>提出稀疏点云目标检测SPOD方法来在低密度点云数据中检测目标</li>
+<li>展示数据融合技术在感知范围与提升检测准确率上面的突出表现</li>
+<li>展示了利用现有的车辆网络，促进激光雷达数据在车辆间的传输，实现协同感知是可行</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>F-COOPER</title>
+    <url>/2022/03/25/F-COOPER/</url>
+    <content><![CDATA[<h3 id="F-Cooper（特征级融合）"><a href="#F-Cooper（特征级融合）" class="headerlink" title="F-Cooper（特征级融合）"></a>F-Cooper（特征级融合）</h3><p>论文：<a href="https://dl.acm.org/doi/abs/10.1145/3318216.3363300">F-cooper | Proceedings of the 4th ACM&#x2F;IEEE Symposium on Edge Computing</a></p>
+<span id="more"></span>
+<h4 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h4><h5 id="卷积特征图"><a href="#卷积特征图" class="headerlink" title="卷积特征图"></a>卷积特征图</h5><p>在目标检测领域，目前流行是使用CNN网络提取特征。首先将原始数据作为输入送入带有filter的卷积层，每个filter产生一个特征图。生成的特征图会递归作为下一层的输入。</p>
+<h5 id="特征融合"><a href="#特征融合" class="headerlink" title="特征融合"></a>特征融合</h5><p>由于CNN网络生成的特征图可解释性较差，在使用特征图时，需要确保处理一致性的问题。即将其他代理生成的特征图转换为自己所用时，需要付出一定的运行成本。</p>
+<h6 id="融合特点"><a href="#融合特点" class="headerlink" title="融合特点"></a>融合特点</h6><p>FPN与RCNN的成功说明了融合不同层生成的特征图检测目标是可行的。同时要保证所有提取出来的特征图都是以相同的格式和数据类型获得的。接下来，由于从3D点云中提取的特征图也包含位置数据，所以只要不同的自动驾驶汽车之间存在单一的重叠点，我们就可以对不同的自动驾驶汽车的特征图进行融合。在融合的过程中，需要调整融合算法来适应等距位置对齐的问题。具体来说就是让每辆车发送其GPS和IMU数据，以便进行点云融合的转换计算，也就是说，将发送者看到的视图转换为接收者看到的视图。</p>
+<h6 id="压缩与传输"><a href="#压缩与传输" class="headerlink" title="压缩与传输"></a>压缩与传输</h6><p>不同车辆由于传感器的不同获取的原始数据有可能不同，而将原始数据使用CNN网络处理，多余的数据将被过滤，只留下对于目标检测有用的信息。同时，数据量也将大量减少。对于一个典型的LiDAR传感器来说，每一帧LiDAR包含大约100,000个点，约为4MB。如此庞大的数据量对于任何现有的无线网络基础设施来说都是一个严重的负担。与大量的原始LiDAR数据形成鲜明对比的是，在使用压缩技术后，CNN生成的特征大小可以低至200 Kb。通过无损压缩，数据大小的优势可以进一步增强。加上稀疏矩阵的特性，可以实现不超过1MB的特征数据压缩</p>
+<h6 id="一般和内在属性"><a href="#一般和内在属性" class="headerlink" title="一般和内在属性"></a>一般和内在属性</h6><p>所有的自动驾驶汽车都必须根据传感器产生的数据做出决定。原始数据由车辆上的物理传感器生成，然后转发到车载计算设备。然后，原始数据通过基于CNN的深度学习网络进行处理，最终做出驾驶决策。</p>
+<p>由于到目前为止几乎所有已知的自动驾驶车辆都使用基于CNN的网络，因此特征提取是通用的，在融合前不需要进一步处理。</p>
+<h4 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h4><p>相互联系的自动驾驶汽车CAV可以为提升道路安全提供一种新的解决方案，单车传感器受限于视野和范围的限制，往往无法为自动驾驶提供足够的安全保障，搭配边缘计算的多代理数据融合技术可以实现更好的情况感知，并且特征级的数据融合可以在低带宽的情况下实现实时的数据分析，这可以缓解数据融合中存在的数据量过大与计算性能要求较高的困境。</p>
+<p>自动驾驶汽车边缘计算系统由三层组成:车辆、边缘和云。每辆自动驾驶汽车都配备了车载边缘设备，这些设备集成了自动驾驶所需的功能模块，包括定位、感知、路径规划、车辆控制等。自动驾驶汽车可以与路边的边缘服务器通信，并最终通过无线网络到达云端。正是在这里，数据被融合和处理，以进一步扩大每个车辆的感知范围;超出视线范围和视野范围。</p>
+<p>本篇论文提出的基于特征的合作感知框架是端到端的特征级数据融合，并且提出两个不同的融合方案：voxel特征融合、空间特征融合。二者的检测性能都要强于单源目标检测。虽然空间特征融合数据可以动态调整压缩大小，比体素特征融合数据更小，但后者能够在原始数据级融合的水平上改进检测，每种策略都有其独到的优势。<br><img src="\images\image-20220122114435549.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
+<h5 id="voxel特征融合（VFF）"><a href="#voxel特征融合（VFF）" class="headerlink" title="voxel特征融合（VFF）"></a>voxel特征融合（VFF）</h5><p>将点云数据分割为一个一个的voxel，每个voxel至少含有1给点，至多含有35个点，再通过VoxelNet的VFE层生成voxel特征（128维）。即所有的非空voxel都通过一系列完整的连接层转换为一个长度为128的固定大小向量（特征图）。</p>
+<p>为了使得计算和内存使用更加高效，作者将非空voxel的特征都保存到一个哈希表中，其中voxel的坐标被用作哈希键。对于自动驾驶的实际场景，一般会保存几千个voxel，这样的计算开销是可以接受的。</p>
+<p>在VFF中，将两辆车的voxel特征进行融合。虽然两辆车位于不同的物理位置，但它们共享相同的校准3D空间，不同的偏移量表示每辆车在3D校准空间中的相对物理位置。最终使用element-wise maxout方案（从两个特征的特征向量中每个维度只取最大值）来融合同一位置上的特征。这种方法可以提取明显的特征，同时抑制3D空间中不利于检测的特征，从而实现更小的数据量。此外，由于maxout是一个简单的浮点运算，它没有引入额外的参数。</p>
+<p>但是在现实中，即使出现了voxel间微小的偏差也会使得检测结果明显的不匹配。</p>
+<h5 id="空间特征融合（SFF）"><a href="#空间特征融合（SFF）" class="headerlink" title="空间特征融合（SFF）"></a>空间特征融合（SFF）</h5><img src="\images\image-20220123165217177.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<p>与VFF不同的是，通过对每辆车的体素特征进行预处理，得到空间特征。然后将两个源空间特征进行融合，并将融合后的空间特征转发到RPN中进行区域建议和目标检测。</p>
+<p>通过特征学习网络生成激光雷达框架的空间特征图，其输出是一个稀疏张量，尺寸为128×10×400×352.为了融合所有voxel特征，通过三层三维卷积层处理后大小为64×2×400×352,将其重塑为128×400×352后再发送给RPN。在SFF中检测范围要比特征图大小要大。然后，在不重叠区域保留原有特征的情况下，对重叠区域进行融合。SFF也采用maxout来融合重叠的空间特征。最终在RPN上找出目标区域。</p>
+<h5 id="融合特征进行目标检测"><a href="#融合特征进行目标检测" class="headerlink" title="融合特征进行目标检测"></a>融合特征进行目标检测</h5><p>为了检测车辆，将合成的特征映射提供给区域建议网络(RPN)来提出目标建议。然后利用损失函数对网络进行训练。</p>
+<h6 id="RPN网络"><a href="#RPN网络" class="headerlink" title="RPN网络"></a>RPN网络</h6><p>经过RPN网络后，可以得到一个由损失函数产生的两个输出：一个预测得分p，以及建议区域P参数化表示</p>
+<h6 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h6><p>设G为中心的box<br>$$<br>\Delta x&#x3D;\frac{G_x-P_x}{P_d},<br>\Delta y&#x3D;\frac{G_y-P_y}{P_d},<br>\Delta z&#x3D;\frac{G_z-P_z}{P_h}\quad(P_d&#x3D;\sqrt{(P_l)^2+(P_w)^2});\<br>\Delta l&#x3D;\log{\frac{G_l}{P_l}},<br>\Delta w&#x3D;\log{\frac{G_w}{P_w}},<br>\Delta h&#x3D;\log{\frac{G_h}{P_h}},<br>\Delta\theta&#x3D;G_\theta-P_\theta;<br>$$<br>损失函数：<br>$$<br>L&#x3D;\alpha\frac{1}{N_{neg}}\sum^{N_{neg}}<em>{i&#x3D;1}L</em>{cls}(p_{neg}^i,0)+\beta\frac{1}{N_{neg}}\sum^{N_{pos}}<em>{i&#x3D;1}L</em>{cls}(p_{pos}^i,1)+\frac{1}{N_{neg}}\sum^{N_{neg}}<em>{i&#x3D;1}L</em>{reg}(p^i,G^i)<br>$$<br>p为预测锚点，G为ground truth，对于分类损失和SmoothL1损失使用二元交叉熵损失</p>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><img src="\images\image-20220123171816401.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<p>由于KITTI数据是单车记录的，作者通过使用同一记录的不同时间段来模拟两辆车生成的数据。</p>
+<p>实验表明VFF在精度上与原始数据融合相似，但是SFF对于近距离的检测表现比VFF更好。同时，VFF对于车辆位置的偏差并不如SFF那么敏感。而且对于小目标的检测而言，其更依赖于位置距离的影响，并且小目标的特征容易在提取时被过滤导致缺失。因此，需要一种新的提取特征方法来像外科手术一般提取特征，避免检测冲突。</p>
+]]></content>
+      <tags>
+        <tag>论文阅读</tag>
+        <tag>deep learning</tag>
+        <tag>Object Detection</tag>
+        <tag>Data Fuse</tag>
+      </tags>
   </entry>
 </search>

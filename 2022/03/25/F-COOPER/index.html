@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="论文阅读,deep learning,Object Detection," />
+  <meta name="keywords" content="论文阅读,deep learning,Object Detection,Data Fuse," />
 
 
 
@@ -79,23 +79,25 @@
 
 
 
-<meta name="description" content="论文：2006.11275.pdf (arxiv.org)">
+<meta name="description" content="F-Cooper（特征级融合）论文：F-cooper | Proceedings of the 4th ACM&#x2F;IEEE Symposium on Edge Computing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CenterPoint">
-<meta property="og:url" content="http://example.com/2022/03/08/CenterPoint/index.html">
+<meta property="og:title" content="F-COOPER">
+<meta property="og:url" content="http://example.com/2022/03/25/F-COOPER/index.html">
 <meta property="og:site_name" content="Next">
-<meta property="og:description" content="论文：2006.11275.pdf (arxiv.org)">
+<meta property="og:description" content="F-Cooper（特征级融合）论文：F-cooper | Proceedings of the 4th ACM&#x2F;IEEE Symposium on Edge Computing">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/image-20220121125306002.png">
-<meta property="og:image" content="http://example.com/images/image-20220121125338945.png">
-<meta property="article:published_time" content="2022-03-08T12:49:48.000Z">
-<meta property="article:modified_time" content="2022-03-25T04:34:06.579Z">
+<meta property="og:image" content="http://example.com/images/image-20220122114435549.png">
+<meta property="og:image" content="http://example.com/images/image-20220123165217177.png">
+<meta property="og:image" content="http://example.com/images/image-20220123171816401.png">
+<meta property="article:published_time" content="2022-03-25T04:37:17.000Z">
+<meta property="article:modified_time" content="2022-03-25T05:34:29.119Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
+<meta property="article:tag" content="Data Fuse">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/image-20220121125306002.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220122114435549.png">
 
 
 
@@ -125,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/03/08/CenterPoint/"/>
+  <link rel="canonical" href="http://example.com/2022/03/25/F-COOPER/"/>
 
 
 
 
 
-  <title>CenterPoint | Next</title>
+  <title>F-COOPER | Next</title>
   
 
 
@@ -238,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/CenterPoint/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/25/F-COOPER/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -255,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CenterPoint</h1>
+          <h1 class="post-title" itemprop="name headline">F-COOPER</h1>
         
 
         <div class="post-meta">
@@ -267,8 +269,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-08T20:49:48+08:00">
-                2022-03-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-25T12:37:17+08:00">
+                2022-03-25
               </time>
             
 
@@ -304,7 +306,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k 字
+                  2.2k 字
                 </span>
               
 
@@ -320,7 +322,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -341,18 +343,34 @@
       
 
       
-        <p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.11275.pdf">2006.11275.pdf (arxiv.org)</a></p>
+        <h3 id="F-Cooper（特征级融合）"><a href="#F-Cooper（特征级融合）" class="headerlink" title="F-Cooper（特征级融合）"></a>F-Cooper（特征级融合）</h3><p>论文：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3318216.3363300">F-cooper | Proceedings of the 4th ACM&#x2F;IEEE Symposium on Edge Computing</a></p>
 <span id="more"></span>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>centerpoint是通过关键点检测来查询物体的中间位置和其特征，用<strong>两阶段</strong>的目标检测，第一阶段使用经典基于雷达激光的骨干网络如：VoxelNet、PointPillars来对输入点云进行处理，然后将表示转换为<strong>鸟瞰图</strong>，并使用标准的<strong>基于图像</strong>的关键点检测器来查找<strong>对象中心</strong>。这样对于每个检测中心可以通过中心位置的点特征来回归物体诸如三维大小、速度等特征。在第二阶段是轻量级的来<strong>细化对象位置</strong>。第二阶段提取估计对象三维box的每个面的三维中心点特征（具体来说只有四个向外的面）。该算法可以恢复由于步长和受限制的视野域带来的局部几何信息的丢失，以较小的成本带来了较好的性能提升。<br><img src="\images\image-20220121125306002.png" alt="image-20220105165859553" style="zoom:100%;" /></p>
-<p>对于<strong>每一个点</strong>，使用<strong>双线性插值</strong>从地图视角的主干网输出中提取一个特征。接着，将提取的点特征连接起来，并将他们通过一个<strong>MLP</strong>传递。第二阶段在第一阶段的预测结果上预测一个与类无关的<strong>信心分数</strong>和对于box进一步细化。</p>
-<p>可信得分：<br>$$<br>I&#x3D;\min(1,\max{(0,2\times IoU_t-0.5}))<br>$$<br>IoUt是第t个proposal box与ground-truth间的IoU</p>
-<p>二元交叉熵损失：<br>$$<br>L_{socre}&#x3D;-I_t\log(\hat{I_t})-(1-I_t)\log(1-\hat{I_t})<br>$$<br>It即为可信得分</p>
-<p>对于<strong>框回归</strong>，模型预测在第一阶段建议之上的细化，用L1损失训练模型。两阶段CenterPoint简化并加速了之前计算复杂度较高的的基于PointNet特征提取器和RoIAlign操作的两阶段3D检测器。</p>
-<h2 id="Center-heatmap-head"><a href="#Center-heatmap-head" class="headerlink" title="Center heatmap head"></a>Center heatmap head</h2><p>Center heatmap head的目标就是在任何被探测的物体中心位置产生一个<strong>热力图峰值</strong>，Center heatmap head最终会产生一个k通道的热力图，一个通道代表了K类物体中的一种。在训练过程中，它将标注的box的三维中心投影到地图视图中，以生成二维高斯目标。使用<strong>focal loss</strong>。地图视角有图像视角不具备的优势，例如在地图视角下，汽车所占的比例很小，而在image视角下所占的比例可能会很大。此外，透视投影中对深度的压缩使得物体间的中心距离比image视角下更加接近。作者还通过放大每个ground truth的中心位置的高斯峰值来增强目标热力图的正监督，来抵消CenterNet带来的监督信号稀疏问题（使得大多数位置被认为是背景）。模型可以从附近的像素中得到更密集的监督。</p>
-<h2 id="Regression-heads"><a href="#Regression-heads" class="headerlink" title="Regression heads"></a>Regression heads</h2><p>对象的中心有如下几个特征：子体素o、高度h、三维大小s以及一个偏向旋转角度。子体素位置减少了骨干网的体素化和步长带来的误差。高度h帮助在三维中定位对象，并添加被地图视角删除的高度信息。方向预测使用sin、cos作为一个连续的回归目标。结合框的大小，这些Regression heads可以提供完整的物体状态信息。每个输出使用他自己的head，作者使用L1损失训练。在推理时，通过在每个对象的峰值位置对索引密集回归头输出来提取所有属性。</p>
-<h2 id="Velocity-head-and-tracking"><a href="#Velocity-head-and-tracking" class="headerlink" title="Velocity head and tracking"></a>Velocity head and tracking</h2><p>为了通过时间来跟踪物体，作者使用二维速度进行估计，并作为一个额外的回归输出。同时将前一帧中的点转换并归并到当前参考帧中，并通过时间差(速度)来预测当前和过去参考帧中物体位置的差异，来构建时间点云序列。作者对于速度回归也使用L1损失进行训练。</p>
-<p>在推理时，使用贪心策略通过偏移量将当前检测与过去检测关联起来。即通过应用负速度估计将当前帧中目标中心投影回前一帧，然后通过最近距离匹配将其与跟踪目标进行匹配。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220121125338945.png" alt="image-20220105165859553" style="zoom:100%;" />
+<h4 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h4><h5 id="卷积特征图"><a href="#卷积特征图" class="headerlink" title="卷积特征图"></a>卷积特征图</h5><p>在目标检测领域，目前流行是使用CNN网络提取特征。首先将原始数据作为输入送入带有filter的卷积层，每个filter产生一个特征图。生成的特征图会递归作为下一层的输入。</p>
+<h5 id="特征融合"><a href="#特征融合" class="headerlink" title="特征融合"></a>特征融合</h5><p>由于CNN网络生成的特征图可解释性较差，在使用特征图时，需要确保处理一致性的问题。即将其他代理生成的特征图转换为自己所用时，需要付出一定的运行成本。</p>
+<h6 id="融合特点"><a href="#融合特点" class="headerlink" title="融合特点"></a>融合特点</h6><p>FPN与RCNN的成功说明了融合不同层生成的特征图检测目标是可行的。同时要保证所有提取出来的特征图都是以相同的格式和数据类型获得的。接下来，由于从3D点云中提取的特征图也包含位置数据，所以只要不同的自动驾驶汽车之间存在单一的重叠点，我们就可以对不同的自动驾驶汽车的特征图进行融合。在融合的过程中，需要调整融合算法来适应等距位置对齐的问题。具体来说就是让每辆车发送其GPS和IMU数据，以便进行点云融合的转换计算，也就是说，将发送者看到的视图转换为接收者看到的视图。</p>
+<h6 id="压缩与传输"><a href="#压缩与传输" class="headerlink" title="压缩与传输"></a>压缩与传输</h6><p>不同车辆由于传感器的不同获取的原始数据有可能不同，而将原始数据使用CNN网络处理，多余的数据将被过滤，只留下对于目标检测有用的信息。同时，数据量也将大量减少。对于一个典型的LiDAR传感器来说，每一帧LiDAR包含大约100,000个点，约为4MB。如此庞大的数据量对于任何现有的无线网络基础设施来说都是一个严重的负担。与大量的原始LiDAR数据形成鲜明对比的是，在使用压缩技术后，CNN生成的特征大小可以低至200 Kb。通过无损压缩，数据大小的优势可以进一步增强。加上稀疏矩阵的特性，可以实现不超过1MB的特征数据压缩</p>
+<h6 id="一般和内在属性"><a href="#一般和内在属性" class="headerlink" title="一般和内在属性"></a>一般和内在属性</h6><p>所有的自动驾驶汽车都必须根据传感器产生的数据做出决定。原始数据由车辆上的物理传感器生成，然后转发到车载计算设备。然后，原始数据通过基于CNN的深度学习网络进行处理，最终做出驾驶决策。</p>
+<p>由于到目前为止几乎所有已知的自动驾驶车辆都使用基于CNN的网络，因此特征提取是通用的，在融合前不需要进一步处理。</p>
+<h4 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h4><p>相互联系的自动驾驶汽车CAV可以为提升道路安全提供一种新的解决方案，单车传感器受限于视野和范围的限制，往往无法为自动驾驶提供足够的安全保障，搭配边缘计算的多代理数据融合技术可以实现更好的情况感知，并且特征级的数据融合可以在低带宽的情况下实现实时的数据分析，这可以缓解数据融合中存在的数据量过大与计算性能要求较高的困境。</p>
+<p>自动驾驶汽车边缘计算系统由三层组成:车辆、边缘和云。每辆自动驾驶汽车都配备了车载边缘设备，这些设备集成了自动驾驶所需的功能模块，包括定位、感知、路径规划、车辆控制等。自动驾驶汽车可以与路边的边缘服务器通信，并最终通过无线网络到达云端。正是在这里，数据被融合和处理，以进一步扩大每个车辆的感知范围;超出视线范围和视野范围。</p>
+<p>本篇论文提出的基于特征的合作感知框架是端到端的特征级数据融合，并且提出两个不同的融合方案：voxel特征融合、空间特征融合。二者的检测性能都要强于单源目标检测。虽然空间特征融合数据可以动态调整压缩大小，比体素特征融合数据更小，但后者能够在原始数据级融合的水平上改进检测，每种策略都有其独到的优势。<br><img src="\images\image-20220122114435549.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
+<h5 id="voxel特征融合（VFF）"><a href="#voxel特征融合（VFF）" class="headerlink" title="voxel特征融合（VFF）"></a>voxel特征融合（VFF）</h5><p>将点云数据分割为一个一个的voxel，每个voxel至少含有1给点，至多含有35个点，再通过VoxelNet的VFE层生成voxel特征（128维）。即所有的非空voxel都通过一系列完整的连接层转换为一个长度为128的固定大小向量（特征图）。</p>
+<p>为了使得计算和内存使用更加高效，作者将非空voxel的特征都保存到一个哈希表中，其中voxel的坐标被用作哈希键。对于自动驾驶的实际场景，一般会保存几千个voxel，这样的计算开销是可以接受的。</p>
+<p>在VFF中，将两辆车的voxel特征进行融合。虽然两辆车位于不同的物理位置，但它们共享相同的校准3D空间，不同的偏移量表示每辆车在3D校准空间中的相对物理位置。最终使用element-wise maxout方案（从两个特征的特征向量中每个维度只取最大值）来融合同一位置上的特征。这种方法可以提取明显的特征，同时抑制3D空间中不利于检测的特征，从而实现更小的数据量。此外，由于maxout是一个简单的浮点运算，它没有引入额外的参数。</p>
+<p>但是在现实中，即使出现了voxel间微小的偏差也会使得检测结果明显的不匹配。</p>
+<h5 id="空间特征融合（SFF）"><a href="#空间特征融合（SFF）" class="headerlink" title="空间特征融合（SFF）"></a>空间特征融合（SFF）</h5><img src="\images\image-20220123165217177.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<p>与VFF不同的是，通过对每辆车的体素特征进行预处理，得到空间特征。然后将两个源空间特征进行融合，并将融合后的空间特征转发到RPN中进行区域建议和目标检测。</p>
+<p>通过特征学习网络生成激光雷达框架的空间特征图，其输出是一个稀疏张量，尺寸为128×10×400×352.为了融合所有voxel特征，通过三层三维卷积层处理后大小为64×2×400×352,将其重塑为128×400×352后再发送给RPN。在SFF中检测范围要比特征图大小要大。然后，在不重叠区域保留原有特征的情况下，对重叠区域进行融合。SFF也采用maxout来融合重叠的空间特征。最终在RPN上找出目标区域。</p>
+<h5 id="融合特征进行目标检测"><a href="#融合特征进行目标检测" class="headerlink" title="融合特征进行目标检测"></a>融合特征进行目标检测</h5><p>为了检测车辆，将合成的特征映射提供给区域建议网络(RPN)来提出目标建议。然后利用损失函数对网络进行训练。</p>
+<h6 id="RPN网络"><a href="#RPN网络" class="headerlink" title="RPN网络"></a>RPN网络</h6><p>经过RPN网络后，可以得到一个由损失函数产生的两个输出：一个预测得分p，以及建议区域P参数化表示</p>
+<h6 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h6><p>设G为中心的box<br>$$<br>\Delta x&#x3D;\frac{G_x-P_x}{P_d},<br>\Delta y&#x3D;\frac{G_y-P_y}{P_d},<br>\Delta z&#x3D;\frac{G_z-P_z}{P_h}\quad(P_d&#x3D;\sqrt{(P_l)^2+(P_w)^2});\<br>\Delta l&#x3D;\log{\frac{G_l}{P_l}},<br>\Delta w&#x3D;\log{\frac{G_w}{P_w}},<br>\Delta h&#x3D;\log{\frac{G_h}{P_h}},<br>\Delta\theta&#x3D;G_\theta-P_\theta;<br>$$<br>损失函数：<br>$$<br>L&#x3D;\alpha\frac{1}{N_{neg}}\sum^{N_{neg}}<em>{i&#x3D;1}L</em>{cls}(p_{neg}^i,0)+\beta\frac{1}{N_{neg}}\sum^{N_{pos}}<em>{i&#x3D;1}L</em>{cls}(p_{pos}^i,1)+\frac{1}{N_{neg}}\sum^{N_{neg}}<em>{i&#x3D;1}L</em>{reg}(p^i,G^i)<br>$$<br>p为预测锚点，G为ground truth，对于分类损失和SmoothL1损失使用二元交叉熵损失</p>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><img src="\images\image-20220123171816401.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<p>由于KITTI数据是单车记录的，作者通过使用同一记录的不同时间段来模拟两辆车生成的数据。</p>
+<p>实验表明VFF在精度上与原始数据融合相似，但是SFF对于近距离的检测表现比VFF更好。同时，VFF对于车辆位置的偏差并不如SFF那么敏感。而且对于小目标的检测而言，其更依赖于位置距离的影响，并且小目标的特征容易在提取时被过滤导致缺失。因此，需要一种新的提取特征方法来像外科手术一般提取特征，避免检测冲突。</p>
 
       
     </div>
@@ -405,6 +423,8 @@
           
             <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
           
+            <a href="/tags/Data-Fuse/" rel="tag"># Data Fuse</a>
+          
         </div>
       
 
@@ -431,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/03/08/F-PointNet/" rel="next" title="F-PointNet">
-                <i class="fa fa-chevron-left"></i> F-PointNet
+              <a href="/2022/03/22/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/" rel="next" title="离散数学">
+                <i class="fa fa-chevron-left"></i> 离散数学
               </a>
             
           </div>
@@ -441,8 +461,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/03/08/second/" rel="prev" title="second">
-                second <i class="fa fa-chevron-right"></i>
+              <a href="/2022/03/25/Cooper/" rel="prev" title="Cooper">
+                Cooper <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -586,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Center-heatmap-head"><span class="nav-number">1.1.</span> <span class="nav-text">Center heatmap head</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression-heads"><span class="nav-number">1.2.</span> <span class="nav-text">Regression heads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Velocity-head-and-tracking"><span class="nav-number">1.3.</span> <span class="nav-text">Velocity head and tracking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">实验结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#F-Cooper%EF%BC%88%E7%89%B9%E5%BE%81%E7%BA%A7%E8%9E%8D%E5%90%88%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">F-Cooper（特征级融合）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">前人的工作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF%E7%89%B9%E5%BE%81%E5%9B%BE"><span class="nav-number">1.1.1.</span> <span class="nav-text">卷积特征图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88"><span class="nav-number">1.1.2.</span> <span class="nav-text">特征融合</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%9E%8D%E5%90%88%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">融合特点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E4%B8%8E%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">压缩与传输</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%92%8C%E5%86%85%E5%9C%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">一般和内在属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#voxel%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88%EF%BC%88VFF%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">voxel特征融合（VFF）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88%EF%BC%88SFF%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">空间特征融合（SFF）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%9E%8D%E5%90%88%E7%89%B9%E5%BE%81%E8%BF%9B%E8%A1%8C%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">融合特征进行目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#RPN%E7%BD%91%E7%BB%9C"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">RPN网络</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">损失函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">实验结果</span></a></li></ol></li></ol></div>
             
 
           </div>

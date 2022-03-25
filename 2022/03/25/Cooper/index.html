@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="论文阅读,deep learning,Object Detection," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,23 +79,21 @@
 
 
 
-<meta name="description" content="论文：2006.11275.pdf (arxiv.org)">
+<meta name="description" content="论文：https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;abstract&#x2F;document&#x2F;8885377&#x2F;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CenterPoint">
-<meta property="og:url" content="http://example.com/2022/03/08/CenterPoint/index.html">
+<meta property="og:title" content="Cooper">
+<meta property="og:url" content="http://example.com/2022/03/25/Cooper/index.html">
 <meta property="og:site_name" content="Next">
-<meta property="og:description" content="论文：2006.11275.pdf (arxiv.org)">
+<meta property="og:description" content="论文：https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;abstract&#x2F;document&#x2F;8885377&#x2F;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/image-20220121125306002.png">
-<meta property="og:image" content="http://example.com/images/image-20220121125338945.png">
-<meta property="article:published_time" content="2022-03-08T12:49:48.000Z">
-<meta property="article:modified_time" content="2022-03-25T04:34:06.579Z">
+<meta property="og:image" content="http://example.com/images/image-20220127125511528.png">
+<meta property="og:image" content="http://example.com/images/image-20220128203821445.png">
+<meta property="og:image" content="http://example.com/images/image-20220128212610332.png">
+<meta property="article:published_time" content="2022-03-25T04:41:16.000Z">
+<meta property="article:modified_time" content="2022-03-25T05:34:25.788Z">
 <meta property="article:author" content="nanaiii">
-<meta property="article:tag" content="论文阅读">
-<meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/image-20220121125306002.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220127125511528.png">
 
 
 
@@ -125,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2022/03/08/CenterPoint/"/>
+  <link rel="canonical" href="http://example.com/2022/03/25/Cooper/"/>
 
 
 
 
 
-  <title>CenterPoint | Next</title>
+  <title>Cooper | Next</title>
   
 
 
@@ -238,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/CenterPoint/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/25/Cooper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -255,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CenterPoint</h1>
+          <h1 class="post-title" itemprop="name headline">Cooper</h1>
         
 
         <div class="post-meta">
@@ -267,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-08T20:49:48+08:00">
-                2022-03-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-25T12:41:16+08:00">
+                2022-03-25
               </time>
             
 
@@ -304,7 +302,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.1k 字
+                  1.5k 字
                 </span>
               
 
@@ -320,7 +318,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  3 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -341,18 +339,44 @@
       
 
       
-        <p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.11275.pdf">2006.11275.pdf (arxiv.org)</a></p>
+        <p>论文：<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/abstract/document/8885377/">https://ieeexplore.ieee.org/abstract/document/8885377/</a></p>
 <span id="more"></span>
-<h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><p>centerpoint是通过关键点检测来查询物体的中间位置和其特征，用<strong>两阶段</strong>的目标检测，第一阶段使用经典基于雷达激光的骨干网络如：VoxelNet、PointPillars来对输入点云进行处理，然后将表示转换为<strong>鸟瞰图</strong>，并使用标准的<strong>基于图像</strong>的关键点检测器来查找<strong>对象中心</strong>。这样对于每个检测中心可以通过中心位置的点特征来回归物体诸如三维大小、速度等特征。在第二阶段是轻量级的来<strong>细化对象位置</strong>。第二阶段提取估计对象三维box的每个面的三维中心点特征（具体来说只有四个向外的面）。该算法可以恢复由于步长和受限制的视野域带来的局部几何信息的丢失，以较小的成本带来了较好的性能提升。<br><img src="\images\image-20220121125306002.png" alt="image-20220105165859553" style="zoom:100%;" /></p>
-<p>对于<strong>每一个点</strong>，使用<strong>双线性插值</strong>从地图视角的主干网输出中提取一个特征。接着，将提取的点特征连接起来，并将他们通过一个<strong>MLP</strong>传递。第二阶段在第一阶段的预测结果上预测一个与类无关的<strong>信心分数</strong>和对于box进一步细化。</p>
-<p>可信得分：<br>$$<br>I&#x3D;\min(1,\max{(0,2\times IoU_t-0.5}))<br>$$<br>IoUt是第t个proposal box与ground-truth间的IoU</p>
-<p>二元交叉熵损失：<br>$$<br>L_{socre}&#x3D;-I_t\log(\hat{I_t})-(1-I_t)\log(1-\hat{I_t})<br>$$<br>It即为可信得分</p>
-<p>对于<strong>框回归</strong>，模型预测在第一阶段建议之上的细化，用L1损失训练模型。两阶段CenterPoint简化并加速了之前计算复杂度较高的的基于PointNet特征提取器和RoIAlign操作的两阶段3D检测器。</p>
-<h2 id="Center-heatmap-head"><a href="#Center-heatmap-head" class="headerlink" title="Center heatmap head"></a>Center heatmap head</h2><p>Center heatmap head的目标就是在任何被探测的物体中心位置产生一个<strong>热力图峰值</strong>，Center heatmap head最终会产生一个k通道的热力图，一个通道代表了K类物体中的一种。在训练过程中，它将标注的box的三维中心投影到地图视图中，以生成二维高斯目标。使用<strong>focal loss</strong>。地图视角有图像视角不具备的优势，例如在地图视角下，汽车所占的比例很小，而在image视角下所占的比例可能会很大。此外，透视投影中对深度的压缩使得物体间的中心距离比image视角下更加接近。作者还通过放大每个ground truth的中心位置的高斯峰值来增强目标热力图的正监督，来抵消CenterNet带来的监督信号稀疏问题（使得大多数位置被认为是背景）。模型可以从附近的像素中得到更密集的监督。</p>
-<h2 id="Regression-heads"><a href="#Regression-heads" class="headerlink" title="Regression heads"></a>Regression heads</h2><p>对象的中心有如下几个特征：子体素o、高度h、三维大小s以及一个偏向旋转角度。子体素位置减少了骨干网的体素化和步长带来的误差。高度h帮助在三维中定位对象，并添加被地图视角删除的高度信息。方向预测使用sin、cos作为一个连续的回归目标。结合框的大小，这些Regression heads可以提供完整的物体状态信息。每个输出使用他自己的head，作者使用L1损失训练。在推理时，通过在每个对象的峰值位置对索引密集回归头输出来提取所有属性。</p>
-<h2 id="Velocity-head-and-tracking"><a href="#Velocity-head-and-tracking" class="headerlink" title="Velocity head and tracking"></a>Velocity head and tracking</h2><p>为了通过时间来跟踪物体，作者使用二维速度进行估计，并作为一个额外的回归输出。同时将前一帧中的点转换并归并到当前参考帧中，并通过时间差(速度)来预测当前和过去参考帧中物体位置的差异，来构建时间点云序列。作者对于速度回归也使用L1损失进行训练。</p>
-<p>在推理时，使用贪心策略通过偏移量将当前检测与过去检测关联起来。即通过应用负速度估计将当前帧中目标中心投影回前一帧，然后通过最近距离匹配将其与跟踪目标进行匹配。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><img src="\images\image-20220121125338945.png" alt="image-20220105165859553" style="zoom:100%;" />
+<h4 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h4><p>数据融合可以分为数据级融合、特征级融合、对象级融合。数据级融合就是你将没有经过任何处理的原始数据进行融合，特征融合是先将原始数据的特征提取出来再进行融合，对象级融合将每辆车的检测结果进行融合。对象级融合只依赖于单一车辆的传感器，只有当两辆车共享一个参考对象时才会起作用。因此这并不能解决发现之前未被检测到的物体。</p>
+<h4 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h4><p>本篇文献是使用数据级融合技术。这首先要解决两个问题，车辆间共享数据的格式、用于融合的数据总量。同时由于接收到的数据是在不同的位置和角度拍摄的，因此车辆需要对接受到的数据进行<strong>选择与重构</strong>。</p>
+<h5 id="数据选择"><a href="#数据选择" class="headerlink" title="数据选择"></a>数据选择</h5><p>首先，需要了解哪种类型的感知数据适合于合作感知，接着使用SPOD方法克服点云过于稀疏而无法检测到目标的缺点，将两个传感器的数据优先用于协同传感。由于激光点云带有位置信息，所以优先选择激光点云数据。而由于在感知系统中，图像和点云数据是对齐的，所以在某些情况下，还需要在协同感知的过程中提取图像数据。</p>
+<h5 id="数据重构"><a href="#数据重构" class="headerlink" title="数据重构"></a>数据重构</h5><p>通过对点云数据的合并，可以直观的重建局部环境。重建局部环境过程中，车辆交换信息的包由激光雷达传感器安装信息和其GPS读取信息组成，确定每一帧点云的中心点位置。车辆的IMU（惯性测量单元）也是必要的，用来表示车辆的朝向α、倾角β、翻滚角γ度等。旋转矩阵R表示为<br>$$<br>R&#x3D;R_z(\alpha)R_y(\beta)R_x(\gamma)\<br>R_z(\alpha)&#x3D;\begin{bmatrix} \cos \alpha &amp; -\sin\alpha &amp; 0 \ \sin\alpha &amp; \cos\alpha &amp; 0\0&amp;0&amp;1 \end{bmatrix}\quad R_y(\beta)&#x3D;\begin{bmatrix} \cos \beta &amp; 0&amp; \sin\beta  \0&amp;1&amp;0 \ -\sin\beta  &amp; 0&amp; \cos\beta\end{bmatrix}\quad R_x(\gamma)&#x3D;\begin{bmatrix} 1&amp;0&amp;0\ 0 &amp;\cos\gamma &amp; -\sin\gamma \0&amp; \sin \gamma &amp; \cos\gamma\end{bmatrix}<br>$$<br>当连通车辆交换信息时，协同感知系统根据下式生成新的一帧(此前需要对传来的数据进行一定的转换，转换到同一坐标系下)<br>$$<br>\begin{bmatrix} X\Y\Z \end{bmatrix}&#x3D;\begin{bmatrix} X_R\Y_R\Z_R \end{bmatrix}\bigcup\begin{bmatrix} X_R’\Y_R’\Z_R’\end{bmatrix}<br>$$</p>
+<h5 id="SPOD"><a href="#SPOD" class="headerlink" title="SPOD"></a>SPOD</h5> <img src="\images\image-20220127125511528.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+<p>作者选择16束激光雷达，既可以输出稀疏数据，并且与32束64束相比具有价格优势。借助SECOND网络思想，作者提出SPOD网络，一个适用于低密度点云数据的目标检测算法。</p>
+<p>点数据参数化表示为x,y,z与反射率r。</p>
+<ol>
+<li>在预处理模块，为了得到更紧凑的表示，使用<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/abstract/document/8462926/%E6%96%B9%E6%B3%95%E5%B0%86%E7%82%B9%E4%BA%91%E6%8A%95%E5%BD%B1%E5%88%B0%E7%90%83%E4%BD%93%E4%B8%8A%EF%BC%8C%E7%94%9F%E6%88%90%E5%AF%86%E9%9B%86%E8%A1%A8%E7%A4%BA%E3%80%82">https://ieeexplore.ieee.org/abstract/document/8462926/方法将点云投影到球体上，生成密集表示。</a></li>
+<li>voxel特征提取模块，以点云数据作为输入，将提取的voxel-wise特征输入到voxel特征编码层。然后使用稀疏卷积中间层，大大减少卷积过程的计算开销。</li>
+<li>RPN模块使用SSD结构，将卷积层输出的特征图作为输入，并连接成一个特征映射进行预测。</li>
+</ol>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4> <img src="\images\image-20220128203821445.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+<h5 id="T-amp-J数据集"><a href="#T-amp-J数据集" class="headerlink" title="T&amp;J数据集"></a>T&amp;J数据集</h5><p>T&amp;J数据集是作者构建的适合于车辆协作的数据集。车辆传感器有：两个前景摄像头、四个四周鱼眼摄像头、一个惯性GPS传感器、一个前景120°雷达、一个V elodyne VLP-16 360°激光雷达、一个英伟达PX2.</p>
+<p>在测试中，使用GeForce GTX 1080 Ti GPU[1]在计算机上执行用于3D汽车检测的SPOD模型。融合数据使用5毫米，一个很小检测时间增加就可以带来检测数量和准确率上很大提升。</p>
+<h5 id="融合的鲁棒性"><a href="#融合的鲁棒性" class="headerlink" title="融合的鲁棒性"></a>融合的鲁棒性</h5><p>为了解决位置偏移对于检测结果的影响，作者对GPS读数进行了程序性的人工倾斜。</p>
+<ul>
+<li>将x和y坐标倾斜到已知GPS位置偏移的最大范围</li>
+<li>只倾斜一个轴到GPS偏移的极限</li>
+<li>通过将GPS最大偏移量加倍来模拟异常情况</li>
+</ul>
+<p>这种倾斜会使得一部分结果提升分数，但是也会使得两个实例检测失败。</p>
+<h5 id="网络要求"><a href="#网络要求" class="headerlink" title="网络要求"></a>网络要求</h5><p>作者使用一种策略提取ROI来减少传输时的数据量，诸如建筑、树木等背景数据都被减去，因为这些信息可以在每辆车自己构建出来。并且传输率为每秒1帧。<br> <img src="\images\image-20220128212610332.png" alt="哎呀，图片不见了" style="zoom:100%;" /></p>
+<ul>
+<li>情况1下，两辆车已经非常接近。此时，车辆需要尽可能多的信息，因此会传输激光雷达下所有数据，每车每帧1.8Mb。</li>
+<li>情况2下，车辆横向靠近彼此，就像在路口一样。这种情况下，ROI通常是司机视角，120°是最小要求，并且两辆车都需要交换这些信息。</li>
+<li>情况3下，后车需要知道前车的视野，这种情况需要交换的信息量最少</li>
+</ul>
+<h4 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h4><ol>
+<li>提出稀疏点云目标检测SPOD方法来在低密度点云数据中检测目标</li>
+<li>展示数据融合技术在感知范围与提升检测准确率上面的突出表现</li>
+<li>展示了利用现有的车辆网络，促进激光雷达数据在车辆间的传输，实现协同感知是可行</li>
+</ol>
 
       
     </div>
@@ -397,16 +421,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="tag"># 论文阅读</a>
-          
-            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-          
-            <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
-          
-        </div>
-      
 
       
       
@@ -431,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/03/08/F-PointNet/" rel="next" title="F-PointNet">
-                <i class="fa fa-chevron-left"></i> F-PointNet
+              <a href="/2022/03/25/F-COOPER/" rel="next" title="F-COOPER">
+                <i class="fa fa-chevron-left"></i> F-COOPER
               </a>
             
           </div>
@@ -440,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/03/08/second/" rel="prev" title="second">
-                second <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -586,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Center-heatmap-head"><span class="nav-number">1.1.</span> <span class="nav-text">Center heatmap head</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regression-heads"><span class="nav-number">1.2.</span> <span class="nav-text">Regression heads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Velocity-head-and-tracking"><span class="nav-number">1.3.</span> <span class="nav-text">Velocity head and tracking</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">实验结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前人的工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">论文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.</span> <span class="nav-text">数据选择</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%87%8D%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">数据重构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPOD"><span class="nav-number">2.3.</span> <span class="nav-text">SPOD</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#T-amp-J%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">T&amp;J数据集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%9E%8D%E5%90%88%E7%9A%84%E9%B2%81%E6%A3%92%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">融合的鲁棒性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%A6%81%E6%B1%82"><span class="nav-number">3.3.</span> <span class="nav-text">网络要求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%9A%E5%87%BA%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">做出的贡献</span></a></li></ol></div>
             
 
           </div>

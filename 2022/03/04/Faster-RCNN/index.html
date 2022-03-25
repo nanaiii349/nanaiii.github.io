@@ -87,10 +87,10 @@
 <meta property="og:description" content="论文：Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks (neurips.cc)">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/image-20220206101136285.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220106213651479.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220108211045368.png">
+<meta property="og:image" content="http://example.com/images/image-20220106213651479.png">
+<meta property="og:image" content="http://example.com/images/image-20220108211045368.png">
 <meta property="article:published_time" content="2022-03-04T00:40:20.000Z">
-<meta property="article:modified_time" content="2022-03-14T12:03:05.945Z">
+<meta property="article:modified_time" content="2022-03-25T04:35:32.292Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
@@ -350,7 +350,8 @@
 <h2 id="区域生成网络RPN"><a href="#区域生成网络RPN" class="headerlink" title="区域生成网络RPN"></a>区域生成网络RPN</h2><p>RPN网络代替了Fast-RCNN模型中的selective search（SS）。它先通过对应关系把特征图的点映射回原图，在每个对应的原图设计不同的固定尺度窗口bbox，根据该窗口的ground truth的IoU给它标记正负标签，让它学习里面是否有目标。通过一个简单的交替优化，RPN和Fast-RCNN可以共享卷积特征。为了使RPN与Fast-RCNN相统一，作者提出了一个训练方案，该方案在区域建议任务和目标检测任务间交替进行微调，同时保证proposal的稳定。这种方案收敛很快，并且使两个网络可以共享数据。而SS是使用CPU计算，因而计算时间较慢，也没法共享计算。</p>
 <p>在RPN中只需要找出物体的大致地方，因此作者对bbox做了三个固定：固定尺度变化（三种尺度）、固定scale ratio变化（三种ratio），固定采样方式（只在特征图的每个点在原图中的对应RoI上采样）</p>
 <p>作者在Fast-RCNN的基础上增加了两个卷积层来构建RPN：一个将每个conv map编码到一个短的特征向量上，另一个卷积层在每个conv map上输出客观性的评分以及关于k个涉及到不同的尺度和纵横比的区域建议的回归边界（通常取k为9）</p>
-<h2 id="RPN工作原理"><a href="#RPN工作原理" class="headerlink" title="RPN工作原理"></a>RPN工作原理</h2><p><img src="/%5Cimages%5Cimage-20220106213651479.png" alt="image-20220106213651479"></p>
+<h2 id="RPN工作原理"><a href="#RPN工作原理" class="headerlink" title="RPN工作原理"></a>RPN工作原理</h2><img src="\images\image-20220106213651479.png" alt="image-20220206101136285" style="zoom:100%;" />
+
 <p>RPN以一副图像（任意大小）作为输入并输出一组矩形对象建议并给出得分。为了生成区域建议，一个小network滑过最后一个共享的卷积层输出的特征图。该网络最后全连接到输入的卷积特征图的一个n×n的空间窗口中。每个滑动窗口都映射到一个低维向量上。这个向量被提供给两个同级的全连接层（边界框回归层reg、分类层cls）。</p>
 <p>该体系结构由一个n×n的卷积层、和两个兄弟级的1×1层（reg、cls）并将ReLUs应用于n×n转换层的输出。</p>
 <p>RPN最终输出的proposals会出现部分重叠。为了减少冗余，作者根据proposal的cls分数对proposal进行非极大抑制NMS（IoU阈值为0.7）。这使得每幅图像最终有大约2k个proposal。NMS之后，再对前n个proposal进行检测。实验证明，NMS在大幅减少proposal数量的情况下，不会损害最终的检测精度。</p>
@@ -364,8 +365,7 @@
 L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{N_{reg} }\sum{p_i^{*}L_{reg}(t_i,t_i^{*})}
 
 <p>$$<br>此处的i为该batch中anchor的索引，pi是anchor为对象的概率，如果anchor为正pi*&#x3D;1，如果anchor为负pi*&#x3D;0；ti为预测边界框四个参数化坐标，ti*是与一个正anchor相关的ground-truth box。</p>
-<p>Lcls（分类损失）：使用log loss；Lreg（回归损失）：使用smooth L1(R)，而只有anchor为正时，Lreg才会被激活。<br>$$<br>L_{reg}(t_i,t_i^{<em>})&#x3D;R(t_i,t_i^{</em>})<br>$$<br>作者使用Ncls、Nreg两项进行归一化，并使用lambda作为平衡因子。</p>
-<p><img src="/%5Cimages%5Cimage-20220108211045368.png" alt="image-20220108211045368"></p>
+<p>Lcls（分类损失）：使用log loss；Lreg（回归损失）：使用smooth L1(R)，而只有anchor为正时，Lreg才会被激活。<br>$$<br>L_{reg}(t_i,t_i^{<em>})&#x3D;R(t_i,t_i^{</em>})<br>$$<br>作者使用Ncls、Nreg两项进行归一化，并使用lambda作为平衡因子。<br><img src="\images\image-20220108211045368.png" alt="image-20220206101136285" style="zoom:100%;" /></p>
 <p>在回归时，要对4个坐标参数化。其中x,y,w,h为边界框box的中心位置、宽与高。x，xa，x*是预测box、anchor box、ground-truth box的参数。</p>
 <p>不同于其他对任意大小区域进行特征池化（回归权值由所有区域大小共享）的边界回归，作者的回归特征在特征图上具有相同的大小。为了适用于不同的大小，作者设置了一组k边界回归器。每个回归器负责一个尺度和一个纵横比，并且这k个回归器不共享权重。</p>
 <h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>RPN网络是以图像为中心的。每个batch中都含有正负样本，对所有参数的优化会使得结果偏向负样本。因此作者随机对256个anchor进行采样，尽量使得正负样本的比例达到一比一（如果正样本小于128再用负样本填充）。</p>
@@ -553,7 +553,7 @@ L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -566,7 +566,7 @@ L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -649,7 +649,7 @@ L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.9k</span>
+    <span title="Site words total count">93.7k</span>
   
 </div>
 

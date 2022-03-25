@@ -86,20 +86,20 @@
 <meta property="og:site_name" content="Next">
 <meta property="og:description" content="论文：Sensors | Free Full-Text | SECOND: Sparsely Embedded Convolutional Detection (mdpi.com)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220111213034747.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112105038074.png">
+<meta property="og:image" content="http://example.com/images/image-20220111213034747.png">
+<meta property="og:image" content="http://example.com/images/image-20220112105038074.png">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-40a7e08f7a00a6e25ac4ff33a25fb849_1440w.jpg">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112212134401.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112220946220.png">
-<meta property="og:image" content="http://example.com/%5Cimages%5Cimage-20220112222654032.png">
+<meta property="og:image" content="http://example.com/images/image-20220112212134401.png">
+<meta property="og:image" content="http://example.com/images/image-20220112220946220.png">
+<meta property="og:image" content="http://example.com/images/image-20220112222654032.png">
 <meta property="article:published_time" content="2022-03-08T12:54:12.000Z">
-<meta property="article:modified_time" content="2022-03-14T12:03:05.944Z">
+<meta property="article:modified_time" content="2022-03-25T04:31:17.680Z">
 <meta property="article:author" content="nanaiii">
 <meta property="article:tag" content="论文阅读">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="Object Detection">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/%5Cimages%5Cimage-20220111213034747.png">
+<meta name="twitter:image" content="http://example.com/images/image-20220111213034747.png">
 
 
 
@@ -373,7 +373,9 @@
 <p>这些方法需要处理大量的数据，因此基于融合的方法运行缓慢。并且它对激光雷达的时间同步和校准摄像机的额外要求限制这种方法的使用环境，降低了鲁棒性。</p>
 <p>代表论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2017/html/Chen_Multi-View_3D_Object_CVPR_2017_paper.html">CVPR 2017 Open Access Repository (thecvf.com)</a></p>
 <h1 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h1><h2 id="SECOND-Detector"><a href="#SECOND-Detector" class="headerlink" title="SECOND Detector"></a>SECOND Detector</h2><p>SECOND Detector以原始点云作为输入，将其转换为voxel特征和坐标，并应用两个VFE层和一个线性层。然后使用稀疏CNN。最后应用RPN生成检测结果。</p>
-<p><img src="/%5Cimages%5Cimage-20220111213034747.png" alt="image-20220111213034747"></p>
+<img src="\images\image-20220111213034747.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p> 作者的Point Cloud Grouping、Voxel-wise Feature Extractor与VoxelNet的处理相同此处便不再赘述。</p>
 <h3 id="稀疏卷积网络"><a href="#稀疏卷积网络" class="headerlink" title="稀疏卷积网络"></a>稀疏卷积网络</h3><p>作者的主要改进体现在引入了<strong>稀疏卷积网络</strong>，替代voxelNet中的三维卷积提取特征图。常规的稀疏卷积是如果没有相关的输入点，则不计算输出点。子簇卷积（常规卷积网络的替代）限制当且仅当相应的输入位置处于活动状态是，输出位置才处于活动状态，这可以避免生成过多的活动点，提升卷积速度。</p>
 <h3 id="稀疏卷积算法"><a href="#稀疏卷积算法" class="headerlink" title="稀疏卷积算法"></a>稀疏卷积算法</h3><ol>
@@ -384,7 +386,9 @@
 <li><p>通过预先构建的<strong>输入-输出索引规则矩阵</strong>，将<strong>密集的输出特征</strong>映射到<strong>稀疏的输出特征</strong>。</p>
 </li>
 </ol>
-<p><img src="/%5Cimages%5Cimage-20220112105038074.png" alt="image-20220112105038074"></p>
+<img src="\images\image-20220112105038074.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <p>二维密集卷积算法中，W表示过滤元素，D表示图像元素。函数P(x,y)需要根据输出位置来计算输入位置。因此，卷积输出Y计算如下：<br>$$</p>
 
 Y_{x,y,m}=\sum_{u,v\in P(x,y)}{\sum_{l}{W_{u-u_0,v-v_0,l,m}D_{u,v,l} } }\quad(1)
@@ -416,7 +420,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 </ol>
 <p><img src="https://pic2.zhimg.com/80/v2-40a7e08f7a00a6e25ac4ff33a25fb849_1440w.jpg" alt="img"></p>
 <h3 id="稀疏卷积中间提取器"><a href="#稀疏卷积中间提取器" class="headerlink" title="稀疏卷积中间提取器"></a>稀疏卷积中间提取器</h3><p>中间提取器用于学习z轴信息，并将稀疏的三维数据转换为二维BEV图像。它包含了稀疏卷积的两个阶段。每个阶段都有几个子流形卷积层和一个正常的稀疏卷积，用于在z轴进行下采样。在 z 维被下采样到一维或二维后，稀疏数据被转换为密集特征图。 然后，将数据简单地重新整形为类似图像的 2D 数据。</p>
-<p><img src="/%5Cimages%5Cimage-20220112212134401.png" alt="image-20220112212134401"></p>
+<img src="\images\image-20220112212134401.png" alt="image-20220105165859553" style="zoom:100%;" />
+
+
 <blockquote>
 <p>黄色表示稀疏卷积，白色表示子流形卷积，红色表示稀疏到密集层，图的上半部分是稀疏数据的空间维数。</p>
 </blockquote>
@@ -435,10 +441,14 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <h3 id="全局旋转和放缩"><a href="#全局旋转和放缩" class="headerlink" title="全局旋转和放缩"></a>全局旋转和放缩</h3><p>作者对全部点云以及所有ground truth box进行全局放缩和旋转。从[0.95,1.05]的均匀分布提取局部噪音，从[-Π&#x2F;4,Π&#x2F;4]提取全局噪音</p>
 <h2 id="网络细节"><a href="#网络细节" class="headerlink" title="网络细节"></a>网络细节</h2><p>作者使用一大一小两个网络，在摄像机视野外的点被舍弃。</p>
 <h3 id="汽车检测任务"><a href="#汽车检测任务" class="headerlink" title="汽车检测任务"></a>汽车检测任务</h3><p>在SECOND中使用两个VFE层，即大型网络的VFE(32)和VFE(128)，较小的网络的VFE(32)和VFE(64)，在线性(128)层之后。因此，输出稀疏张量的维数对于大型网络为128  × 10 × 400 × 352，对于小型网络为128 × 10 × 320 ×  264。然后，我们使用两阶段稀疏CNN进行特征提取和降维。每个卷积层遵循一个BatchNorm层和一个ReLU层。所有稀疏卷积层都有一个64-output  feature map，核大小为(3,1,1)核大小，stride为(2,1,1)。对于大型网络，中间块的输出维数为64 × 2 × 400 ×  352。一旦输出被重塑为128 × 400 × 352，就可以应用RPN网络。我们使用Conv2D(cout, k,  s)来表示con2d - batchnorm - relu层，使用DeConv2D(cout, k, s)来表示DeConv2D- batchnorm -  relu层，其中cout为输出通道数，k为内核大小，s为stride。因为所有层在所有维度上都有相同的大小，所以我们对k和s使用标量值。所有Conv2D层都有相同的填充，所有DeConv2D层都有零填充。在我们的RPN的第一阶段，应用了三个Conv2D(128,  3,1(2))层。然后，在第二阶段和第三阶段分别应用5个Conv2D(128, 3, 1(2))层和5个Conv2D(256, 3,  1(2))层。在每一阶段中，只有第一卷积层的s &#x3D; 2;否则，s &#x3D; 1。我们对每个阶段的最后一次卷积应用一个单一的DeConv2D(128, 3,  s)层，三个阶段的s依次为1、2和4。</p>
-<p><img src="/%5Cimages%5Cimage-20220112220946220.png" alt="image-20220112220946220"></p>
+<img src="\images\image-20220112220946220.png" alt="image-20220105165859553" style="zoom:150%;" />
+
+
 <h3 id="行人和骑自行车者检测任务"><a href="#行人和骑自行车者检测任务" class="headerlink" title="行人和骑自行车者检测任务"></a>行人和骑自行车者检测任务</h3><p>与汽车检测方面唯一的区别是RPN中第一个卷积层的步幅为1而不是2。</p>
 <h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>在KITTI的验证集上，该网络无论大小网络都具有极高的平均准确度，以及极快的处理速度。同时该网络的角度编码速度、收敛速度也是非常快的。</p>
-<p><img src="/%5Cimages%5Cimage-20220112222654032.png" alt="image-20220112222654032"></p>
+<img src="\images\image-20220112222654032.png" alt="image-20220105165859553" style="zoom:150%;" />
+
+
 <h3 id="汽车检测任务-1"><a href="#汽车检测任务-1" class="headerlink" title="汽车检测任务"></a>汽车检测任务</h3><p>该网络在检测汽车时展示出了极强的性能，尤其是该网络可以有效的检测被遮挡的汽车。但是对于获得数据量较少的汽车任然无法做到准确检测，尤其是对于<strong>点数小于10的车辆</strong></p>
 <h3 id="行人和骑自行车者检测任务-1"><a href="#行人和骑自行车者检测任务-1" class="headerlink" title="行人和骑自行车者检测任务"></a>行人和骑自行车者检测任务</h3><p>对行人和自行车的检测出现了更多的<strong>假阳性与假阴性</strong>，一些预测甚至出现在不合理的位置。这些问题可能归因于行人和自行车的实例包含的点更少，<strong>容易与其他点或是噪音混淆</strong>。此外，行人和自行车数量相对较少，导致包含他们的voxel数量较少，训练效果也就较差。过滤不相关信息并基于二维检测结果确定目标位置，应该会解决这个问题。</p>
 <h1 id="做出的贡献"><a href="#做出的贡献" class="headerlink" title="做出的贡献"></a>做出的贡献</h1><ol>
@@ -618,7 +628,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -631,7 +641,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -714,7 +724,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">89.9k</span>
+    <span title="Site words total count">93.7k</span>
   
 </div>
 
