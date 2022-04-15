@@ -4996,7 +4996,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>F-COOPER</title>
     <url>/2022/03/25/F-COOPER/</url>
-    <content><![CDATA[<h3 id="F-Cooper（特征级融合）"><a href="#F-Cooper（特征级融合）" class="headerlink" title="F-Cooper（特征级融合）"></a>F-Cooper（特征级融合）</h3><p>论文：<a href="https://dl.acm.org/doi/abs/10.1145/3318216.3363300">F-cooper | Proceedings of the 4th ACM&#x2F;IEEE Symposium on Edge Computing</a></p>
+    <content><![CDATA[<p>论文：<a href="https://dl.acm.org/doi/abs/10.1145/3318216.3363300">F-cooper | Proceedings of the 4th ACM&#x2F;IEEE Symposium on Edge Computing</a></p>
 <span id="more"></span>
 <h4 id="前人的工作"><a href="#前人的工作" class="headerlink" title="前人的工作"></a>前人的工作</h4><h5 id="卷积特征图"><a href="#卷积特征图" class="headerlink" title="卷积特征图"></a>卷积特征图</h5><p>在目标检测领域，目前流行是使用CNN网络提取特征。首先将原始数据作为输入送入带有filter的卷积层，每个filter产生一个特征图。生成的特征图会递归作为下一层的输入。</p>
 <h5 id="特征融合"><a href="#特征融合" class="headerlink" title="特征融合"></a>特征融合</h5><p>由于CNN网络生成的特征图可解释性较差，在使用特征图时，需要确保处理一致性的问题。即将其他代理生成的特征图转换为自己所用时，需要付出一定的运行成本。</p>
