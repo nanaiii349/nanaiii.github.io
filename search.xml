@@ -2021,7 +2021,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>操作系统</title>
     <url>/2022/03/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<p><strong>操作系统是对计算机资源进行管理的软件</strong></p>
+    <content><![CDATA[<p><strong>操作系统是对计算机资源进行管理的软件</strong><br><a href="/source/download/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.xmind">Xmind下载</a></p>
 <span id="more"></span>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
 <li><p>操作系统的基本特征：并发、共享、虚拟、异步</p>
@@ -2670,8 +2670,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>数据库</title>
     <url>/2022/03/18/%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><span id="more"></span>
-<h3 id="操作符的计算顺序"><a href="#操作符的计算顺序" class="headerlink" title="操作符的计算顺序"></a>操作符的计算顺序</h3><p>AND在计算次序中优先级比OR更高，因此下列命令会返回不符合我们预期的结果</p>
+    <content><![CDATA[<p><a href="/source/download/%E6%95%B0%E6%8D%AE%E5%BA%93.xmind">Xmind下载</a></p>
+<span id="more"></span>
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="操作符的计算顺序"><a href="#操作符的计算顺序" class="headerlink" title="操作符的计算顺序"></a>操作符的计算顺序</h3><p>AND在计算次序中优先级比OR更高，因此下列命令会返回不符合我们预期的结果</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col1<span class="operator">=</span><span class="number">1</span> <span class="keyword">OR</span> col2<span class="operator">=</span><span class="number">2</span> <span class="keyword">AND</span> col3<span class="operator">=</span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
 
 <p>此时的计算顺序并不是从左至右，而是先计算<code>col2=2 AND col3=3</code>，如果想按由左至右的顺序计算，则应该按照如下写法</p>
@@ -2880,7 +2881,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>数据结构</title>
     <url>/2022/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p>算法应该是问题求解步骤的描述</p>
+    <content><![CDATA[<p>算法应该是问题求解步骤的描述<br><a href="/source/download/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.xmind">Xmind下载</a></p>
 <span id="more"></span>
 
 <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><ul>
@@ -2994,7 +2995,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>计算机组成原理</title>
     <url>/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<p><strong>计算机系统由两大部分组成：硬件和软件。软件又包括系统软件和应用软件。</strong></p>
+    <content><![CDATA[<p><strong>计算机系统由两大部分组成：硬件和软件。软件又包括系统软件和应用软件。</strong><br><a href="/source/download/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.xmind">Xmind下载</a><br><a href="/source/download/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84.xmind">Xmind下载</a></p>
 <span id="more"></span>
 
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="翻译、汇编、编译"><a href="#翻译、汇编、编译" class="headerlink" title="翻译、汇编、编译"></a>翻译、汇编、编译</h2><ul>
@@ -3787,7 +3788,7 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>计算机网络</title>
     <url>/2022/03/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<p><strong>计算机网络是利用<a href="https://baike.baidu.com/item/%E9%80%9A%E4%BF%A1%E7%BA%BF%E8%B7%AF">通信线路</a>将地理上分散的、具有独立功能的<a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F">计算机系统</a>和通信设备按不同的形式连接起来，以功能完善的网络软件及协议实现资源共享和信息传递的系统</strong></p>
+    <content><![CDATA[<p><strong>计算机网络是利用<a href="https://baike.baidu.com/item/%E9%80%9A%E4%BF%A1%E7%BA%BF%E8%B7%AF">通信线路</a>将地理上分散的、具有独立功能的<a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F">计算机系统</a>和通信设备按不同的形式连接起来，以功能完善的网络软件及协议实现资源共享和信息传递的系统</strong><br><a href="/source/download/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.xmind">Xmind下载</a></p>
 <span id="more"></span>
 
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
@@ -4284,6 +4285,19 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
 <li>HTTPS 协议<strong>需要到 CA 机构申请证书</strong>，一般需要一定的费用。</li>
 <li>HTTP 运行在 TCP 协议之上；HTTPS 运行在 SSL 协议之上，SSL 运行在 TCP 协议之上。</li>
 </ol>
+<h3 id="GET和POST的区别"><a href="#GET和POST的区别" class="headerlink" title="GET和POST的区别"></a>GET和POST的区别</h3><p>概括：</p>
+<ul>
+<li>对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；</li>
+<li>而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）<br>区别：</li>
+<li>get参数通过url传递，post放在request body中。</li>
+<li>get请求在url中传递的参数是有长度限制的，而post没有。</li>
+<li>get比post更不安全，因为参数直接暴露在url中，所以不能用来传递敏感信息。</li>
+<li>get请求只能进行url编码，而post支持多种编码方式。</li>
+<li>get请求会浏览器主动cache，而post支持多种编码方式。</li>
+<li>get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留。</li>
+<li>GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器&#x2F;服务器的限制，导致他们在应用过程中体现出一些不同。</li>
+<li>GET产生一个TCP数据包；POST产生两个TCP数据包。</li>
+</ul>
 ]]></content>
       <tags>
         <tag>408</tag>
@@ -4292,9 +4306,9 @@ Y’_{j,m}=\sum_k{\sum_{l}{W_{k,l,m}\tilde{D'}_{R_{k,j},k,l} } }\quad(5)
   <entry>
     <title>离散数学</title>
     <url>/2022/03/22/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/</url>
-    <content><![CDATA[<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><span id="more"></span>
-
-<h3 id="命题"><a href="#命题" class="headerlink" title="命题"></a>命题</h3><ul>
+    <content><![CDATA[<p><a href="/source/download/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6.xmind">Xmind下载</a></p>
+<span id="more"></span>
+<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><h3 id="命题"><a href="#命题" class="headerlink" title="命题"></a>命题</h3><ul>
 <li><p>或者为真或者为假而不是两者同时成立的一条陈述句</p>
 </li>
 <li><p>量词</p>
