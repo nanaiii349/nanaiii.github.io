@@ -440,7 +440,9 @@ L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{
   <entry>
     <title>Pandas学习（二）</title>
     <url>/2020/05/13/Learning-pandas-02/</url>
-    <content><![CDATA[<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="单级索引"><a href="#单级索引" class="headerlink" title="单级索引"></a>单级索引</h2><h3 id="loc方法"><a href="#loc方法" class="headerlink" title="loc方法"></a>loc方法</h3><p><strong>DataFrame.loc</strong>通过标签或布尔数组访问一组行和列。</p>
+    <content><![CDATA[<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><span id="more"></span>
+
+<h2 id="单级索引"><a href="#单级索引" class="headerlink" title="单级索引"></a>单级索引</h2><h3 id="loc方法"><a href="#loc方法" class="headerlink" title="loc方法"></a>loc方法</h3><p><strong>DataFrame.loc</strong>通过标签或布尔数组访问一组行和列。</p>
 <p>允许的输入为：</p>
 <ul>
 <li><p>单个标签，例如5或’a’，（请注意，它5被解释为索引的标签，而不是沿索引的整数位置）。</p>
@@ -457,7 +459,7 @@ L(\{p_i\},\{t_i\})=\frac{1}{N_{cls} }\sum{L_{cls}(p_i,p_i^{*})}+\lambda\frac{1}{
 <blockquote>
 <p>Note：当loc使用[] 索引全部index时返回Series，而使用 [[ ]]则返回DataFrame</p>
 </blockquote>
-<span id="more"></span> 
+<!--more--> 
 
 <h3 id="iloc方法"><a href="#iloc方法" class="headerlink" title="iloc方法"></a>iloc方法</h3><p><strong>DataFrame.iloc</strong>基于位置的纯基于整数位置的索引。</p>
 <p>允许的输入为：</p>
