@@ -229,6 +229,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/06/EMP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Next">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/10/06/EMP/" itemprop="url">EMP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-06T22:02:45+08:00">
+                2022-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>论文：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3447993.3483242">EMP | Proceedings of the 27th Annual International Conference on Mobile Computing and Networking (acm.org)</a></p>
+<h2 id="边缘辅助感知体系结构"><a href="#边缘辅助感知体系结构" class="headerlink" title="边缘辅助感知体系结构"></a>边缘辅助感知体系结构</h2><img src="\images\image-20221005172857881.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+<h3 id="数据平台"><a href="#数据平台" class="headerlink" title="数据平台"></a>数据平台</h3><p>将传感器数据从车辆传输到边缘，并在边缘执行感知任务。为了避免原始数据过大占用带宽的情况，使用数据分区方法上传到边缘端。边缘接受区域内所有车辆的原始数据，进行数据合并，形成一个整体点云，构成周围区域的视图。边缘端基于整体视图进行感知决策。边缘端将检测结果发送回每个车辆。</p>
+<h3 id="控制平台"><a href="#控制平台" class="headerlink" title="控制平台"></a>控制平台</h3><p>根据每辆车的网络情况以及车辆间的位置关系，引导车辆点云划分，优化网络传输。使得每辆车在网络能力范围内及时上传数据并且边缘能够构建整体点云。</p>
+<h2 id="检测区域划分"><a href="#检测区域划分" class="headerlink" title="检测区域划分"></a>检测区域划分</h2><h3 id="朴素分区"><a href="#朴素分区" class="headerlink" title="朴素分区"></a>朴素分区</h3><p>通过Voronoi图进行朴素分区</p>
+<p>限制：</p>
+<ol>
+<li>仅考虑车辆间的位置关系，不考虑网络条件。</li>
+<li>车辆移动会导致带宽大幅波动，影响传输时间</li>
+</ol>
+<h3 id="REAP方式"><a href="#REAP方式" class="headerlink" title="REAP方式"></a>REAP方式</h3><h4 id="带宽感知"><a href="#带宽感知" class="headerlink" title="带宽感知"></a>带宽感知</h4><p>使用功率图进行宽带感知</p>
+<blockquote>
+<p>Franz Aurenhammer. 1987. Power diagrams: properties, algorithms and applications. SIAM J. Comput. 16, 1 (1987), 78–96.</p>
+</blockquote>
+<ol>
+<li>分区优先级，优先传输优先级最高的区域</li>
+<li>根据车辆距离与上行链路带宽分配车辆权重</li>
+<li>边缘通过测量每辆车发送的点云数据与传输时间估计上行链路带宽，使用指数加权移动平均值</li>
+</ol>
+<h4 id="带宽波动"><a href="#带宽波动" class="headerlink" title="带宽波动"></a>带宽波动</h4><p>设置带宽低估与带宽高估两种场景，为车辆划分多个区域应对挑战（特针对两辆车的小场景）</p>
+<blockquote>
+<p><strong>带宽计算需要车辆与场景下其他车辆分别计算，过程繁琐。可以进一步改进为基于全局的划分。</strong></p>
+</blockquote>
+<p>系统首先通过带宽感知获得车辆边界$L_{origin}$，再计算带宽低估与带宽高估两种场景下的传输边界，分别为$L_{under}$，$L_{over}$。</p>
+<p>带宽低估：AB车的带宽$bw_A，bw_B$被替换为$bw_A\times(1-\alpha),bw_B\times(1+\alpha)$</p>
+<p>带宽高估：AB车的带宽$bw_A，bw_B$被替换为$bw_A\times(1+\alpha),bw_B\times(1-\alpha)$</p>
+<p>系统根据更新后的带宽再重新计算传输边界获得$L_{under}$，$L_{over}$。其中$\alpha$定义为对网络波动的容忍程度，可以使用过去一段时间系统中不同车辆的带宽估计值的标准偏差。</p>
+<p>由此将车辆点云数据划分为四个部分（三条边界线）</p>
+ <img src="\images\image-20221005203520784.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+
+
+
+<h2 id="上传计划"><a href="#上传计划" class="headerlink" title="上传计划"></a>上传计划</h2><p>基于Delaunay三角剖分的调度算法 ，即通过连接任何三个“相邻”点而形成的三角形内部将没有点</p>
+<blockquote>
+<p>Franz Aurenhammer, Rolf Klein, and Der-Tsai Lee. 2013. Voronoi diagrams and Delaunay triangulations. World Scientific Publishing Company.</p>
+</blockquote>
+<p>上传策略：</p>
+<ol>
+<li>所有车的C1和C2都到达</li>
+<li>一辆车的C2未到达，但是所有车的C3均到达</li>
+<li>一辆车的C1，C2未到达但是邻车的C3，C4已经到达</li>
+</ol>
+<p>当上述条件有一条满足时，图中的所有节点停止数据传输。</p>
+<p>同时为了防止不同车辆的上传速度不匹配，每收到的新的块时，边缘将检查一辆车的最大块ID和另一辆车最大块ID的总和是否大于4。如果有两辆车满足条件，将他们之间的边从图中移除。当图中没有边则说明整张图已经被完全覆盖，进行下一步处理。否则，边缘会一直等待剩余数据，并在下一块到达时检查。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="地面移除"><a href="#地面移除" class="headerlink" title="地面移除"></a>地面移除</h3><blockquote>
+<p>Random Sample Consensus算法：Martin A Fischler and Robert C Bolles. 1981. Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography. Commun. ACM 24, 6 (1981), 381–395</p>
+</blockquote>
+<h3 id="边缘侧并行化"><a href="#边缘侧并行化" class="headerlink" title="边缘侧并行化"></a>边缘侧并行化</h3><p>由于车辆的点云快到达时间的不同，EMP将解码、合并和位置更新作为单独的任务，并通过调度相应的任务来并行化不同块的任务。</p>
+ <img src="\images\image-20221005220730367.png" alt="哎呀，图片不见了" style="zoom:100%;" />
+
+<h3 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h3><p>同时，整个系统的车辆、网络、边缘进行流水线处理。车辆负责收集数据、地面溢出、点云划分、解码。</p>
+<h3 id="云模式"><a href="#云模式" class="headerlink" title="云模式"></a>云模式</h3><p>EMP支持云服务器进行数据聚合和处理，但是会导致更长的传输延迟。 </p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>作者就EMP的处理时延、预测性能增强等方面验证该系统的高效性。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/25/Cooper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1611,161 +1816,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/08/PointPillars/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Next">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/03/08/PointPillars/" itemprop="url">PointPillars</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-03-08T20:55:01+08:00">
-                2022-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  2.1k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  8 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>论文：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Lang_PointPillars_Fast_Encoders_for_Object_Detection_From_Point_Clouds_CVPR_2019_paper.html">CVPR 2019 Open Access Repository (thecvf.com)</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/03/08/PointPillars/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1820,7 +1870,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1900,7 +1950,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">94k</span>
+    <span title="Site words total count">95.1k</span>
   
 </div>
 
